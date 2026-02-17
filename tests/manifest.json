@@ -423,7 +423,7 @@
     },
     {
       "id": "zor-refract-20seeds",
-      "name": "ininZORii-REFRACT (20 seeds)",
+      "name": "inZORi-REFRACT (20 seeds)",
       "category": "scientific",
       "status": "finished",
       "published": true,
@@ -552,9 +552,9 @@
       "updated_at": "2026-02-17",
       "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. inZORi achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1, 443.7 conv steps/sec. Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus only.",
       "key_findings": [
-        "ininZORii S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
-        "Frozen-Elite-16-K1: 100% S3 convergence, 443.7 conv steps/sec",
-        "Topology recovery: ininZORii 1.82 steps vs Baseline B 12.91 steps (7× faster)",
+        "inZORi S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
+        "Frozen-Top16-K1: 100% S3 convergence, 443.7 converged steps/sec",
+        "Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster)",
         "World-level PF architecture: 40-50× speedup",
         "Fairness A/B validation, 30 seeds FULL, 20 seeds Frozen-Elites"
       ],
@@ -573,60 +573,17 @@
           "url": "tests/pfdelta_phase1_118/index.html"
         },
         {
-          "label": "arXiv Paper (LaTeX)",
-          "url": "papers/pfdelta_phase1_118_arxiv/main.tex"
-        },
-        {
-          "label": "Paper README",
-          "url": "papers/pfdelta_phase1_118_arxiv/README.md"
-        },
-        {
-          "label": "PFΔ figures folder",
-          "url": "tests/pfdelta_phase1_118/figures/"
+          "label": "Core comparison chart",
+          "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png"
         }
       ],
       "domain": "Power systems (PFΔ)",
       "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events",
       "images": [
         {
-          "filename": "convergence_over_time.png",
-          "url": "tests/pfdelta_phase1_118/figures/convergence_over_time.png",
-          "caption": "Convergence over time (global + season stress)."
-        },
-        {
-          "filename": "iterations_over_time.png",
-          "url": "tests/pfdelta_phase1_118/figures/iterations_over_time.png",
-          "caption": "NR iterations over time (compute usage and near-budget behavior)."
-        },
-        {
-          "filename": "pbl_over_time.png",
-          "url": "tests/pfdelta_phase1_118/figures/pbl_over_time.png",
-          "caption": "Power Balance Limit (PBL) over time (mean/p95 dynamics)."
-        },
-        {
-          "filename": "shock_events_timeline.png",
-          "url": "tests/pfdelta_phase1_118/figures/shock_events_timeline.png",
-          "caption": "Shock/N-1 event timeline (stress schedule and recovery windows)."
-        },
-        {
-          "filename": "fitness_progression_across_evals.png",
-          "url": "tests/pfdelta_phase1_118/figures/fitness_progression_across_evals.png",
-          "caption": "Fitness progression across evaluations (mean ± CI95)."
-        },
-        {
-          "filename": "seasonal_convergence_by_eval.png",
-          "url": "tests/pfdelta_phase1_118/figures/seasonal_convergence_by_eval.png",
-          "caption": "Seasonal convergence trajectory across evaluations (S0–S3)."
-        },
-        {
-          "filename": "seed_convergence_distribution_eval4.png",
-          "url": "tests/pfdelta_phase1_118/figures/seed_convergence_distribution_eval4.png",
-          "caption": "Distribution of per-seed convergence rates at eval 4."
-        },
-        {
-          "filename": "recovery_time_distribution_eval4.png",
-          "url": "tests/pfdelta_phase1_118/figures/recovery_time_distribution_eval4.png",
-          "caption": "Distribution of recovery times over shock events at eval 4."
+          "filename": "core_comparison_baselineA_baselineB_inZORi_frozen.png",
+          "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png",
+          "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 on S3 convergence, topology recovery, and S3 throughput."
         }
       ]
     }

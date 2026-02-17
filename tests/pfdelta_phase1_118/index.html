@@ -3,121 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOR-PFΔ Phase 1: Streaming Power Flow Robustness under Multi-Shocks and N-1 Topology Events (118-bus)</title>
+    <title>inZORi-PFΔ Phase 1: Streaming Power Flow Robustness under Multi-Shocks and N-1 Topology Events (118-bus)</title>
+    <link rel="stylesheet" href="../../style.css">
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-            color: #333;
-            background: #fff;
-        }
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
-        h3 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 25px;
-            margin-bottom: 12px;
-        }
-        h4 {
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-style: italic;
-        }
-        .abstract {
-            background: #f9f9f9;
-            padding: 20px;
-            border-left: 4px solid #333;
-            margin: 30px 0;
-            font-size: 15px;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 13px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 20px 0;
-            font-size: 14px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background: #f0f0f0;
-            font-weight: bold;
-        }
-        .metric-table {
-            font-size: 13px;
-        }
-        .metric-table th {
-            background: #e8e8e8;
-        }
-        ul, ol {
-            margin: 15px 0;
-            padding-left: 30px;
-        }
-        li {
-            margin: 8px 0;
-        }
-        .note {
-            font-style: italic;
-            color: #666;
-            margin: 15px 0;
-        }
-        a {
-            color: #0066cc;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .back-link {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 2px solid #ccc;
-            text-align: center;
-        }
+        body { background: var(--bg); color: var(--text); }
+        .paper { max-width: min(96vw, 92rem); margin: 0 auto; padding: 2rem 1.2rem 3rem; }
+        h1 { font-size: 2rem; text-align: center; margin: 1.2rem 0 1.4rem; }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.45rem; margin-top: 2rem; }
+        h3 { margin-top: 1.4rem; }
+        h4 { margin-top: 1rem; color: var(--muted); }
+        .abstract { background: rgba(34, 211, 238, 0.08); border-left: 4px solid var(--accent); padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; }
+        code, pre { background: var(--surface); color: var(--accent); }
+        pre { padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.98rem; }
+        th, td { border: 1px solid var(--border); padding: 0.55rem 0.65rem; text-align: left; }
+        th { background: var(--surface); color: var(--muted); }
+        .note { color: var(--muted); }
+        a { color: var(--accent); }
+        .back-link { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; }
+        .comp-fig { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); margin: 1rem 0 1.2rem; }
+        .comp-fig img { display: block; width: 100%; height: auto; }
+        .comp-fig .cap { padding: 0.7rem 0.8rem; color: var(--muted); font-size: 0.95rem; }
     </style>
 </head>
 <body>
+<div class="paper">
 
-<h1>ZOR-PFΔ Phase 1: Streaming Power Flow Robustness<br>under Multi-Shocks and N-1 Topology Events (118-bus)</h1>
+<h1>inZORi-PFΔ Phase 1: Streaming Power Flow Robustness<br>under Multi-Shocks and N-1 Topology Events (118-bus)</h1>
 
 <div class="abstract">
 <strong>Abstract</strong><br><br>
-We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the "severe_plus" regime (S3 convergence ~84–86%, vs. ZOR's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a "frozen-elites runtime" extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Phase 1 focuses exclusively on the 118-bus network; 500-bus scalability is deferred to Phase 2. All results are reproducible from the provided command logs and artifact paths. Key takeaway: ZOR's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving 15-20% higher S3 convergence than baselines under identical compute budgets, with recovery times after N-1 events 8–10× faster than periodic-reset strategies.
+We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the "severe_plus" regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a "frozen-elites runtime" extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Phase 1 focuses exclusively on the 118-bus network; 500-bus scalability is deferred to Phase 2. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving 15-20% higher S3 convergence than baselines under identical compute budgets, with recovery times after N-1 events 8–10× faster than periodic-reset strategies.
 </div>
 
 <h2>1. Motivation & Problem Origin</h2>
@@ -137,7 +53,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li>exhausts the iteration budget with poor accuracy (high Power Balance Limit / PBL), or</li>
     <li>requires manual intervention (parameter tuning).</li>
 </ul>
-<p>We target <strong>autonomous stability</strong>: can a system (ZOR) maintain >99% convergence in S3 (multi-zone shocks + N-1) while baselines fall below 90%?</p>
+<p>We target <strong>autonomous stability</strong>: can a system (inZORi) maintain >99% convergence in S3 (multi-zone shocks + N-1) while baselines fall below 90%?</p>
 
 <h3>1.3 What We Do NOT Claim</h3>
 <p>This work does NOT claim to:</p>
@@ -146,11 +62,11 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li>Replace domain expertise (network topology design, protection schemes).</li>
     <li>Guarantee performance on all bus counts (Phase 1 is 118-bus only; 500-bus deferred).</li>
 </ul>
-<p>We demonstrate that <em>ZOR principles</em> (local energy-based selection, genome-driven parameter exploration, no RL/NN) can produce emergent robustness where fixed heuristics struggle.</p>
+<p>We demonstrate that <em>inZORi principles</em> (local energy-based selection, genome-driven parameter exploration, no RL/NN) can produce emergent robustness where fixed heuristics struggle.</p>
 
-<h2>2. ZOR Principles (Non-Negotiable)</h2>
+<h2>2. inZORi Principles (Non-Negotiable)</h2>
 
-<p>ZOR operates under strict constraints to preserve biological plausibility and avoid hidden optimization:</p>
+<p>inZORi operates under strict constraints to preserve biological plausibility and avoid hidden optimization:</p>
 <ol>
     <li><strong>No RL/NN/Backpropagation</strong>: No gradient-based learning, no neural networks, no reinforcement learning rewards.</li>
     <li><strong>Energy & Memory</strong>: Organisms gain/lose energy based on PF solve success; energy thresholds trigger reproduction/death.</li>
@@ -202,7 +118,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <p>For 118 buses, we partition into 6 zones (Z1–Z6) via contiguous index ranges: <code>zone[b] = Z_k</code> where <code>k = floor(b * 6 / 118)</code>. This ensures reproducibility and avoids random zone assignments across runs.</p>
 
 <h3>3.4 Severe_Plus Stress</h3>
-<p>To create differentiation between ZOR and baselines, we introduce <code>severity_multiplier=7.0</code> in S3, which:</p>
+<p>To create differentiation between inZORi and baselines, we introduce <code>severity_multiplier=7.0</code> in S3, which:</p>
 <ul>
     <li>Weakens Jacobian diagonal dominance (multiply by <code>diag_weak=max(0.12, 1.0 - degrade*0.75)</code>).</li>
     <li>Amplifies nonlinearity <code>beta</code> by <code>1 + degrade*6.0</code>.</li>
@@ -210,7 +126,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li>Introduces Jacobian model mismatch (bias term) during severe shocks.</li>
     <li>Degrades stale <code>v_prev</code> when PF is skipped: <code>v_prev *= 0.92 - 0.08*min(shock_intensity, 1.5)</code>.</li>
 </ul>
-<p class="note"><em>Why cubic nonlinearity?</em> At large voltage angles |v|~π, <code>cos(v)~-1</code> and the Jacobian <code>J = A + diag(beta*cos(v))</code> becomes near-singular or indefinite. The cubic term <code>v³</code> creates a stiffer system with multiple local minima → only careful damping + warm-start can navigate this, revealing ZOR's adaptive advantage.</p>
+<p class="note"><em>Why cubic nonlinearity?</em> At large voltage angles |v|~π, <code>cos(v)~-1</code> and the Jacobian <code>J = A + diag(beta*cos(v))</code> becomes near-singular or indefinite. The cubic term <code>v³</code> creates a stiffer system with multiple local minima → only careful damping + warm-start can navigate this, revealing inZORi's adaptive advantage.</p>
 
 <h3>3.5 N-1 Topology Shocks (S3 only)</h3>
 <p>When <code>enable_topology_shocks=True</code>, we generate N-1 line outage events:</p>
@@ -226,15 +142,15 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <h3>4.1 Top-K PF Evaluation</h3>
 <p>At each step where PF is evaluated (<code>step % pf_interval == 0</code> or budget-based scheduling):</p>
 <ol>
-    <li><strong>ZOR strategy</strong>: All organisms (population ~32 in DEV, ~84 in FULL) propose candidates. Score candidates via genome-based heuristic. Select top-K=2. Run 2 PF solves. Award energy to selected organisms based on convergence + iteration efficiency.</li>
+    <li><strong>inZORi strategy</strong>: All organisms (population ~32 in DEV, ~84 in FULL) propose candidates. Score candidates via genome-based heuristic. Select top-K=2. Run 2 PF solves. Award energy to selected organisms based on convergence + iteration efficiency.</li>
     <li><strong>Baseline A</strong> (simple warm-start): 1 PF solve per step, using <code>v_prev</code> from previous step, fixed damping=1.0.</li>
     <li><strong>Baseline B</strong> (periodic reset): 1 PF solve per step, reset <code>v_init</code> to flat/random every 200 steps, fixed damping=1.0.</li>
 </ol>
 
 <h3>4.2 Fairness Definitions</h3>
 <ul>
-    <li><strong>Fairness A (equal PF budget)</strong>: Baselines get same average PF solves per step as ZOR (e.g., ZOR uses K=2 → baselines run with <code>pf_target_solves_per_step=0.4</code> over subsampling interval=5, achieving 2 solves per evaluated step on average).</li>
-    <li><strong>Fairness B (equal wall-clock)</strong>: Normalize all strategies to the same total runtime (ZOR's raw elapsed time), report <code>converged_steps_per_second</code> globally and in S3.</li>
+    <li><strong>Fairness A (equal PF budget)</strong>: Baselines get same average PF solves per step as inZORi (e.g., inZORi uses K=2 → baselines run with <code>pf_target_solves_per_step=0.4</code> over subsampling interval=5, achieving 2 solves per evaluated step on average).</li>
+    <li><strong>Fairness B (equal wall-clock)</strong>: Normalize all strategies to the same total runtime (inZORi's raw elapsed time), report <code>converged_steps_per_second</code> globally and in S3.</li>
 </ul>
 
 <h2>5. Metrics</h2>
@@ -243,7 +159,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <tr>
     <th>Metric</th>
     <th>Definition</th>
-    <th>Target (ZOR)</th>
+    <th>Target (inZORi)</th>
 </tr>
 <tr>
     <td>Global Convergence</td>
@@ -285,11 +201,11 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <p><strong>Solution</strong>: Refactor to world-level evaluation. Organisms propose candidates, top-K=2 selected, only 2 PF solves/step. Energy awarded only to selected organisms; others pay metabolic cost.</p>
 <p><strong>Impact</strong>: 40-50× speedup. Enabled all subsequent experiments.</p>
 
-<h3>Stage 1: Report 2.0 (Baseline A, B, ZOR across mild/medium/severe)</h3>
-<p><strong>Goal</strong>: Establish differentiation between ZOR and baselines.</p>
+<h3>Stage 1: Report 2.0 (Baseline A, B, inZORi across mild/medium/severe)</h3>
+<p><strong>Goal</strong>: Establish differentiation between inZORi and baselines.</p>
 <p><strong>Config</strong>: DEV_MODE, 5k steps, 12 seeds, 3 severity levels (<code>sev_mult</code>: 1.0 mild, 2.5 medium, 3.5 severe initial).</p>
 <p><strong>Result</strong>: All strategies converged 100% even at "severe" (3.5). Conclusion: not hard enough.</p>
-<p><strong>Lesson</strong>: Need stronger stress to reveal ZOR's advantage.</p>
+<p><strong>Lesson</strong>: Need stronger stress to reveal inZORi's advantage.</p>
 
 <h3>Stage 2: Severe_Plus + Fairness A/B + nr_max Strict</h3>
 <p><strong>Goal</strong>: Create clear separation by increasing <code>severity_multiplier=7.0</code> and introducing fairness controls.</p>
@@ -299,8 +215,8 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li>Cubic nonlinearity <code>gamma*v³</code> added to PF equations.</li>
     <li><code>v_prev</code> degradation on skipped steps (stale data model).</li>
     <li>Weakened diagonal dominance + amplified <code>beta</code> during severe shocks.</li>
-    <li>Fairness A: baselines get equal PF budget as ZOR.</li>
-    <li>Fairness B: normalize to ZOR's wall-clock, report conv/sec.</li>
+    <li>Fairness A: baselines get equal PF budget as inZORi.</li>
+    <li>Fairness B: normalize to inZORi's wall-clock, report conv/sec.</li>
 </ul>
 <p><strong>Results (30 seeds, severe_plus, fairness A, nr_max=8)</strong>:</p>
 <table class="metric-table">
@@ -326,14 +242,14 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>6.26</td>
 </tr>
 <tr>
-    <td>ZOR</td>
+    <td>inZORi</td>
     <td>99.6</td>
     <td>99.1</td>
     <td>[98.9, 99.3]</td>
     <td>4.54</td>
 </tr>
 </table>
-<p><strong>Conclusion</strong>: ZOR achieves 15.2% higher S3 convergence than Baseline B (99.1% vs 83.9%), with non-overlapping CI95. Baseline A also struggles (96.0%). ZOR uses fewer iterations on average (4.54 vs 4.85/6.26) → more efficient.</p>
+<p><strong>Conclusion</strong>: inZORi achieves 15.2% higher S3 convergence than Baseline B (99.1% vs 83.9%), with non-overlapping CI95. Baseline A also struggles (96.0%). inZORi uses fewer iterations on average (4.54 vs 4.85/6.26) → more efficient.</p>
 
 <p><strong>Audit at nr_max=12</strong>: All strategies converge ~100% → confirms that differentiation at nr_max=8 is real (compute-limited regime), not iteration starvation.</p>
 
@@ -362,13 +278,13 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>[12.36, 13.46]</td>
 </tr>
 <tr>
-    <td>ZOR</td>
+    <td>inZORi</td>
     <td>99.1</td>
     <td>1.82</td>
     <td>[1.60, 2.05]</td>
 </tr>
 </table>
-<p><strong>Conclusion</strong>: ZOR recovers 7-8× faster than Baseline B after N-1 events (1.82 vs 12.91 steps). S3 convergence maintained at 99.1%. <strong>PASS</strong> all criteria (S3 &ge;99%, CI95 non-overlap vs B, persists in fairness B).</p>
+<p><strong>Conclusion</strong>: inZORi recovers 7-8× faster than Baseline B after N-1 events (1.82 vs 12.91 steps). S3 convergence maintained at 99.1%. <strong>PASS</strong> all criteria (S3 &ge;99%, CI95 non-overlap vs B, persists in fairness B).</p>
 
 <h3>Stage 4: FULL Run (118 + N-1, 50k steps, 30 seeds)</h3>
 <p><strong>Goal</strong>: Final statistical validation with full horizon and event count.</p>
@@ -403,7 +319,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>1.61e-5</td>
 </tr>
 <tr>
-    <td>ZOR</td>
+    <td>inZORi</td>
     <td>99.6</td>
     <td>99.1</td>
     <td>[98.9, 99.3]</td>
@@ -413,7 +329,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 </tr>
 </table>
 <p><strong>Event Counts</strong>: 2,215 severe shocks total (73.8 per run mean, CI95 [71.3, 76.4]). 660 topology events total (22.0 per run, deterministic).</p>
-<p><strong>Fairness B (equal wall-clock, normalized to ZOR's 48.8s)</strong>:</p>
+<p><strong>Fairness B (equal wall-clock, normalized to inZORi's 48.8s)</strong>:</p>
 <table class="metric-table">
 <tr>
     <th>Strategy</th>
@@ -431,21 +347,21 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>0.0172</td>
 </tr>
 <tr>
-    <td>ZOR</td>
+    <td>inZORi</td>
     <td>0.0204</td>
     <td>0.0202</td>
 </tr>
 </table>
-<p><strong>Conclusion</strong>: ZOR maintains highest throughput efficiency even when normalized for time. All pass flags: <code>zor_s3_convergence_ge_0_99=true</code>, <code>zor_s3_ci95_non_overlap_vs_baseline_b=true</code>, <code>persists_in_fairness_b=true</code>.</p>
+<p><strong>Conclusion</strong>: inZORi maintains highest throughput efficiency even when normalized for time. All pass flags: <code>zor_s3_convergence_ge_0_99=true</code>, <code>zor_s3_ci95_non_overlap_vs_baseline_b=true</code>, <code>persists_in_fairness_b=true</code>.</p>
 
 <h3>Stage 5: Frozen-Elites Runtime (Offline→Online)</h3>
-<p><strong>Goal</strong>: Demonstrate that ZOR value can be captured without online evolution, using pre-trained elite genomes in a fast "runtime" setting.</p>
+<p><strong>Goal</strong>: Demonstrate that inZORi value can be captured without online evolution, using pre-trained elite genomes in a fast "runtime" setting.</p>
 <p><strong>Setup</strong>:</p>
 <ul>
     <li>Extract top-N (N=1,8,16) elite genomes from FULL run (50k steps) based on energy + win rate.</li>
     <li>Test regime: Same 118-bus, S0-S3, severe_plus, N-1 shocks. 20 seeds. <code>nr_max=8</code>.</li>
     <li><code>pf_interval=1</code> (real runtime) and <code>=5</code> (rapid dev) tested separately.</li>
-    <li><strong>Strategies</strong>: Baseline A, Baseline B, ZOR online (K=2, evolution enabled), Frozen-Top1-K1, Frozen-Top8-K1, Frozen-Top16-K1, Frozen-Top1-Kadapt, Frozen-Top8-Kadapt, Frozen-Top16-Kadapt.</li>
+    <li><strong>Strategies</strong>: Baseline A, Baseline B, inZORi online (K=2, evolution enabled), Frozen-Top1-K1, Frozen-Top8-K1, Frozen-Top16-K1, Frozen-Top1-Kadapt, Frozen-Top8-Kadapt, Frozen-Top16-Kadapt.</li>
     <li><strong>"Frozen" definition</strong>: <code>evolution_enabled=false</code>, <code>mutations_enabled=false</code>, <code>reproduction_enabled=false</code>. Elite genomes fixed throughout run.</li>
     <li><strong>K-adaptiv</strong>: K=1 by default; K=2 only when instability detected (prev non-conv, near iteration budget, N-1+multi-shock overlap, recent non-conv cooldown). Rule: <code>avg_k_used &lt; 1.25</code>.</li>
     <li><strong>Elite Selection Policy</strong>: Deterministic, context-based scoring (no NN/RL). Inputs: season, active N-1, active multi-shock, prev non-conv, near budget, recent non-conv. Weights: memory_lr, 1-risk, 1-jump_chance, step_scale, plus context bonuses. Exported as <code>genome_selection_policy.json</code>.</li>
@@ -480,7 +396,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>1.0</td>
 </tr>
 <tr>
-    <td>ZOR online</td>
+    <td>inZORi online</td>
     <td>99.7</td>
     <td>[99.5, 99.9]</td>
     <td>1.13</td>
@@ -529,8 +445,8 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <ul>
     <li>Frozen-Elite arms achieve S3=100% convergence (vs Baseline A 96%, B 86%).</li>
     <li>K-adaptive: <code>avg_k_used=1.0</code> in this dataset (no K=2 triggered) → conservative, cost-aware.</li>
-    <li>Throughput: Frozen-Top16-K1 achieves 443.7 conv steps/sec in S3 (higher than ZOR online 246.8, Baseline A 340.4) because K=1 uses half the PF solves per step.</li>
-    <li>Topology recovery: Frozen elites recover in 1.0 step (immediate), vs ZOR online 1.13, Baseline A 2.91, Baseline B 12.0.</li>
+    <li>Throughput: Frozen-Top16-K1 achieves 443.7 conv steps/sec in S3 (higher than inZORi online 246.8, Baseline A 340.4) because K=1 uses half the PF solves per step.</li>
+    <li>Topology recovery: Frozen elites recover in 1.0 step (immediate), vs inZORi online 1.13, Baseline A 2.91, Baseline B 12.0.</li>
 </ul>
 <p><strong>Pass Flags</strong>:</p>
 <ul>
@@ -540,7 +456,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li><code>k_adapt_avg_k_below_1_25=true</code> (1.0 &lt; 1.25)</li>
 </ul>
 
-<p><strong>Conclusion</strong>: Frozen-elites (especially Top16-K1) match or exceed ZOR online convergence with half the PF compute cost, enabling practical "runtime in seconds" deployment. Elite selection policy is transparent (no ML), and K-adaptive rule ensures cost-awareness.</p>
+<p><strong>Conclusion</strong>: Frozen-elites (especially Top16-K1) match or exceed inZORi online convergence with half the PF compute cost, enabling practical "runtime in seconds" deployment. Elite selection policy is transparent (no ML), and K-adaptive rule ensures cost-awareness.</p>
 
 <h3>Stage 6: Ablations / Sanity Checks</h3>
 <p><strong>Goal</strong>: Confirm that frozen-elite performance is not due to trivial tracking or lucky seed, and that policy matters.</p>
@@ -592,23 +508,23 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <tr>
     <td>8 (FULL)</td>
     <td>1.000</td>
-    <td>4.54 (ZOR), 4.85 (BA)</td>
+    <td>4.54 (inZORi), 4.85 (BA)</td>
     <td>Production regime</td>
 </tr>
 </table>
-<p><strong>Conclusion</strong>: Sharp phase transition between nr_max=5 (26% conv) and nr_max=6 (100% conv). At nr_max=8, ZOR/Frozen maintain robustness; baselines begin to degrade (Baseline B drops to 84% in S3). This confirms that the severe_plus regime creates a genuine compute-limited challenge where adaptive strategies shine.</p>
+<p><strong>Conclusion</strong>: Sharp phase transition between nr_max=5 (26% conv) and nr_max=6 (100% conv). At nr_max=8, inZORi/Frozen maintain robustness; baselines begin to degrade (Baseline B drops to 84% in S3). This confirms that the severe_plus regime creates a genuine compute-limited challenge where adaptive strategies shine.</p>
 
 <h2>7. Discussion</h2>
 
 <h3>7.1 What the Results Demonstrate</h3>
 <ol>
-    <li><strong>Emergent Robustness</strong>: ZOR's genome-driven parameter selection (damping, warm-start mix) adapts to severe conditions where fixed heuristics (Baseline A/B) fail. S3 convergence: ZOR 99.1%, Baseline B 83.9%.</li>
+    <li><strong>Emergent Robustness</strong>: inZORi's genome-driven parameter selection (damping, warm-start mix) adapts to severe conditions where fixed heuristics (Baseline A/B) fail. S3 convergence: inZORi 99.1%, Baseline B 83.9%.</li>
     <li><strong>World-Level Architecture Efficiency</strong>: Refactoring from per-organism to world-level PF evaluation yielded 40-50× speedup, making large-scale validation feasible.</li>
-    <li><strong>Fairness-Controlled Comparison</strong>: Equal PF budget (fairness A) and equal wall-clock (fairness B) both confirm ZOR's advantage persists under resource parity.</li>
-    <li><strong>Topology Resilience</strong>: ZOR recovers 7-8× faster than Baseline B after N-1 line outages (1.82 vs 12.91 steps).</li>
-    <li><strong>Frozen-Elites Viability</strong>: Offline-evolved genomes achieve 100% S3 convergence with K=1 (half the PF cost of ZOR online K=2), enabling practical deployment in seconds-per-step scenarios. Throughput: Frozen-Top16-K1 = 443.7 conv steps/sec in S3 vs ZOR online 246.8.</li>
+    <li><strong>Fairness-Controlled Comparison</strong>: Equal PF budget (fairness A) and equal wall-clock (fairness B) both confirm inZORi's advantage persists under resource parity.</li>
+    <li><strong>Topology Resilience</strong>: inZORi recovers 7-8× faster than Baseline B after N-1 line outages (1.82 vs 12.91 steps).</li>
+    <li><strong>Frozen-Elites Viability</strong>: Offline-evolved genomes achieve 100% S3 convergence with K=1 (half the PF cost of inZORi online K=2), enabling practical deployment in seconds-per-step scenarios. Throughput: Frozen-Top16-K1 = 443.7 conv steps/sec in S3 vs inZORi online 246.8.</li>
     <li><strong>Transparent Selection Policy</strong>: Elite genome selection uses simple deterministic rules (no NN/RL), exported as JSON. K-adaptive rule (<code>avg_k_used&lt;1.25</code>) ensures cost-awareness.</li>
-    <li><strong>Phase Transition Insight</strong>: Sharp cliff at nr_max=5/6 reveals compute-limited regime where ZOR's adaptation is critical.</li>
+    <li><strong>Phase Transition Insight</strong>: Sharp cliff at nr_max=5/6 reveals compute-limited regime where inZORi's adaptation is critical.</li>
 </ol>
 
 <h3>7.2 Practical Relevance ("Seconds in Runtime")</h3>
@@ -624,7 +540,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <li><strong>118-bus only</strong>: Phase 1 does not include 500-bus results. Scalability to larger networks deferred to Phase 2.</li>
     <li><strong>Surrogate PF model</strong>: We use a cubic nonlinearity approximation, not full AC power flow (voltage magnitude/angle decoupling, transformer models, generator constraints). Results demonstrate <em>proof of concept</em>, not production-ready grid solver.</li>
     <li><strong>No claim of universal robustness</strong>: Performance depends on network topology, shock patterns, solver formulation. Different grid structures may require re-evolution of elite pool.</li>
-    <li><strong>No NN/RL comparison</strong>: We do not compare against deep RL or neural network-based solvers (out of scope for ZOR principles).</li>
+    <li><strong>No NN/RL comparison</strong>: We do not compare against deep RL or neural network-based solvers (out of scope for inZORi principles).</li>
 </ul>
 
 <h2>8. Reproducibility</h2>
@@ -684,13 +600,20 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 
 <h2>9. Results Appendix (Key Tables)</h2>
 
+
+<p><strong>Core comparison chart (Baseline A / Baseline B / inZORi / Frozen)</strong></p>
+<div class="comp-fig">
+  <img src="figures/core_comparison_baselineA_baselineB_inZORi_frozen.png" alt="PFΔ core comparison across baseline A, baseline B, inZORi and Frozen">
+  <div class="cap">Most important comparison in one view: S3 convergence (%), topology recovery (steps), and S3 converged steps/sec for Baseline A, Baseline B, inZORi, and Frozen-Top16-K1.</div>
+</div>
+
 <h3>Table A1: FULL 118 + N-1 Severe_Plus (Fairness A, nr_max=8, 30 seeds)</h3>
 <table class="metric-table">
 <tr>
     <th>Metric</th>
     <th>Baseline A</th>
     <th>Baseline B</th>
-    <th>ZOR</th>
+    <th>inZORi</th>
 </tr>
 <tr>
     <td>Global Convergence (%)</td>
@@ -784,7 +707,7 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
     <td>1.0</td>
 </tr>
 <tr>
-    <td>ZOR online</td>
+    <td>inZORi online</td>
     <td>99.7</td>
     <td>[99.5, 99.9]</td>
     <td>1.13 [0.95, 1.31]</td>
@@ -830,16 +753,16 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 </tr>
 </table>
 
-<p><strong>Link to Artifacts</strong>: <a href="https://github.com/inZORi/inzori-pfdelta-artifacts" target="_blank">GitHub Artifacts Repository</a> (placeholder; update with actual repo).</p>
+<p><strong>Link to Artifacts</strong>: local figures and metrics are embedded in this details page and in the PFΔ card assets.</p>
 
 <h2>10. Conclusion</h2>
 
 <p>We summarize Phase 1 findings in clear takeaways:</p>
 <ol>
-    <li><strong>ZOR achieves robust convergence under extreme stress</strong>: 99.1% S3 convergence (CI95 [98.9, 99.3]) vs Baseline B 83.9% (CI95 [83.7, 84.2]) in 118-bus severe_plus + N-1 topology shocks.</li>
+    <li><strong>inZORi achieves robust convergence under extreme stress</strong>: 99.1% S3 convergence (CI95 [98.9, 99.3]) vs Baseline B 83.9% (CI95 [83.7, 84.2]) in 118-bus severe_plus + N-1 topology shocks.</li>
     <li><strong>World-level PF architecture is critical</strong>: Per-organism evaluation was 40-50× slower and physically incorrect. Top-K selection (K=2) enables efficient exploration.</li>
-    <li><strong>Fairness controls validate results</strong>: ZOR's advantage persists under equal PF budget (fairness A) and equal wall-clock time (fairness B).</li>
-    <li><strong>Topology resilience</strong>: ZOR recovers from N-1 line outages in 1.82 steps (CI95 [1.60, 2.05]), 7× faster than Baseline B (12.91 steps).</li>
+    <li><strong>Fairness controls validate results</strong>: inZORi's advantage persists under equal PF budget (fairness A) and equal wall-clock time (fairness B).</li>
+    <li><strong>Topology resilience</strong>: inZORi recovers from N-1 line outages in 1.82 steps (CI95 [1.60, 2.05]), 7× faster than Baseline B (12.91 steps).</li>
     <li><strong>Frozen-elites enable practical deployment</strong>: Offline-evolved genomes achieve 100% S3 convergence with K=1 (half PF cost), 443.7 conv steps/sec throughput, instant recovery. Transparent selection policy (no NN/RL).</li>
     <li><strong>Phase transition insight</strong>: Sharp cliff at nr_max=5/6 confirms compute-limited regime where adaptive strategies shine.</li>
     <li><strong>118-bus scope only</strong>: Phase 1 does not include 500-bus. Scalability deferred to Phase 2.</li>
@@ -851,8 +774,9 @@ We demonstrate ZOR's adaptive capacity in a challenging streaming power flow (PF
 <p class="note"><em>Phase 2 (500-bus) and extended validation are planned but not included in this document.</em></p>
 
 <div class="back-link">
-    <a href="../tests.html">← Back to Tests Overview</a>
+    <a href="../../tests.html">← Back to Tests Overview</a>
 </div>
 
+</div>
 </body>
 </html>
