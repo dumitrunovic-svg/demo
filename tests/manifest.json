@@ -573,7 +573,7 @@
           "url": "tests/pfdelta_phase1_118/index.html"
         },
         {
-          "label": "Core comparison chart",
+          "label": "Core comparison chart (real metrics)",
           "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png"
         }
       ],
@@ -583,7 +583,7 @@
         {
           "filename": "core_comparison_baselineA_baselineB_inZORi_frozen.png",
           "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png",
-          "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 on S3 convergence, topology recovery, and S3 throughput."
+          "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 from published real metrics (Table A1/A2)."
         },
         {
           "filename": "convergence_over_time.png",
