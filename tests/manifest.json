@@ -133,11 +133,11 @@
         },
         {
           "label": "Candidates report JSON",
-          "url": "problems/zor_astr_1_tess/assets/candidates_report/candidates_report.json"
+          "url": "tests/tess/candidates_report.json"
         },
         {
-          "label": "NASA report EN",
-          "url": "problems/zor_astr_1_tess/nasa_package_full/REPORT_NASA_EN.md"
+          "label": "Candidates report MD",
+          "url": "tests/tess/candidates_report.md"
         }
       ],
       "key_findings": [
@@ -160,11 +160,11 @@
       "images": [
         {
           "filename": "scenario4_tess_class_distribution.png",
-          "caption": "Class distribution for prioritized TESS signals in current snapshot."
+          "caption": "Class distribution for prioritized TESS signals."
         },
         {
           "filename": "scenario4_tess_top10_ranksum.png",
-          "caption": "Top-10 consensus candidates ranked by rank_sum (lower is better)."
+          "caption": "Top-10 consensus candidates ranked by rank_sum."
         }
       ]
     },
