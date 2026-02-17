@@ -1,6 +1,6 @@
 # Cum împachetezi și publici site-ul pe Git (format web)
 
-Acest folder este **pachetul complet** pentru publicare: broșură multilingvă (EN, DE, FR, RO) + Demo EN cu toate imaginile. Totul e static (HTML, CSS, JSON, PNG) – fără build, fără server.
+Acest folder este **pachetul complet** pentru publicare: broșură multilingvă (EN, DE, FR, RO) + catalogul de teste (cu imagini/artefacte). Totul e static (HTML, CSS, JSON, PNG/GIF) – fără build, fără server.
 
 ---
 
@@ -13,10 +13,11 @@ web/brochure/
 ├── de.html             # Broșură DE
 ├── fr.html             # Broșură FR
 ├── style.css           # Stil comun (font arXiv, responsive)
-├── DEMO_ZOR_EN.html    # Demo științific EN
-├── demo_data.json      # Date pentru grafice demo
-├── problems/robotics_adapt_v1/plots/*.png   # 4 imagini robotics
-├── runs/sdc_v1/20260208_231108/plots/*.png  # 4 imagini SDC
+├── tests.html          # Catalog de teste (UI)
+├── tests/manifest.json # Metadate teste
+├── tests/**            # Artefacte (PNG/GIF/JSON/MD)
+├── demo_images/**      # Imagini pentru carduri (PNG)
+├── papers/**           # Articole/LaTeX (opțional)
 ├── README_HOSTING.md   # Ghid hosting (opțional)
 └── PUBLISH_GIT.md      # Acest fișier
 ```
@@ -34,10 +35,10 @@ cd /opt/projects/zor_task_solver/web/brochure
 
 # Repo nou
 git init
-git add index.html ro.html de.html fr.html style.css DEMO_ZOR_EN.html demo_data.json
-git add problems/ runs/
+git add index.html ro.html de.html fr.html style.css tests.html
+git add tests/ demo_images/ papers/
 git add README_HOSTING.md PUBLISH_GIT.md
-git commit -m "inZORi brochure + Demo EN, full package for web"
+git commit -m "inZORi brochure + tests catalog (full web package)"
 
 # Pe GitHub: creezi un repo gol (fără README), apoi:
 git remote add origin https://github.com/<USER>/<REPO>.git
@@ -85,8 +86,8 @@ Scriptul creează `web/inzori-web-deploy/` cu toate fișierele necesare. Poți c
 ## 5. Verificare înainte de push
 
 - [ ] Deschizi local `index.html` sau rulezi `python3 -m http.server 8765` din `web/brochure` și verifici toate limbile (EN, DE, FR, RO).
-- [ ] Click pe **Demo EN** – se încarcă `DEMO_ZOR_EN.html` și toate cele 8 imagini (robotics + SDC).
-- [ ] Linkurile dintre pagini sunt relative (`index.html`, `ro.html`, `DEMO_ZOR_EN.html`) – funcționează și pe GitHub Pages.
+- [ ] Click pe **Tests** – se încarcă `tests.html`, se văd filtrele și cardurile se deschid/închid (accordion).
+- [ ] Linkurile dintre pagini sunt relative (`index.html`, `ro.html`, `tests.html`) – funcționează și pe GitHub Pages.
 
 ---
 

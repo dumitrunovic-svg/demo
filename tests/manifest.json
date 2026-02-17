@@ -3,28 +3,13 @@
   "updated_at": "2026-02-17",
   "tests": [
     {
-      "id": "demo-zor-en",
-      "name": "Interactive Demo EN",
-      "category": "demo",
-      "status": "finished",
-      "published": true,
-      "updated_at": "2026-02-14",
-      "description": "Full interactive demonstration of inZORi capabilities across 6 scenarios",
-      "links": [
-        {
-          "label": "Demo page",
-          "url": "DEMO_ZOR_EN.html"
-        }
-      ]
-    },
-    {
       "id": "scenario-1-dynamic-worlds",
       "name": "Scenario 1: Adaptation to dynamic environment",
       "category": "scientific",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-14",
-      "description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A \u2194 World B). Energy-conservation strategies emerge without explicit training.",
+      "description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B). Energy-conservation strategies emerge without explicit training.",
       "key_findings": [
         "World A: Food bottom-left, danger top-right",
         "World B: Food top-right, danger bottom-left",
@@ -39,18 +24,16 @@
         "initial_population": 40,
         "final_population": "~200"
       },
-      "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-1"
-        }
-      ],
+      "links": [],
       "images": [
         {
           "filename": "scenario1_population_evolution_v2.png",
-          "caption": "Population evolution in alternating worlds (A \u2194 B) showing survival and adaptation over 600 steps"
+          "caption": "Population evolution in alternating worlds (A ↔ B) showing survival and adaptation over 600 steps",
+          "url": "demo_images/scenario1_population_evolution_v2.png"
         }
-      ]
+      ],
+      "domain": "Artificial life",
+      "short_description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B)"
     },
     {
       "id": "scenario-2-social-iq",
@@ -75,40 +58,16 @@
         "bottom20_births": 69,
         "difference_pct": -17.4
       },
-      "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-2"
-        }
-      ],
+      "links": [],
       "images": [
         {
           "filename": "scenario2_children_count_v2.png",
-          "caption": "Children count comparison: high IQ vs low IQ pairs showing -17.4% difference due to delayed reproduction"
+          "caption": "Children count comparison: high IQ vs low IQ pairs showing -17.4% difference due to delayed reproduction",
+          "url": "demo_images/scenario2_children_count_v2.png"
         }
-      ]
-    },
-    {
-      "id": "scenario-3-versatility",
-      "name": "Scenario 3: Versatility \u2013 Same engine, different problems",
-      "category": "demo",
-      "status": "finished",
-      "published": false,
-      "updated_at": "2026-02-14",
-      "description": "inZORi is not specialized for a single problem. The same core code can handle: maze solving, trading strategy optimization, robot swarm coordination, protein folding (toy models), and more.",
-      "key_findings": [
-        "Maze solving: navigation and exploration strategies",
-        "Trading: risk management and portfolio allocation",
-        "Robotics: swarm coordination without central control",
-        "Protein folding: structural stability (toy models)",
-        "No domain-specific code changes required"
       ],
-      "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-3"
-        }
-      ]
+      "domain": "Social dynamics",
+      "short_description": "Population with IQ-encoded genomes"
     },
     {
       "id": "scenario-4-tess",
@@ -119,10 +78,6 @@
       "updated_at": "2026-02-14",
       "description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine. Ranking is built from regularity, stability, SNR, scatter, transit count, duration and depth, without explicit manual weighting formulas.",
       "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-4"
-        },
         {
           "label": "Class distribution",
           "url": "demo_images/scenario4_tess_class_distribution.png"
@@ -160,13 +115,17 @@
       "images": [
         {
           "filename": "scenario4_tess_class_distribution.png",
-          "caption": "Class distribution for prioritized TESS signals."
+          "caption": "Class distribution for prioritized TESS signals.",
+          "url": "demo_images/scenario4_tess_class_distribution.png"
         },
         {
           "filename": "scenario4_tess_top10_ranksum.png",
-          "caption": "Top-10 consensus candidates ranked by rank_sum."
+          "caption": "Top-10 consensus candidates ranked by rank_sum.",
+          "url": "demo_images/scenario4_tess_top10_ranksum.png"
         }
-      ]
+      ],
+      "domain": "Astronomy (TESS)",
+      "short_description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine"
     },
     {
       "id": "scenario-5-robotics",
@@ -175,7 +134,7 @@
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-14",
-      "description": "Robot navigates 100\u00d7100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise. No map, no global reward\u2014only survival pressure.",
+      "description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise. No map, no global reward—only survival pressure.",
       "key_findings": [
         "Mean fitness (harsh_dynamic): 137.53",
         "Best seed (702): 139.27",
@@ -185,7 +144,7 @@
         "Phase 3 shows maximal pressure from hazard barriers"
       ],
       "metrics": {
-        "grid_size": "100\u00d7100",
+        "grid_size": "100×100",
         "total_steps": 800,
         "phases": 5,
         "mean_fitness": 137.53,
@@ -197,26 +156,26 @@
       "images": [
         {
           "filename": "best_trajectory.png",
-          "caption": "Phase-colored trajectory showing robot's path on grid"
+          "caption": "Phase-colored trajectory showing robot's path on grid",
+          "url": "demo_images/best_trajectory.png"
         },
         {
           "filename": "fitness_evolution.png",
-          "caption": "Fitness across successive evaluations with survival duration"
+          "caption": "Fitness across successive evaluations with survival duration",
+          "url": "demo_images/fitness_evolution.png"
         },
         {
           "filename": "phase_survival.png",
-          "caption": "Average survival steps by phase with adaptation score distribution"
+          "caption": "Average survival steps by phase with adaptation score distribution",
+          "url": "demo_images/phase_survival.png"
         },
         {
           "filename": "hazard_resource_balance.png",
-          "caption": "Hazard hits vs resources collected; greener = higher fitness"
+          "caption": "Hazard hits vs resources collected; greener = higher fitness",
+          "url": "demo_images/hazard_resource_balance.png"
         }
       ],
       "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-5"
-        },
         {
           "label": "Trajectory",
           "url": "demo_images/best_trajectory.png"
@@ -233,7 +192,9 @@
           "label": "Balance",
           "url": "demo_images/hazard_resource_balance.png"
         }
-      ]
+      ],
+      "domain": "Robotics",
+      "short_description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise"
     },
     {
       "id": "scenario-6-sdc",
@@ -260,26 +221,26 @@
       "images": [
         {
           "filename": "continuity_score_over_time.png",
-          "caption": "Continuity remains high under static/slow drift, drops under medium, collapses under chaotic"
+          "caption": "Continuity remains high under static/slow drift, drops under medium, collapses under chaotic",
+          "url": "demo_images/continuity_score_over_time.png"
         },
         {
           "filename": "drift_tracking_distance.png",
-          "caption": "How well population tracks moving food/danger zones"
+          "caption": "How well population tracks moving food/danger zones",
+          "url": "demo_images/drift_tracking_distance.png"
         },
         {
           "filename": "tradition_reappearance_timeline.png",
-          "caption": "When behavioral signatures reappear over time under drift"
+          "caption": "When behavioral signatures reappear over time under drift",
+          "url": "demo_images/tradition_reappearance_timeline.png"
         },
         {
           "filename": "static_vs_chaotic.png",
-          "caption": "Contrast between stable behavior and collapse"
+          "caption": "Contrast between stable behavior and collapse",
+          "url": "demo_images/static_vs_chaotic.png"
         }
       ],
       "links": [
-        {
-          "label": "View in Demo",
-          "url": "DEMO_ZOR_EN.html#scenario-6"
-        },
         {
           "label": "Continuity",
           "url": "demo_images/continuity_score_over_time.png"
@@ -296,7 +257,9 @@
           "label": "Comparison",
           "url": "demo_images/static_vs_chaotic.png"
         }
-      ]
+      ],
+      "domain": "Artificial life",
+      "short_description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift"
     },
     {
       "id": "social-density-effect",
@@ -308,9 +271,9 @@
       "description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organisms). Measures collective behaviors, spatial distribution, mortality, energy stability, and identifies critical density thresholds. 24 seeds per density, 800 steps.",
       "key_findings": [
         "Mortality rate increases significantly with density (LOW: 0.18%, MEDIUM: 0.24%, HIGH: 0.34%)",
-        "Mean distance increases: LOW: 37.6 \u2192 HIGH: 42.8 (organisms spread out more at high density)",
-        "Clustering decreases: LOW: 3.71 \u2192 HIGH: 2.86 (less spatial cohesion at high density)",
-        "Genome diversity decreases slightly: LOW: 0.222 \u2192 HIGH: 0.211",
+        "Mean distance increases: LOW: 37.6 → HIGH: 42.8 (organisms spread out more at high density)",
+        "Clustering decreases: LOW: 3.71 → HIGH: 2.86 (less spatial cohesion at high density)",
+        "Genome diversity decreases slightly: LOW: 0.222 → HIGH: 0.211",
         "Energy mean remains stable across densities (~4.0-4.4)",
         "Statistical significance: mortality (p<0.0001), distance (p=0.0002), clustering (p=0.003), diversity (p<0.0001)",
         "Critical threshold observed between medium and high density regimes"
@@ -385,33 +348,40 @@
       "images": [
         {
           "filename": "metrics_by_density.png",
-          "caption": "Aggregated metrics comparison across low/medium/high density regimes"
+          "caption": "Aggregated metrics comparison across low/medium/high density regimes",
+          "url": "tests/social_density/metrics_by_density.png"
         },
         {
           "filename": "population_series_low.png",
-          "caption": "Population dynamics over 800 steps for LOW density (initial: 20)"
+          "caption": "Population dynamics over 800 steps for LOW density (initial: 20)",
+          "url": "tests/social_density/population_series_low.png"
         },
         {
           "filename": "population_series_medium.png",
-          "caption": "Population dynamics over 800 steps for MEDIUM density (initial: 60)"
+          "caption": "Population dynamics over 800 steps for MEDIUM density (initial: 60)",
+          "url": "tests/social_density/population_series_medium.png"
         },
         {
           "filename": "population_series_high.png",
-          "caption": "Population dynamics over 800 steps for HIGH density (initial: 140)"
+          "caption": "Population dynamics over 800 steps for HIGH density (initial: 140)",
+          "url": "tests/social_density/population_series_high.png"
         }
       ],
       "animations": [
         {
           "filename": "density_low.gif",
-          "caption": "Real-time visualization: LOW density regime (20 initial organisms)"
+          "caption": "Real-time visualization: LOW density regime (20 initial organisms)",
+          "url": "tests/social_density/density_low.gif"
         },
         {
           "filename": "density_medium.gif",
-          "caption": "Real-time visualization: MEDIUM density regime (60 initial organisms)"
+          "caption": "Real-time visualization: MEDIUM density regime (60 initial organisms)",
+          "url": "tests/social_density/density_medium.gif"
         },
         {
           "filename": "density_high.gif",
-          "caption": "Real-time visualization: HIGH density regime (140 initial organisms)"
+          "caption": "Real-time visualization: HIGH density regime (140 initial organisms)",
+          "url": "tests/social_density/density_high.gif"
         }
       ],
       "links": [
@@ -447,7 +417,9 @@
           "label": "GIF HIGH",
           "url": "tests/social_density/density_high.gif"
         }
-      ]
+      ],
+      "domain": "Social dynamics",
+      "short_description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organi…"
     },
     {
       "id": "zor-refract-20seeds",
@@ -458,9 +430,9 @@
       "updated_at": "2026-02-15",
       "description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real ZOR pipeline on 20 seeds.",
       "key_findings": [
-        "Strong angle separation control vs refract (p\u22480.0).",
+        "Strong angle separation control vs refract (p≈0.0).",
         "Cost efficiency improves under strong contrast (refract_vs_strong p<0.001).",
-        "High target reach rates remain stable across conditions (~0.94\u20130.95).",
+        "High target reach rates remain stable across conditions (~0.94–0.95).",
         "Natural local energetic sensing only; no explicit Snell law or RL.",
         "20-seed run improves robustness over pilot."
       ],
@@ -498,33 +470,40 @@
       "images": [
         {
           "filename": "angle_in_vs_out.png",
-          "caption": "Incident vs refracted crossing angles (scatter + trend line)."
+          "caption": "Incident vs refracted crossing angles (scatter + trend line).",
+          "url": "tests/refract/angle_in_vs_out.png"
         },
         {
           "filename": "cost_path_ratio_by_condition.png",
-          "caption": "Cost-integrated path / geometric length by condition."
+          "caption": "Cost-integrated path / geometric length by condition.",
+          "url": "tests/refract/cost_path_ratio_by_condition.png"
         },
         {
           "filename": "time_to_target_by_condition.png",
-          "caption": "Time-to-target comparison across conditions."
+          "caption": "Time-to-target comparison across conditions.",
+          "url": "tests/refract/time_to_target_by_condition.png"
         },
         {
           "filename": "cost_vs_direct_ratio.png",
-          "caption": "Cost to target versus direct baseline."
+          "caption": "Cost to target versus direct baseline.",
+          "url": "tests/refract/cost_vs_direct_ratio.png"
         }
       ],
       "animations": [
         {
           "filename": "refract_control_uniform.gif",
-          "caption": "Control uniform medium (baseline)."
+          "caption": "Control uniform medium (baseline).",
+          "url": "tests/refract/refract_control_uniform.gif"
         },
         {
           "filename": "refract_refract.gif",
-          "caption": "Refract condition (Fast/Slow contrast)."
+          "caption": "Refract condition (Fast/Slow contrast).",
+          "url": "tests/refract/refract_refract.gif"
         },
         {
           "filename": "refract_contrast_strong.gif",
-          "caption": "Strong contrast condition."
+          "caption": "Strong contrast condition.",
+          "url": "tests/refract/refract_contrast_strong.gif"
         }
       ],
       "links": [
@@ -560,21 +539,23 @@
           "label": "GIF strong",
           "url": "tests/refract/refract_contrast_strong.gif"
         }
-      ]
+      ],
+      "domain": "Physics (optics)",
+      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real ZOR pipeline on 20 seeds."
     },
     {
       "id": "pfdelta-phase1-118",
-      "name": "PF\u0394 Phase 1 (118 + N-1)",
+      "name": "PFΔ Phase 1 (118 + N-1)",
       "category": "scientific",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-17",
-      "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. ZOR achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1, 443.7 conv steps/sec. Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7\u00d7 faster). Phase 1 scope: 118-bus only.",
+      "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. ZOR achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1, 443.7 conv steps/sec. Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus only.",
       "key_findings": [
         "ZOR S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
         "Frozen-Elite-16-K1: 100% S3 convergence, 443.7 conv steps/sec",
-        "Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7\u00d7 faster)",
-        "World-level PF architecture: 40-50\u00d7 speedup",
+        "Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7× faster)",
+        "World-level PF architecture: 40-50× speedup",
         "Fairness A/B validation, 30 seeds FULL, 20 seeds Frozen-Elites"
       ],
       "metrics": {
@@ -599,7 +580,9 @@
           "label": "Paper README",
           "url": "papers/pfdelta_phase1_118_arxiv/README.md"
         }
-      ]
+      ],
+      "domain": "Power systems (PFΔ)",
+      "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events"
     }
   ]
 }

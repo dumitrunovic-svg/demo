@@ -3,267 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inZORi - Tests</title>
-    <!-- Version: 2026-02-17-v2 - Images enabled -->
+    <title>inZORi — Tests</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
-        }
-        h1 {
-            font-size: 32px;
-            font-weight: 300;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #222;
-        }
-        .test-card {
-            background: white;
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: box-shadow 0.3s;
-        }
-        .test-card:hover {
-            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-        }
-        .test-card h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-top: 0;
-            margin-bottom: 15px;
-            color: #0066cc;
-        }
-        .test-card .meta {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        .test-card .category-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
-            text-transform: uppercase;
-        }
-        .category-demo { background: #e3f2fd; color: #1976d2; }
-        .category-scientific { background: #fff3e0; color: #f57c00; }
-        .status-finished { color: #2e7d32; font-weight: 600; }
-        .status-running { color: #1565c0; font-weight: 600; }
-        .status-draft { color: #757575; }
-        .test-card .description {
-            font-size: 16px;
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-        .test-card .key-findings {
-            background: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #0066cc;
-            margin: 15px 0;
-            font-size: 14px;
-        }
-        .test-card .key-findings ul {
-            margin: 5px 0;
-            padding-left: 20px;
-        }
-        .test-card .metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        .metric-box {
-            background: #e8f4f8;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        .metric-box strong {
-            color: #0066cc;
-        }
-        .test-card .links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .test-link {
-            display: inline-block;
-            padding: 8px 16px;
-            background: #0066cc;
-            color: white !important;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-        .test-link:hover {
-            background: #0052a3;
-        }
-        .back-nav {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid #ddd;
-        }
-        .back-nav a {
-            color: #0066cc;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-        }
+      /* Tests page additions (keep palette + type consistent) */
+      .tests-hero {
+        margin-top: 0.5rem;
+        color: var(--muted);
+        font-size: var(--text-sm);
+        max-width: 46rem;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 0.75rem;
+        align-items: end;
+        margin: 1.5rem 0 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .field label {
+        display: block;
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+      }
+
+      .field input, .field select {
+        width: 100%;
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.65rem 0.75rem;
+        font-family: var(--font-main);
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .field input:focus, .field select:focus {
+        border-color: rgba(34, 211, 238, 0.55);
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.10);
+      }
+
+      .results-meta {
+        margin: 0.75rem 0 1.0rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      details.test {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin: 0 0 0.9rem;
+        overflow: hidden;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+
+      details.test:hover {
+        border-color: rgba(34, 211, 238, 0.55);
+      }
+
+      details.test[open] {
+        border-color: rgba(34, 211, 238, 0.65);
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+      }
+
+      summary.test__summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1.0rem 1.1rem;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      summary::-webkit-details-marker { display: none; }
+
+      .test__title {
+        margin: 0;
+        font-size: 1.25rem;
+        line-height: 1.35;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .test__subtitle {
+        margin-top: 0.35rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.6rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        white-space: nowrap;
+        background: rgba(34, 211, 238, 0.06);
+      }
+
+      .test__meta {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .chevron {
+        color: var(--accent);
+        font-weight: 700;
+        margin-left: 0.25rem;
+      }
+
+      .test__body {
+        padding: 0 1.1rem 1.15rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .grid-media {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 1.0rem 0;
+      }
+
+      .media {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      .media img {
+        width: 100%;
+        display: block;
+      }
+
+      .media .cap {
+        padding: 0.65rem 0.75rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .links {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.75rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.55rem 0.8rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(34, 211, 238, 0.10);
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.98rem;
+        font-weight: 600;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .btn:hover {
+        background: rgba(34, 211, 238, 0.16);
+        border-color: rgba(34, 211, 238, 0.55);
+      }
+
+      .kfind {
+        margin: 1.0rem 0;
+        padding: 0.9rem 1.0rem;
+        background: rgba(34, 211, 238, 0.08);
+        border-left: 4px solid var(--accent);
+        border-radius: 0 var(--radius) var(--radius) 0;
+      }
+
+      .kfind h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .metrics {
+        margin: 1.0rem 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.6rem;
+      }
+
+      .metric {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.65rem 0.75rem;
+        background: rgba(19, 25, 32, 0.55);
+      }
+
+      .metric .k { color: var(--muted); font-size: 0.92rem; }
+      .metric .v { color: var(--text); font-weight: 700; font-size: 1.05rem; }
+
+      .footer-nav {
+        margin-top: 2.25rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: var(--text-sm);
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-nav a { color: var(--accent); text-decoration: none; }
+      .footer-nav a:hover { text-decoration: underline; }
+
+      @media (max-width: 860px) {
+        .toolbar { grid-template-columns: 1fr; }
+        .grid-media { grid-template-columns: 1fr; }
+        .metrics { grid-template-columns: 1fr; }
+        summary.test__summary { grid-template-columns: 1fr; }
+        .test__meta { justify-content: flex-start; }
+      }
     </style>
 </head>
 <body>
+  <header class="hero">
+    <div class="container">
+      <nav class="lang-switch" aria-label="Language">
+        <a href="index.html">Home</a>
+        <a href="tests.html" class="active">Tests</a>
+        <span style="color: var(--muted); padding: 0.35rem 0.6rem;">·</span>
+        <a href="de.html">Deutsch</a>
+        <a href="fr.html">Français</a>
+        <a href="ro.html">Română</a>
+      </nav>
+      <h1>Tests</h1>
+      <p class="tests-hero">
+        A curated set of executed tests across different domains. The same inZORi engine is applied to changing worlds, social dynamics,
+        astronomy (TESS signal prioritization), robotics, physics-style toy environments, and power systems robustness — without RL/NN training loops.
+      </p>
+      <p class="meta">Catalog backed by <code>tests/manifest.json</code></p>
+    </div>
+  </header>
 
-<h1>inZORi - Tests & Experiments</h1>
+  <main class="container">
+    <section aria-label="Filters and list">
+      <div class="toolbar" role="region" aria-label="Filters">
+        <div class="field">
+          <label for="q">Search</label>
+          <input id="q" type="search" placeholder="Search by title, domain, keywords…" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="domain">Domain</label>
+          <select id="domain">
+            <option value="">All domains</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="date_desc">Date (newest)</option>
+            <option value="date_asc">Date (oldest)</option>
+            <option value="name_asc">Name (A→Z)</option>
+            <option value="name_desc">Name (Z→A)</option>
+          </select>
+        </div>
+      </div>
 
-<div id="tests-container" class="loading">
-    Loading tests...
-</div>
+      <div id="resultsMeta" class="results-meta">Loading…</div>
+      <div id="testsList"></div>
+    </section>
 
-<div class="back-nav">
-    <a href="index.html">← Back to Home</a>
-</div>
+    <div class="footer-nav">
+      <div>Tip: click a title to expand/collapse. Only one test stays open for readability.</div>
+      <div><a href="index.html">← Back to Home</a></div>
+    </div>
+  </main>
 
-<script>
-async function loadTests() {
-    try {
-        const response = await fetch('tests/manifest.json');
-        const data = await response.json();
-        
-        const container = document.getElementById('tests-container');
-        container.innerHTML = '';
-        container.classList.remove('loading');
-        
-        // Filter published tests only
-        const publishedTests = data.tests.filter(t => t.published);
-        
-        if (publishedTests.length === 0) {
-            container.innerHTML = '<p class="loading">No published tests yet.</p>';
-            return;
-        }
-        
-        publishedTests.forEach(test => {
-            const card = document.createElement('div');
-            card.className = 'test-card';
-            
-            // Header
-            let html = `<h2>${test.name}</h2>`;
-            
-            // Meta info
-            html += '<div class="meta">';
-            html += `<span class="category-badge category-${test.category}">${test.category}</span>`;
-            html += `<span class="status-${test.status}">${test.status}</span>`;
-            if (test.updated_at) html += ` | Updated: ${test.updated_at}`;
-            html += '</div>';
-            
-            // Description
-            html += `<div class="description">${test.description}</div>`;
-            
-            // Key findings
-            if (test.key_findings && test.key_findings.length > 0) {
-                html += '<div class="key-findings"><strong>Key Findings:</strong><ul>';
-                test.key_findings.forEach(finding => {
-                    html += `<li>${finding}</li>`;
-                });
-                html += '</ul></div>';
-            }
-            
-            // Metrics
-            if (test.metrics && Object.keys(test.metrics).length > 0) {
-                html += '<div class="metrics">';
-                for (const [key, value] of Object.entries(test.metrics)) {
-                    if (typeof value === 'object') continue; // Skip nested objects
-                    html += `<div class="metric-box"><strong>${key.replace(/_/g, ' ')}:</strong> ${value}</div>`;
-                }
-                html += '</div>';
-            }
-            
-            // Images (if any)
-            if (test.images && test.images.length > 0) {
-                html += '<div class="test-images" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin: 20px 0;">';
-                test.images.forEach(img => {
-                    // Construct image path based on test ID
-                    let imgPath = '';
-                    if (test.id === 'scenario-1-dynamic-worlds' || 
-                        test.id === 'scenario-2-social-iq' ||
-                        test.id === 'scenario-3-versatility' ||
-                        test.id === 'scenario-4-tess' ||
-                        test.id === 'scenario-5-robotics' || 
-                        test.id === 'scenario-6-sdc') {
-                        imgPath = `demo_images/${img.filename}`;
-                    } else if (test.id === 'social-density-effect') {
-                        imgPath = `tests/social_density/${img.filename}`;
-                    } else if (test.id === 'zor-refract-20seeds') {
-                        imgPath = `tests/refract/${img.filename}`;
-                    }
-                    
-                    if (imgPath) {
-                        html += `<div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
-                            <img src="${imgPath}" alt="${img.caption}" style="width: 100%; display: block;">
-                            <p style="padding: 8px; font-size: 12px; color: #666; margin: 0;">${img.caption}</p>
-                        </div>`;
-                    }
-                });
-                html += '</div>';
-            }
-            
-            // Animations (GIFs)
-            if (test.animations && test.animations.length > 0) {
-                html += '<div class="test-animations" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin: 20px 0;">';
-                test.animations.forEach(anim => {
-                    // Construct animation path based on test ID
-                    let animPath = '';
-                    if (test.id === 'social-density-effect') animPath = `tests/social_density/${anim.filename}`;
-                    else if (test.id === 'zor-refract-20seeds') animPath = `tests/refract/${anim.filename}`;
-                    
-                    if (animPath) {
-                        html += `<div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
-                            <img src="${animPath}" alt="${anim.caption}" style="width: 100%; display: block;">
-                            <p style="padding: 8px; font-size: 12px; color: #666; margin: 0;">${anim.caption}</p>
-                        </div>`;
-                    }
-                });
-                html += '</div>';
-            }
-            
-            // Links
-            if (test.links && test.links.length > 0) {
-                html += '<div class="links">';
-                test.links.forEach(link => {
-                    html += `<a href="${link.url}" class="test-link">${link.label}</a>`;
-                });
-                html += '</div>';
-            }
-            
-            card.innerHTML = html;
-            container.appendChild(card);
-        });
-        
-    } catch (error) {
-        document.getElementById('tests-container').innerHTML = 
-            `<p class="loading" style="color: #d32f2f;">Error loading tests: ${error.message}</p>`;
+  <script>
+    const els = {
+      q: document.getElementById('q'),
+      domain: document.getElementById('domain'),
+      sort: document.getElementById('sort'),
+      meta: document.getElementById('resultsMeta'),
+      list: document.getElementById('testsList'),
+    };
+
+    function normalize(s) {
+      return (s || '').toString().toLowerCase();
     }
-}
 
-// Load tests on page load
-loadTests();
-</script>
+    function shortDesc(test) {
+      if (test.short_description) return test.short_description;
+      const d = (test.description || '').trim();
+      if (!d) return '';
+      const first = d.split('. ')[0].trim();
+      return first.length > 160 ? (first.slice(0, 157).trim() + '…') : first;
+    }
 
-</body>
-</html>
+    function domainOf(test) {
+      return test.domain || test.category || 'Other';
+    }
+
+    function fmtDate(s) {
+      return s || '';
+    }
+
+    function closeOthers(openDetails) {
+      document.querySelectorAll('details.test[open]').forEach(d => {
+        if (d !== openDetails) d.removeAttribute('open');
+      });
+    }
+
+    function renderMedia(test) {
+      const blocks = [];
+
+      const images = Array.isArray(test.images) ? test.images : [];
+      const anims = Array.isArray(test.animations) ? test.animations : [];
+
+      const all = [
+        ...images.map(x => ({...x, _kind: 'image'})),
+        ...anims.map(x => ({...x, _kind: 'animation'})),
+      ];
+
+      if (!all.length) return '';
+
+      const items = all.map(m => {
+        const src = m.url || m.filename || '';
+        if (!src) return '';
+        const cap = m.caption ? `<div class="cap">${m.caption}</div>` : '';
+        return `<div class="media"><img loading="lazy" src="${src}" alt="${m.caption || ''}">${cap}</div>`;
+      }).join('');
+
+      return `<div class="grid-media">${items}</div>`;
+    }
+
+    function renderMetrics(test) {
+      const m = test.metrics || {};
+      const entries = Object.entries(m).filter(([_, v]) => typeof v !== 'object');
+      if (!entries.length) return '';
+      const items = entries.map(([k, v]) => {
+        const key = k.replaceAll('_', ' ');
+        return `<div class="metric"><div class="k">${key}</div><div class="v">${v}</div></div>`;
+      }).join('');
+      return `<div class="metrics">${items}</div>`;
+    }
+
+    function renderLinks(test) {
+      const links = Array.isArray(test.links) ? test.links : [];
+      if (!links.length) return '';
+      return `<div class="links">${
+        links.map(l => `<a class="btn" href="${l.url}">${l.label}</a>`).join('')
+      }</div>`;
+    }
+
+    function renderFindings(test) {
+      const k = Array.isArray(test.key_findings) ? test.key_findings : [];
+      if (!k.length) return '';
+      return `<div class="kfind"><h3>Key findings</h3><ul>${k.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+    }
+
+    function renderTest(test) {
+      const domain = domainOf(test);
+      const date = fmtDate(test.updated_at);
+      const status = (test.status || '').toString();
+
+      const summary = `
+        <div>
+          <div class="test__title">${test.name || test.id}</div>
+          <div class="test__subtitle">${shortDesc(test)}</div>
+        </div>
+        <div class="test__meta">
+          <span class="pill">${domain}</span>
+          ${date ? `<span class="pill">Updated ${date}</span>` : ''}
+          ${status ? `<span class="pill">${status}</span>` : ''}
+          <span class="chevron">▾</span>
+        </div>
+      `;
+
+      const body = `
+        <div class="test__body">
+          ${test.description ? `<p>${test.description}</p>` : ''}
+          ${renderFindings(test)}
+          ${renderMetrics(test)}
+          ${renderMedia(test)}
+          ${renderLinks(test)}
+        </div>
+      `;
+
+      return `
+        <details class="test" data-domain="${domain}">
+          <summary class="test__summary">${summary}</summary>
+          ${body}
+        </details>
+      `;
+    }
+
+    function sortTests(arr, mode) {
+      const a = [...arr];
+      const byName = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
+      const byDate = (x, y) => (x.updated_at || '').localeCompare((y.updated_at || ''));
+      if (mode === 'name_asc') a.sort(byName);
+      else if (mode === 'name_desc') a.sort((x, y) => byName(y, x));
+      else if (mode === 'date_asc') a.sort(byDate);
+      else a.sort((x, y) => byDate(y, x)); // date_desc default
+      return a;
+    }
+
+    function applyFilters(allTests) {
+      const q = normalize(els.q.value);
+      const dom = els.domain.value;
+      const sorted = sortTests(allTests, els.sort.value);
+
+      const filtered = sorted.filter(t => {
+        if (dom && domainOf(t) !== dom) return false;
+        if (!q) return true;
+        const hay = [
+          t.id, t.name, t.domain, t.category, t.description,
+          ...(t.key_findings || []),
+        ].map(normalize).join(' ');
+        return hay.includes(q);
+      });
+
+      els.meta.textContent = `${filtered.length} / ${allTests.length} tests shown`;
+      els.list.innerHTML = filtered.map(renderTest).join('') || `<p class="note">No matches.</p>`;
+
+      // accordion: only one open at a time
+      els.list.querySelectorAll('details.test').forEach(d => {
+        d.addEventListener('toggle', () => {
+          if (d.open) closeOthers(d);
+        });
+      });
+    }
+
+    async function init() {
+      try {
+        const resp = await fetch('tests/manifest.json', { cache: 'no-store' });
+        const data = await resp.json();
+        const all = (data.tests || []).filter(t => t.published);
+
+        // domain options
+        const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));
+        domains.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          els.domain.appendChild(opt);
+        });
+
+        const rerender = () => applyFilters(all);
+        els.q.addEventListener('input', rerender);
+        els.domain.addEventListener('change', rerender);
+        els.sort.addEventListener('change', rerender);
+        rerender();
+      } catch (e) {
+        els.meta.textContent = '';
+        els.list.innerHTML = `<p class="note">Failed to load manifest: ${e.message}</p>`;
+      }
+    }
+    init();
+  </script>
+ </body>
+ </html>

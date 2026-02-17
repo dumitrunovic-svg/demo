@@ -9,21 +9,18 @@ This folder contains a **static website** (HTML + CSS only). You can publish it 
 - `index.html`, `ro.html`, `de.html`, `fr.html`
 - `style.css`
 
-**Full package (brochure + Demo EN with all images):** so the menu link “Demo EN” works and all demo images load, add to this folder:
-
-1. **Demo EN:** `DEMO_ZOR_EN.html`, `demo_data.json` (copy from project root).
-2. **Images** (keep the same path structure so paths in the HTML work):
-   - `problems/robotics_adapt_v1/plots/` → copy this folder (e.g. `best_trajectory.png`, `fitness_evolution.png`, `phase_survival.png`, `hazard_resource_balance.png`).
-   - `runs/sdc_v1/20260208_231108/plots/` → copy this folder (e.g. `continuity_score_over_time.png`, `drift_tracking_distance.png`, `tradition_reappearance_timeline.png`, `static_vs_chaotic.png`).
+**Full package (brochure + tests catalog + images):** upload everything needed for `tests.html` (including figures and artifacts).
 
 Resulting structure for a full deploy:
 
 ```
 brochure/
   index.html, ro.html, de.html, fr.html, style.css
-  DEMO_ZOR_EN.html, demo_data.json
-  problems/robotics_adapt_v1/plots/*.png
-  runs/sdc_v1/20260208_231108/plots/*.png
+  tests.html
+  demo_images/*.png
+  tests/manifest.json
+  tests/**/*
+  papers/**/*
 ```
 
 Optional: `README_HOSTING.md` (this file) – not required for the site to work.
