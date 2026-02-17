@@ -19,7 +19,7 @@
       </nav>
       <h1>inZORi</h1>
       <p class="tagline">Broșură de prezentare: ce este inZORi, stadiul actual, cum funcționează, cu ce se deosebește de alte sisteme, unde e bun (și unde nu), în ce sectoare se încadrează.</p>
-      <p class="meta">Versiune 1.1 · Februarie 2026</p>
+      <p class="meta">De la primul test public: 14 februarie 2026</p>
     </div>
   </header>
 
@@ -36,7 +36,7 @@
       <a href="#sectors">Sectoare</a>
       <a href="#tech">Tehnologie</a>
       <a href="#catalog">Catalog teste</a>
-      <a href="#format">Format și web</a>
+      <a href="#contact">Contact</a>
     </nav>
 
     <section id="audience">
@@ -159,7 +159,7 @@
     </section>
 
     <section id="catalog">
-      <h2>9. Catalog de teste – ce a demonstrat inZORi (de la început)</h2>
+      <h2>9. Domenii de cercetare și capabilități demonstrate</h2>
       <p>Testele ilustrează <strong>ce poate inZORi</strong> în condiții unde alte sisteme eșuează sau nu sunt concepute pentru asta – nu „inZORi e mai bun”, ci <strong>inZORi e altfel și pentru altceva</strong>.</p>
       <div class="table-wrap">
         <table>
@@ -191,13 +191,17 @@
       <p class="note">Pentru orice material (broșură, site, articol), referinția acest tabel și fișierele din <code>problems/&lt;nume&gt;/</code> (README, task_*.json, evaluatoare).</p>
     </section>
 
-    <section id="format">
-      <h2>10. Format broșură și versiune web</h2>
-      <ul>
-        <li><strong>Această pagină</strong> este versiunea web a broșurii canonice (sursă Markdown: <code>inZORi_BROCHURE.md</code>). Utilizabilă pentru export PDF, partajare sau ca site live.</li>
-        <li><strong>Cum o folosești:</strong> (1) <strong>Prezentare:</strong> secțiunile 1–2 + mesaje cheie + 1–2 scenarii din catalog. (2) <strong>PDF:</strong> print sau export din browser. (3) <strong>Site:</strong> deploy acest folder pe orice host static (vezi README_HOSTING.md).</li>
-        <li><strong>Teste rulate:</strong> vezi <a href="tests.html">Tests</a> pentru un catalog filtrabil pe domenii. Fiecare test se poate deschide/închide și arată rezultate, figuri și artefacte.</li>
-      </ul>
+
+    <section id="contact">
+      <h2>10. Contact</h2>
+      <p>Pentru feedback, sugestii sau întrebări de colaborare, folosește formularul rapid de email de mai jos.</p>
+      <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+      <form onsubmit="const n=this.name.value.trim(); const e=this.email.value.trim(); const m=this.message.value.trim(); const subj=encodeURIComponent('inZORi feedback'); const body=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\n\nMessage:\n'+m); window.location.href='mailto:dumitru.novic@gmail.com?subject='+subj+'&body='+body; return false;" style="display:grid; gap:0.6rem; max-width: 44rem;">
+        <input name="name" placeholder="Name" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <input name="email" type="email" placeholder="Email" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <textarea name="message" rows="5" placeholder="Feedback / suggestion / question" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);"></textarea>
+        <button type="submit" style="justify-self:start; padding: 0.55rem 0.85rem; border-radius: var(--radius); border: 1px solid var(--border); background: rgba(34, 211, 238, 0.10); color: var(--accent); font-weight: 600; cursor: pointer;">Send email</button>
+      </form>
     </section>
 
     <blockquote class="quote" cite="">
@@ -206,7 +210,7 @@
   </main>
 
   <footer class="container">
-    <p>Broșură inZORi · Versiune 1.1 · Februarie 2026</p>
+    <p>De la primul test public: 14 februarie 2026</p>
   </footer>
 </body>
 </html>

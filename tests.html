@@ -137,6 +137,52 @@
         margin: 1.0rem 0;
       }
 
+      
+      .media img { cursor: zoom-in; }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 8, 12, 0.92);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 2vh 2vw;
+      }
+      .lightbox.open { display: flex; }
+      .lightbox img {
+        max-width: 96vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 15px 45px rgba(0,0,0,.45);
+      }
+      .lightbox .cap {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 2vh;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+        max-width: 92vw;
+      }
+      .lightbox .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(34,211,238,.14);
+        color: var(--accent);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: .45rem .7rem;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
       .media {
         border: 1px solid var(--border);
         border-radius: var(--radius);
@@ -246,10 +292,10 @@
       </nav>
       <h1>Tests</h1>
       <p class="tests-hero">
-        A curated set of executed tests across different domains. The same inZORi engine is applied to changing worlds, social dynamics,
-        astronomy (TESS signal prioritization), robotics, physics-style toy environments, and power systems robustness — without RL/NN training loops.
+        inZORi can support research across multiple domains where systems must adapt under uncertainty, changing constraints, and limited compute budgets.
+        The same engine is used as a general research framework, then specialized through scenario evaluators and transparent metrics.
       </p>
-      <p class="meta">Catalog backed by <code>tests/manifest.json</code></p>
+      
     </div>
   </header>
 
@@ -286,6 +332,12 @@
       <div><a href="index.html">← Back to Home</a></div>
     </div>
   </main>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <img alt="Expanded image">
+    <div class="cap"></div>
+  </div>
 
   <script>
     const els = {
@@ -469,6 +521,38 @@
       }
     }
     init();
+
+    // Lightbox for image enlargement
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxCap = lightbox.querySelector('.cap');
+
+    function openLightbox(src, cap) {
+      lightboxImg.src = src;
+      lightboxCap.textContent = cap || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('close')) closeLightbox();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('.media img');
+      if (!img) return;
+      const cap = img.parentElement.querySelector('.cap')?.textContent || '';
+      openLightbox(img.src, cap);
+    });
+
   </script>
  </body>
  </html>

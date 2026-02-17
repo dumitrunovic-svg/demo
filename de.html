@@ -19,7 +19,7 @@
       </nav>
       <h1>inZORi</h1>
       <p class="tagline">Präsentationsbroschüre: was inZORi ist, aktueller Stand, wie es funktioniert, wie es sich von anderen Systemen unterscheidet, wo es stark ist (und wo nicht), und welche Sektoren es bedient.</p>
-      <p class="meta">Version 1.1 · Februar 2026</p>
+      <p class="meta">Seit dem ersten öffentlichen Test: 14. Februar 2026</p>
     </div>
   </header>
 
@@ -36,7 +36,7 @@
       <a href="#sectors">Sektoren</a>
       <a href="#tech">Technologie</a>
       <a href="#catalog">Testkatalog</a>
-      <a href="#format">Format &amp; Web</a>
+      <a href="#contact">Kontakt</a>
     </nav>
 
     <section id="audience">
@@ -159,7 +159,7 @@
     </section>
 
     <section id="catalog">
-      <h2>9. Testkatalog – was inZORi gezeigt hat (von Anfang an)</h2>
+      <h2>9. Forschungsdomänen und demonstrierte Fähigkeiten</h2>
       <p>Diese Tests zeigen <strong>was inZORi kann</strong>, wo andere Systeme scheitern oder nicht dafür ausgelegt sind – nicht „inZORi ist besser“, sondern <strong>inZORi ist anders und für etwas anderes</strong>.</p>
       <div class="table-wrap">
         <table>
@@ -191,13 +191,17 @@
       <p class="note">Für jedes Material (Broschüre, Website, Artikel): Verweis auf diese Tabelle und die Dateien unter <code>problems/&lt;name&gt;/</code> (README, task_*.json, Evaluatoren).</p>
     </section>
 
-    <section id="format">
-      <h2>10. Broschürenformat und Webversion</h2>
-      <ul>
-        <li><strong>Diese Seite</strong> ist die Webversion der kanonischen Broschüre (Markdown-Quelle: <code>inZORi_BROCHURE.md</code>). Nutzbar für PDF-Export, Weitergabe oder als Live-Site.</li>
-        <li><strong>Nutzung:</strong> (1) <strong>Präsentation:</strong> Abschnitte 1–2 + Kernbotschaften + 1–2 Szenarien aus dem Katalog. (2) <strong>PDF:</strong> Druck oder Export aus dem Browser. (3) <strong>Site:</strong> diesen Ordner auf einem statischen Host bereitstellen (siehe README_HOSTING.md).</li>
-        <li><strong>Ausgeführte Tests:</strong> siehe <a href="tests.html">Tests</a> für einen nach Domäne filterbaren Katalog. Jeder Test klappt auf und zeigt Ergebnisse, Abbildungen und Artefakte.</li>
-      </ul>
+
+    <section id="contact">
+      <h2>10. Kontakt</h2>
+      <p>Für Feedback, Vorschläge oder Kooperationsfragen nutze das kurze E-Mail-Formular unten.</p>
+      <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+      <form onsubmit="const n=this.name.value.trim(); const e=this.email.value.trim(); const m=this.message.value.trim(); const subj=encodeURIComponent('inZORi feedback'); const body=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\n\nMessage:\n'+m); window.location.href='mailto:dumitru.novic@gmail.com?subject='+subj+'&body='+body; return false;" style="display:grid; gap:0.6rem; max-width: 44rem;">
+        <input name="name" placeholder="Name" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <input name="email" type="email" placeholder="Email" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <textarea name="message" rows="5" placeholder="Feedback / suggestion / question" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);"></textarea>
+        <button type="submit" style="justify-self:start; padding: 0.55rem 0.85rem; border-radius: var(--radius); border: 1px solid var(--border); background: rgba(34, 211, 238, 0.10); color: var(--accent); font-weight: 600; cursor: pointer;">Send email</button>
+      </form>
     </section>
 
     <blockquote class="quote" cite="">
@@ -206,7 +210,7 @@
   </main>
 
   <footer class="container">
-    <p>inZORi Broschüre · Version 1.1 · Februar 2026</p>
+    <p>Seit dem ersten öffentlichen Test: 14. Februar 2026</p>
   </footer>
 </body>
 </html>

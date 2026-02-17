@@ -198,7 +198,7 @@
     },
     {
       "id": "scenario-6-sdc",
-      "name": "Scenario 5: SDC_v1 - What ZOR preserves when world drifts slowly",
+      "name": "Scenario 5: SDC_v1 - What inZORi preserves when world drifts slowly",
       "category": "scientific",
       "status": "finished",
       "published": true,
@@ -209,7 +209,7 @@
         "Continuity (drift_slow): 0.97",
         "Continuity (drift_medium): 0.73",
         "Continuity (drift_chaotic): 0.59",
-        "ZOR preserves behavior when change is predictable",
+        "inZORi preserves behavior when change is predictable",
         "Graceful degradation under unpredictable drift"
       ],
       "metrics": {
@@ -263,7 +263,7 @@
     },
     {
       "id": "social-density-effect",
-      "name": "ZOR Social Density Effect",
+      "name": "inZORi Social Density Effect",
       "category": "scientific",
       "status": "finished",
       "published": true,
@@ -423,12 +423,12 @@
     },
     {
       "id": "zor-refract-20seeds",
-      "name": "ZOR-REFRACT (20 seeds)",
+      "name": "ininZORii-REFRACT (20 seeds)",
       "category": "scientific",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-15",
-      "description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real ZOR pipeline on 20 seeds.",
+      "description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
       "key_findings": [
         "Strong angle separation control vs refract (p≈0.0).",
         "Cost efficiency improves under strong contrast (refract_vs_strong p<0.001).",
@@ -541,7 +541,7 @@
         }
       ],
       "domain": "Physics (optics)",
-      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real ZOR pipeline on 20 seeds."
+      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds."
     },
     {
       "id": "pfdelta-phase1-118",
@@ -550,11 +550,11 @@
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-17",
-      "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. ZOR achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1, 443.7 conv steps/sec. Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus only.",
+      "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. inZORi achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1, 443.7 conv steps/sec. Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus only.",
       "key_findings": [
-        "ZOR S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
+        "ininZORii S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
         "Frozen-Elite-16-K1: 100% S3 convergence, 443.7 conv steps/sec",
-        "Topology recovery: ZOR 1.82 steps vs Baseline B 12.91 steps (7× faster)",
+        "Topology recovery: ininZORii 1.82 steps vs Baseline B 12.91 steps (7× faster)",
         "World-level PF architecture: 40-50× speedup",
         "Fairness A/B validation, 30 seeds FULL, 20 seeds Frozen-Elites"
       ],

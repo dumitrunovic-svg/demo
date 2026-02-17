@@ -11,7 +11,7 @@
   --border: #2d3748;
   --font-main: "Source Serif 4", "Times New Roman", Times, serif;
   --font-mono: ui-monospace, "Cascadia Mono", monospace;
-  --max-w: 56rem;
+  --max-w: min(96vw, 92rem);
   --radius: 10px;
   --text-base: 1.2rem;
   --text-sm: 1.05rem;

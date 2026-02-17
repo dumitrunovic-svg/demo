@@ -19,7 +19,7 @@
       </nav>
       <h1>inZORi</h1>
       <p class="tagline">Presentation brochure: what inZORi is, current stage, how it works, how it differs from other systems, where it’s good (and where it’s not), and which sectors it serves.</p>
-      <p class="meta">Version 1.1 · February 2026</p>
+      <p class="meta">Since first public test: 14 February 2026</p>
     </div>
   </header>
 
@@ -36,7 +36,7 @@
       <a href="#sectors">Sectors</a>
       <a href="#tech">Technology</a>
       <a href="#catalog">Test catalog</a>
-      <a href="#format">Format &amp; web</a>
+      <a href="#contact">Contact</a>
     </nav>
 
     <section id="audience">
@@ -159,7 +159,7 @@
     </section>
 
     <section id="catalog">
-      <h2>9. Test catalog – what inZORi has demonstrated (from the start)</h2>
+      <h2>9. Research domains and demonstrated capabilities</h2>
       <p>These tests show <strong>what inZORi can do</strong> in conditions where other systems fail or aren’t designed for that – not “inZORi is better,” but <strong>inZORi is different and for something else</strong>.</p>
       <div class="table-wrap">
         <table>
@@ -191,13 +191,17 @@
       <p class="note">For any material (brochure, site, article), reference this table and the files under <code>problems/&lt;name&gt;/</code> (README, task_*.json, evaluators). “From the start” means all tests that showed inZORi’s capability where classical approaches don’t apply.</p>
     </section>
 
-    <section id="format">
-      <h2>10. Brochure format and web version</h2>
-      <ul>
-        <li><strong>This page</strong> is the web version of the canonical brochure (Markdown source: <code>inZORi_BROCHURE.md</code>). Usable for PDF export, sharing, or as the live site.</li>
-        <li><strong>How to use it:</strong> (1) <strong>Presentation:</strong> sections 1–2 + key messages + 1–2 scenarios from the catalog. (2) <strong>PDF:</strong> print or export from browser. (3) <strong>Site:</strong> deploy this folder on any static host (see README_HOSTING.md).</li>
-        <li><strong>Executed tests:</strong> see <a href="tests.html">Tests</a> for a domain-filterable catalog (astronomy, robotics, social dynamics, power systems, and more). Each test expands to show results, plots, and artifacts.</li>
-      </ul>
+
+    <section id="contact">
+      <h2>10. Contact</h2>
+      <p>For feedback, suggestions, or collaboration questions, use the quick email form below.</p>
+      <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+      <form onsubmit="const n=this.name.value.trim(); const e=this.email.value.trim(); const m=this.message.value.trim(); const subj=encodeURIComponent('inZORi feedback'); const body=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\n\nMessage:\n'+m); window.location.href='mailto:dumitru.novic@gmail.com?subject='+subj+'&body='+body; return false;" style="display:grid; gap:0.6rem; max-width: 44rem;">
+        <input name="name" placeholder="Name" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <input name="email" type="email" placeholder="Email" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);">
+        <textarea name="message" rows="5" placeholder="Feedback / suggestion / question" required style="background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.65rem 0.75rem; font-family: var(--font-main);"></textarea>
+        <button type="submit" style="justify-self:start; padding: 0.55rem 0.85rem; border-radius: var(--radius); border: 1px solid var(--border); background: rgba(34, 211, 238, 0.10); color: var(--accent); font-weight: 600; cursor: pointer;">Send email</button>
+      </form>
     </section>
 
     <blockquote class="quote" cite="">
@@ -206,7 +210,7 @@
   </main>
 
   <footer class="container">
-    <p>inZORi brochure · Version 1.1 · February 2026</p>
+    <p>Since first public test: 14 February 2026</p>
   </footer>
 </body>
 </html>

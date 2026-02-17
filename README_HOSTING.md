@@ -1,4 +1,4 @@
-# Publishing the ZOR brochure on a free host
+# Publishing the inZORi brochure on a free host
 
 This folder contains a **static website** (HTML + CSS only). You can publish it on any free static hosting service.
 
@@ -31,7 +31,7 @@ Optional: `README_HOSTING.md` (this file) – not required for the site to work.
 
 ### 1. **GitHub Pages** (recommended)
 
-1. Create a new repository (e.g. `zor-brochure` or use an existing repo).
+1. Create a new repository (e.g. `inZORi-brochure` or use an existing repo).
 2. Upload `index.html` and `style.css` to the root of the repo (or into a folder, e.g. `docs/`).
 3. In the repo: **Settings → Pages**.
 4. Under **Source**, choose **Deploy from a branch**.
@@ -79,7 +79,7 @@ If you use a **project site** and put `index.html` in a branch like `gh-pages`, 
 
 ## Custom domain (optional)
 
-On **Netlify**, **Vercel**, and **Cloudflare Pages** you can add your own domain (e.g. `zor.example.com`) in the dashboard under domain settings. GitHub Pages allows a custom domain in **Settings → Pages → Custom domain**.
+On **Netlify**, **Vercel**, and **Cloudflare Pages** you can add your own domain (e.g. `inzori.example.com`) in the dashboard under domain settings. GitHub Pages allows a custom domain in **Settings → Pages → Custom domain**.
 
 ---
 
