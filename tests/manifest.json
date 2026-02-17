@@ -93,7 +93,7 @@
       "name": "Scenario 3: Versatility \u2013 Same engine, different problems",
       "category": "demo",
       "status": "finished",
-      "published": true,
+      "published": false,
       "updated_at": "2026-02-14",
       "description": "inZORi is not specialized for a single problem. The same core code can handle: maze solving, trading strategy optimization, robot swarm coordination, protein folding (toy models), and more.",
       "key_findings": [
