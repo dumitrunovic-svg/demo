@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests with Images - Debug View</title>
+    <style>
+        body { font-family: sans-serif; max-width: 1400px; margin: 20px auto; padding: 20px; background: #f5f5f5; }
+        h1 { text-align: center; color: #0066cc; }
+        .test { background: white; margin: 30px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .test h2 { color: #0066cc; border-bottom: 2px solid #0066cc; padding-bottom: 10px; }
+        .images-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .image-box { border: 2px solid #ddd; border-radius: 8px; overflow: hidden; background: white; }
+        .image-box img { width: 100%; display: block; }
+        .image-box p { padding: 10px; margin: 0; font-size: 13px; color: #666; background: #f9f9f9; }
+        .status { display: inline-block; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; margin: 10px 0; }
+        .status.ok { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ All Tests with Images</h1>
+    <p style="text-align: center; color: #666;">This page shows only tests that have images or animations</p>
+    
+    <div id="content">Loading...</div>
+    
+    <script>
+    async function loadTestsWithImages() {
+        const content = document.getElementById('content');
+        
+        try {
+            const response = await fetch('tests/manifest.json');
+            const data = await response.json();
+            
+            const testsWithMedia = data.tests.filter(t => 
+                (t.images && t.images.length > 0) || 
+                (t.animations && t.animations.length > 0)
+            );
+            
+            if (testsWithMedia.length === 0) {
+                content.innerHTML = '<p class="status error">No tests with images found!</p>';
+                return;
+            }
+            
+            content.innerHTML = `<p class="status ok">Found ${testsWithMedia.length} tests with images</p>`;
+            
+            testsWithMedia.forEach(test => {
+                const div = document.createElement('div');
+                div.className = 'test';
+                
+                let html = `<h2>${test.name}</h2>`;
+                html += `<p><strong>ID:</strong> ${test.id}</p>`;
+                
+                // Images
+                if (test.images && test.images.length > 0) {
+                    html += `<h3>Images (${test.images.length})</h3>`;
+                    html += '<div class="images-grid">';
+                    
+                    test.images.forEach(img => {
+                        let imgPath = '';
+                        if (test.id === 'scenario-5-robotics' || test.id === 'scenario-6-sdc') {
+                            imgPath = `demo_images/${img.filename}`;
+                        } else if (test.id === 'social-density-effect') {
+                            imgPath = `tests/social_density/${img.filename}`;
+                        } else if (test.id === 'zor-refract-20seeds') {
+                            imgPath = `tests/refract/${img.filename}`;
+                        }
+                        
+                        html += `
+                            <div class="image-box">
+                                <img src="${imgPath}" alt="${img.caption}"
+                                     onerror="this.parentElement.innerHTML='<p style=color:red;padding:20px>❌ Failed: ${imgPath}</p>'">
+                                <p><strong>Path:</strong> ${imgPath}<br><em>${img.caption}</em></p>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                
+                // Animations
+                if (test.animations && test.animations.length > 0) {
+                    html += `<h3>Animations (${test.animations.length})</h3>`;
+                    html += '<div class="images-grid">';
+                    
+                    test.animations.forEach(anim => {
+                        let animPath = '';
+                        if (test.id === 'social-density-effect') {
+                            animPath = `tests/social_density/${anim.filename}`;
+                        } else if (test.id === 'zor-refract-20seeds') {
+                            animPath = `tests/refract/${anim.filename}`;
+                        }
+                        
+                        html += `
+                            <div class="image-box">
+                                <img src="${animPath}" alt="${anim.caption}"
+                                     onerror="this.parentElement.innerHTML='<p style=color:red;padding:20px>❌ Failed: ${animPath}</p>'">
+                                <p><strong>Path:</strong> ${animPath}<br><em>${anim.caption}</em></p>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                }
+                
+                div.innerHTML = html;
+                content.appendChild(div);
+            });
+            
+        } catch (error) {
+            content.innerHTML = `<p class="status error">Error: ${error.message}</p>`;
+        }
+    }
+    
+    loadTestsWithImages();
+    </script>
+    
+    <p style="text-align: center; margin-top: 40px;">
+        <a href="tests.html">← Back to All Tests</a>
+    </p>
+</body>
+</html>
