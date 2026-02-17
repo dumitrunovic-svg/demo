@@ -33,15 +33,16 @@
 
 <div class="abstract">
 <strong>Abstract</strong><br><br>
-We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the "severe_plus" regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a "frozen-elites runtime" extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Scope of this phase: 118-bus streaming model only. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving +15.2 percentage points (pp) vs Baseline B and +3.1 percentage points (pp) vs Baseline A in S3 convergence under identical compute budgets, with recovery times after N-1 events 8–10× faster than periodic-reset strategies.
+We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. This phase uses a controlled nonlinear surrogate inspired by PFΔ's motivation, not a full AC power flow reproduction. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the severe_plus regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a frozen-elites runtime extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Scope of this phase: 118-bus streaming nonlinear model only. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving +15.2 percentage points (pp) vs Baseline B and +3.1 percentage points (pp) vs Baseline A in S3 convergence under identical compute budgets, with recovery times ~7× faster than periodic-reset baseline.
 </div>
 
 <div class="abstract" style="margin-top: 1rem;">
-<strong>Key Results (Phase 1)</strong>
+<strong>Key Results (118-bus, severe_plus + N-1)</strong>
 <ul>
   <li>S3 convergence (inZORi FULL): 0.99105 (CI95 [0.989, 0.993])</li>
   <li>Baseline A: 0.95979</li>
   <li>Baseline B: 0.83944</li>
+  <li>Improvement vs Baseline B: +15.2 pp</li>
   <li>Frozen-Elite-16 (runtime): S3 ≈ 1.0000</li>
   <li><code>avg_k_used &lt; 1.25</code> (cost-aware runtime)</li>
 </ul>
@@ -140,7 +141,7 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
     <li>Introduces Jacobian model mismatch (bias term) during severe shocks.</li>
     <li>Degrades stale <code>v_prev</code> when PF is skipped: <code>v_prev *= 0.92 - 0.08*min(shock_intensity, 1.5)</code>.</li>
 </ul>
-<p class="note">These stress amplifications are controlled experimental mechanisms to induce feasibility cliffs under strict iteration budgets. They are inspired by PFΔ motivation but do not claim identical physics to AC PF benchmarks.</p>
+<p class="note">These stress mechanisms are controlled experimental amplifications used to induce feasibility cliffs under strict iteration budgets. They are inspired by PFΔ's motivation but do not claim identical AC PF physics.</p>
 <p class="note"><em>Why cubic nonlinearity?</em> At large voltage angles |v|~π, <code>cos(v)~-1</code> and the Jacobian <code>J = A + diag(beta*cos(v))</code> becomes near-singular or indefinite. The cubic term <code>v³</code> creates a stiffer system with multiple local minima → only careful damping + warm-start can navigate this, revealing inZORi's adaptive advantage.</p>
 
 <h3>3.6 N-1 Topology Shocks (S3 only)</h3>
@@ -460,7 +461,7 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
 <ul>
     <li>Frozen-Elite arms achieve S3=100% convergence (vs Baseline A 96%, B 86%).</li>
     <li>K-adaptive: <code>avg_k_used=1.0</code> in this dataset (no K=2 triggered) → conservative, cost-aware.</li>
-    <li>Throughput: Frozen-Top16-K1 achieves 443.7 conv steps/sec in S3 (higher than inZORi online 246.8, Baseline A 340.4) because K=1 uses half the PF solves per step.</li>
+    <li>Throughput: Frozen-Top16-K1 achieves 443.7 conv steps/sec in S3 (above inZORi online 246.8 and Baseline A 340.4) because K=1 uses half the PF solves per step.</li>
     <li>Topology recovery: Frozen elites recover in 1.0 step (immediate), vs inZORi online 1.13, Baseline A 2.91, Baseline B 12.0.</li>
 </ul>
 <p><strong>Pass Flags</strong>:</p>
