@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Images Direct</title>
+    <style>
+        body { font-family: sans-serif; max-width: 1200px; margin: 20px auto; padding: 20px; }
+        .test { border: 2px solid #0066cc; margin: 30px 0; padding: 20px; }
+        img { max-width: 400px; border: 2px solid #ccc; margin: 10px; display: block; }
+        .error { color: red; font-weight: bold; }
+        h3 { color: #0066cc; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Direct Image Test (No JavaScript)</h1>
+    <p>This page tests if images load WITHOUT any JavaScript - pure HTML only.</p>
+
+    <div class="test">
+        <h3>Test 1: Scenario 5 Robotics (demo_images/)</h3>
+        <p>Path: <code>demo_images/best_trajectory.png</code></p>
+        <img src="demo_images/best_trajectory.png" alt="Best Trajectory" 
+             onerror="this.outerHTML='<p class=error>❌ FAILED TO LOAD: demo_images/best_trajectory.png</p>'">
+        
+        <p>Path: <code>demo_images/fitness_evolution.png</code></p>
+        <img src="demo_images/fitness_evolution.png" alt="Fitness Evolution"
+             onerror="this.outerHTML='<p class=error>❌ FAILED TO LOAD: demo_images/fitness_evolution.png</p>'">
+    </div>
+
+    <div class="test">
+        <h3>Test 2: Social Density (tests/social_density/)</h3>
+        <p>Path: <code>tests/social_density/metrics_by_density.png</code></p>
+        <img src="tests/social_density/metrics_by_density.png" alt="Metrics by Density"
+             onerror="this.outerHTML='<p class=error>❌ FAILED TO LOAD: tests/social_density/metrics_by_density.png</p>'">
+        
+        <p>Path: <code>tests/social_density/density_low.gif</code></p>
+        <img src="tests/social_density/density_low.gif" alt="Density Low GIF"
+             onerror="this.outerHTML='<p class=error>❌ FAILED TO LOAD: tests/social_density/density_low.gif</p>'">
+    </div>
+
+    <div class="test">
+        <h3>Test 3: Refract (tests/refract/)</h3>
+        <p>Path: <code>tests/refract/angle_in_vs_out.png</code></p>
+        <img src="tests/refract/angle_in_vs_out.png" alt="Angle Analysis"
+             onerror="this.outerHTML='<p class=error>❌ FAILED TO LOAD: tests/refract/angle_in_vs_out.png</p>'">
+    </div>
+
+    <hr>
+    <p><a href="tests.html">← Back to Tests Page</a></p>
+    <p><a href="tests_debug.html">→ Go to JavaScript Debug Page</a></p>
+</body>
+</html>
