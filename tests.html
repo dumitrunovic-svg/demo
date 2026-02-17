@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZOR Tests & Experiments</title>
+    <title>inZORi - Tests</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,29 +44,70 @@
             color: #666;
             margin-bottom: 15px;
         }
+        .test-card .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 8px;
+            text-transform: uppercase;
+        }
+        .category-demo { background: #e3f2fd; color: #1976d2; }
+        .category-scientific { background: #fff3e0; color: #f57c00; }
+        .status-finished { color: #2e7d32; font-weight: 600; }
+        .status-running { color: #1565c0; font-weight: 600; }
+        .status-draft { color: #757575; }
         .test-card .description {
             font-size: 16px;
             margin-bottom: 20px;
             line-height: 1.7;
         }
-        .test-card .details-link {
+        .test-card .key-findings {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .test-card .key-findings ul {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+        .test-card .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .metric-box {
+            background: #e8f4f8;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .metric-box strong {
+            color: #0066cc;
+        }
+        .test-card .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .test-link {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #0066cc;
-            color: white;
+            color: white !important;
             text-decoration: none;
             border-radius: 4px;
+            font-size: 14px;
             font-weight: 500;
             transition: background 0.3s;
         }
-        .test-card .details-link:hover {
+        .test-link:hover {
             background: #0052a3;
-        }
-        .highlight {
-            background: #fff3cd;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 500;
         }
         .back-nav {
             text-align: center;
@@ -79,39 +120,101 @@
             text-decoration: none;
             font-size: 16px;
         }
-        .back-nav a:hover {
-            text-decoration: underline;
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
-<h1>ZOR Tests & Experiments</h1>
+<h1>inZORi - Tests & Experiments</h1>
 
-<div class="test-card">
-    <h2>PFΔ Phase 1 (118 + N-1)</h2>
-    <div class="meta">
-        <strong>Date:</strong> February 2026 | 
-        <strong>Status:</strong> <span class="highlight">Completed</span> | 
-        <strong>Network:</strong> 118-bus | 
-        <strong>Seeds:</strong> 30 (FULL), 20 (Frozen-Elites)
-    </div>
-    <div class="description">
-        Streaming power flow robustness under multi-zone shocks and N-1 topology events (line outages). 
-        Demonstrates ZOR's adaptive capacity in compute-limited regime (<code>nr_max=8</code>, <code>pf_interval=5</code> DEV / <code>=1</code> FULL). 
-        Key findings: <strong>ZOR achieves 99.1% S3 convergence</strong> (CI95 [98.9, 99.3]) vs Baseline B 83.9% under severe_plus stress. 
-        Frozen-elites extension shows offline-evolved genomes reach <strong>100% S3 convergence with K=1</strong> (half PF cost), 
-        enabling practical "runtime in seconds" deployment. 
-        Topology recovery: ZOR 1.82 steps (CI95 [1.60, 2.05]) vs Baseline B 12.91 steps (7× faster). 
-        All results validated under fairness A (equal PF budget) and fairness B (equal wall-clock time). 
-        <strong>Phase 1 scope: 118-bus only; 500-bus deferred to Phase 2.</strong>
-    </div>
-    <a href="tests/pfdelta_phase1_118/index.html" class="details-link">View Full Details →</a>
+<div id="tests-container" class="loading">
+    Loading tests...
 </div>
 
 <div class="back-nav">
     <a href="index.html">← Back to Home</a>
 </div>
+
+<script>
+async function loadTests() {
+    try {
+        const response = await fetch('tests/manifest.json');
+        const data = await response.json();
+        
+        const container = document.getElementById('tests-container');
+        container.innerHTML = '';
+        container.classList.remove('loading');
+        
+        // Filter published tests only
+        const publishedTests = data.tests.filter(t => t.published);
+        
+        if (publishedTests.length === 0) {
+            container.innerHTML = '<p class="loading">No published tests yet.</p>';
+            return;
+        }
+        
+        publishedTests.forEach(test => {
+            const card = document.createElement('div');
+            card.className = 'test-card';
+            
+            // Header
+            let html = `<h2>${test.name}</h2>`;
+            
+            // Meta info
+            html += '<div class="meta">';
+            html += `<span class="category-badge category-${test.category}">${test.category}</span>`;
+            html += `<span class="status-${test.status}">${test.status}</span>`;
+            if (test.updated_at) html += ` | Updated: ${test.updated_at}`;
+            html += '</div>';
+            
+            // Description
+            html += `<div class="description">${test.description}</div>`;
+            
+            // Key findings
+            if (test.key_findings && test.key_findings.length > 0) {
+                html += '<div class="key-findings"><strong>Key Findings:</strong><ul>';
+                test.key_findings.forEach(finding => {
+                    html += `<li>${finding}</li>`;
+                });
+                html += '</ul></div>';
+            }
+            
+            // Metrics
+            if (test.metrics && Object.keys(test.metrics).length > 0) {
+                html += '<div class="metrics">';
+                for (const [key, value] of Object.entries(test.metrics)) {
+                    if (typeof value === 'object') continue; // Skip nested objects
+                    html += `<div class="metric-box"><strong>${key.replace(/_/g, ' ')}:</strong> ${value}</div>`;
+                }
+                html += '</div>';
+            }
+            
+            // Links
+            if (test.links && test.links.length > 0) {
+                html += '<div class="links">';
+                test.links.forEach(link => {
+                    html += `<a href="${link.url}" class="test-link">${link.label}</a>`;
+                });
+                html += '</div>';
+            }
+            
+            card.innerHTML = html;
+            container.appendChild(card);
+        });
+        
+    } catch (error) {
+        document.getElementById('tests-container').innerHTML = 
+            `<p class="loading" style="color: #d32f2f;">Error loading tests: ${error.message}</p>`;
+    }
+}
+
+// Load tests on page load
+loadTests();
+</script>
 
 </body>
 </html>
