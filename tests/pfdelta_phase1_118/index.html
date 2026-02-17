@@ -33,7 +33,18 @@
 
 <div class="abstract">
 <strong>Abstract</strong><br><br>
-We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the "severe_plus" regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a "frozen-elites runtime" extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Phase 1 focuses exclusively on the 118-bus network; 500-bus scalability is deferred to Phase 2. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving 15-20% higher S3 convergence than baselines under identical compute budgets, with recovery times after N-1 events 8–10× faster than periodic-reset strategies.
+We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario derived from the PFΔ benchmark. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the "severe_plus" regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a "frozen-elites runtime" extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Scope of this phase: 118-bus streaming model only. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving +15.2 percentage points (pp) vs Baseline B and +3.1 percentage points (pp) vs Baseline A in S3 convergence under identical compute budgets, with recovery times after N-1 events 8–10× faster than periodic-reset strategies.
+</div>
+
+<div class="abstract" style="margin-top: 1rem;">
+<strong>Key Results (Phase 1)</strong>
+<ul>
+  <li>S3 convergence (inZORi FULL): 0.99105 (CI95 [0.989, 0.993])</li>
+  <li>Baseline A: 0.95979</li>
+  <li>Baseline B: 0.83944</li>
+  <li>Frozen-Elite-16 (runtime): S3 ≈ 1.0000</li>
+  <li><code>avg_k_used &lt; 1.25</code> (cost-aware runtime)</li>
+</ul>
 </div>
 
 <h2>1. Motivation & Problem Origin</h2>
@@ -60,7 +71,7 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
 <ul>
     <li>Solve general PF problems (we use a surrogate cubic nonlinearity model, not full AC power flow).</li>
     <li>Replace domain expertise (network topology design, protection schemes).</li>
-    <li>Guarantee performance on all bus counts (Phase 1 is 118-bus only; 500-bus deferred).</li>
+    <li>Scope of this phase: 118-bus streaming model only.</li>
 </ul>
 <p>We demonstrate that <em>inZORi principles</em> (local energy-based selection, genome-driven parameter exploration, no RL/NN) can produce emergent robustness where fixed heuristics struggle.</p>
 
@@ -117,7 +128,10 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
 <h3>3.3 Deterministic Zoning</h3>
 <p>For 118 buses, we partition into 6 zones (Z1–Z6) via contiguous index ranges: <code>zone[b] = Z_k</code> where <code>k = floor(b * 6 / 118)</code>. This ensures reproducibility and avoids random zone assignments across runs.</p>
 
-<h3>3.4 Severe_Plus Stress</h3>
+<h3>3.4 Power Flow Surrogate Model</h3>
+<p>This phase uses a cubic nonlinearity surrogate model. It preserves nonlinear behavior and convergence properties relevant to iterative feasibility under stress. It is not a full AC power flow solver. The goal is to test stability under controlled nonlinear stress regimes inspired by PFΔ motivation.</p>
+
+<h3>3.5 Severe_Plus Stress</h3>
 <p>To create differentiation between inZORi and baselines, we introduce <code>severity_multiplier=7.0</code> in S3, which:</p>
 <ul>
     <li>Weakens Jacobian diagonal dominance (multiply by <code>diag_weak=max(0.12, 1.0 - degrade*0.75)</code>).</li>
@@ -126,9 +140,10 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
     <li>Introduces Jacobian model mismatch (bias term) during severe shocks.</li>
     <li>Degrades stale <code>v_prev</code> when PF is skipped: <code>v_prev *= 0.92 - 0.08*min(shock_intensity, 1.5)</code>.</li>
 </ul>
+<p class="note">These stress amplifications are controlled experimental mechanisms to induce feasibility cliffs under strict iteration budgets. They are inspired by PFΔ motivation but do not claim identical physics to AC PF benchmarks.</p>
 <p class="note"><em>Why cubic nonlinearity?</em> At large voltage angles |v|~π, <code>cos(v)~-1</code> and the Jacobian <code>J = A + diag(beta*cos(v))</code> becomes near-singular or indefinite. The cubic term <code>v³</code> creates a stiffer system with multiple local minima → only careful damping + warm-start can navigate this, revealing inZORi's adaptive advantage.</p>
 
-<h3>3.5 N-1 Topology Shocks (S3 only)</h3>
+<h3>3.6 N-1 Topology Shocks (S3 only)</h3>
 <p>When <code>enable_topology_shocks=True</code>, we generate N-1 line outage events:</p>
 <ul>
     <li><strong>Only in S3 severe_plus</strong>: interval~900 steps, duration=25 steps.</li>
@@ -249,7 +264,7 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
     <td>4.54</td>
 </tr>
 </table>
-<p><strong>Conclusion</strong>: inZORi achieves 15.2% higher S3 convergence than Baseline B (99.1% vs 83.9%), with non-overlapping CI95. Baseline A also struggles (96.0%). inZORi uses fewer iterations on average (4.54 vs 4.85/6.26) → more efficient.</p>
+<p><strong>Conclusion</strong>: inZORi achieves +15.2 percentage points (pp) vs Baseline B and +3.1 percentage points (pp) vs Baseline A in S3 convergence (99.1% vs 83.9% and 96.0%), with non-overlapping CI95 vs Baseline B. inZORi uses fewer iterations on average (4.54 vs 4.85/6.26) → more efficient.</p>
 
 <p><strong>Audit at nr_max=12</strong>: All strategies converge ~100% → confirms that differentiation at nr_max=8 is real (compute-limited regime), not iteration starvation.</p>
 
@@ -537,7 +552,7 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
 
 <h3>7.3 Limitations (Explicit)</h3>
 <ul>
-    <li><strong>118-bus only</strong>: Phase 1 does not include 500-bus results. Scalability to larger networks deferred to Phase 2.</li>
+    <li><strong>Scope</strong>: Scope of this phase: 118-bus streaming model only.</li>
     <li><strong>Surrogate PF model</strong>: We use a cubic nonlinearity approximation, not full AC power flow (voltage magnitude/angle decoupling, transformer models, generator constraints). Results demonstrate <em>proof of concept</em>, not production-ready grid solver.</li>
     <li><strong>No claim of universal robustness</strong>: Performance depends on network topology, shock patterns, solver formulation. Different grid structures may require re-evolution of elite pool.</li>
     <li><strong>No NN/RL comparison</strong>: We do not compare against deep RL or neural network-based solvers (out of scope for inZORi principles).</li>
@@ -545,30 +560,50 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
 
 <h2>8. Reproducibility</h2>
 
-<h3>8.1 Exact Commands Run</h3>
-<p>All experiments executed from <code>/opt/projects/zor_task_solver</code>:</p>
-
-<h4>Stage 2-4: FULL 118 + N-1 Severe_Plus</h4>
-<pre><code>python3 problems/zor_pfdelta_stream_118/run_conf_118_n1_dev.py
-# Output: conf_118_n1_full_once/conf_report.json
-# Workers: 12, seeds: 30, steps: 50000, nr_max: 8
-</code></pre>
-
-<h4>Stage 5: Frozen-Elites Runtime</h4>
-<pre><code>python3 problems/zor_pfdelta_stream_118/run_frozen_elites_runtime.py
-# Output: conf_frozen_elites_runtime/conf_report.json
-# Workers: 12, seeds: 20, pf_interval: 1 and 5
-</code></pre>
-
-<h4>Stage 6: Ablations (Micro)</h4>
-<pre><code># Inline Python scripts in run_frozen_elites_runtime.py
-# micro_experiments_5k_8seeds.json generated
-</code></pre>
-
-<h4>Stage 7: Pareto (Micro)</h4>
-<pre><code># Inline Python scripts
-# pareto_policy_thresholds_nr{5,6,7}_5k_8seeds.json + plots
-</code></pre>
+<h3>8.1 Reproducibility Run Matrix</h3>
+<p>All experiments executed from <code>/opt/projects/zor_task_solver</code>.</p>
+<table class="metric-table">
+<tr>
+  <th>Stage</th>
+  <th>Script</th>
+  <th>Mode</th>
+  <th>Seeds</th>
+  <th>Steps</th>
+  <th>Output Folder</th>
+</tr>
+<tr>
+  <td>Stage 2-4</td>
+  <td><code>problems/zor_pfdelta_stream_118/run_conf_118_n1_full.py</code></td>
+  <td>FULL</td>
+  <td>30</td>
+  <td>50,000</td>
+  <td><code>conf_118_n1_full_once</code></td>
+</tr>
+<tr>
+  <td>Stage 3 (quick gate)</td>
+  <td><code>problems/zor_pfdelta_stream_118/run_conf_118_n1_dev.py</code></td>
+  <td>DEV</td>
+  <td>8-12</td>
+  <td>5,000</td>
+  <td><code>conf_118_n1_dev</code></td>
+</tr>
+<tr>
+  <td>Stage 5</td>
+  <td><code>problems/zor_pfdelta_stream_118/run_frozen_elites_runtime.py</code></td>
+  <td>RUNTIME</td>
+  <td>20</td>
+  <td>50,000</td>
+  <td><code>conf_frozen_elites_runtime</code></td>
+</tr>
+<tr>
+  <td>Stage 6-7</td>
+  <td><code>problems/zor_pfdelta_stream_118/run_frozen_elites_runtime.py</code> (micro blocks)</td>
+  <td>MICRO</td>
+  <td>8</td>
+  <td>5,000</td>
+  <td><code>conf_frozen_elites_runtime</code></td>
+</tr>
+</table>
 
 <h3>8.2 Output Artifact Paths</h3>
 <p>All artifacts in <code>/opt/projects/zor_task_solver/problems/zor_pfdelta_stream_118/</code>:</p>
@@ -765,13 +800,15 @@ We demonstrate inZORi's adaptive capacity in a challenging streaming power flow 
     <li><strong>Topology resilience</strong>: inZORi recovers from N-1 line outages in 1.82 steps (CI95 [1.60, 2.05]), 7× faster than Baseline B (12.91 steps).</li>
     <li><strong>Frozen-elites enable practical deployment</strong>: Offline-evolved genomes achieve 100% S3 convergence with K=1 (half PF cost), 443.7 conv steps/sec throughput, instant recovery. Transparent selection policy (no NN/RL).</li>
     <li><strong>Phase transition insight</strong>: Sharp cliff at nr_max=5/6 confirms compute-limited regime where adaptive strategies shine.</li>
-    <li><strong>118-bus scope only</strong>: Phase 1 does not include 500-bus. Scalability deferred to Phase 2.</li>
+    <li><strong>Scope</strong>: Scope of this phase: 118-bus streaming model only.</li>
     <li><strong>No universal claims</strong>: Results are proof-of-concept on surrogate PF model. Real AC power flow deployment requires further validation.</li>
     <li><strong>Reproducibility guaranteed</strong>: All commands, seeds, workers, artifact paths documented. Experiments runnable from provided scripts.</li>
     <li><strong>Practical value</strong>: Frozen-elites + K-adaptive offer a path to "seconds in runtime" deployment without online learning overhead, suitable for SCADA-constrained grid operations.</li>
 </ol>
 
-<p class="note"><em>Phase 2 (500-bus) and extended validation are planned but not included in this document.</em></p>
+<p><strong>Consolidated claim</strong>: Phase 1 demonstrates that a pure evolutionary system can maintain near-perfect feasibility under strict NR iteration budgets in a streaming nonlinear regime with regional shocks and N-1 topology events, and can be deployed in frozen form for real-time operation.</p>
+
+
 
 <div class="back-link">
     <a href="../../tests.html">← Back to Tests Overview</a>
