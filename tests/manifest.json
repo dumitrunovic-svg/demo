@@ -112,22 +112,65 @@
     },
     {
       "id": "scenario-4-tess",
-      "name": "Scenario 4: inZORi prioritization for TESS",
-      "category": "demo",
+      "name": "Scenario 3: inZORi prioritization for TESS",
+      "category": "scientific",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-14",
-      "description": "Demonstration of how inZORi can prioritize targets for astronomical surveys (TESS - Transiting Exoplanet Survey Satellite) based on multiple criteria without explicit weighting.",
+      "description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine. Ranking is built from regularity, stability, SNR, scatter, transit count, duration and depth, without explicit manual weighting formulas.",
       "links": [
         {
           "label": "View in Demo",
           "url": "DEMO_ZOR_EN.html#scenario-4"
+        },
+        {
+          "label": "Class distribution",
+          "url": "demo_images/scenario4_tess_class_distribution.png"
+        },
+        {
+          "label": "Top-10 rank chart",
+          "url": "demo_images/scenario4_tess_top10_ranksum.png"
+        },
+        {
+          "label": "Candidates report JSON",
+          "url": "problems/zor_astr_1_tess/assets/candidates_report/candidates_report.json"
+        },
+        {
+          "label": "NASA report EN",
+          "url": "problems/zor_astr_1_tess/nasa_package_full/REPORT_NASA_EN.md"
+        }
+      ],
+      "key_findings": [
+        "13,000 signals analyzed in this published snapshot",
+        "294 clean transit candidates flagged for follow-up",
+        "Top candidate consensus rank_sum = 7 across 4 ranking variants",
+        "Strong separation between clean transit vs variable/artifact classes",
+        "Output includes ranked lists and anomaly classes for downstream review"
+      ],
+      "metrics": {
+        "signals_analyzed": 13000,
+        "clean_transit_candidates": 294,
+        "uncertain": 12191,
+        "variable_or_artifact": 513,
+        "eclipsing_binary": 1,
+        "weak_signal": 1,
+        "ranking_variants": 4,
+        "best_rank_sum": 7
+      },
+      "images": [
+        {
+          "filename": "scenario4_tess_class_distribution.png",
+          "caption": "Class distribution for prioritized TESS signals in current snapshot."
+        },
+        {
+          "filename": "scenario4_tess_top10_ranksum.png",
+          "caption": "Top-10 consensus candidates ranked by rank_sum (lower is better)."
         }
       ]
     },
     {
       "id": "scenario-5-robotics",
-      "name": "Scenario 5: Adaptive robotics \u2013 navigation in changing environment",
+      "name": "Scenario 4: Adaptive robotics - navigation in changing environment",
       "category": "scientific",
       "status": "finished",
       "published": true,
@@ -194,7 +237,7 @@
     },
     {
       "id": "scenario-6-sdc",
-      "name": "Scenario 6: SDC_v1 \u2013 What ZOR preserves when world drifts slowly",
+      "name": "Scenario 5: SDC_v1 - What ZOR preserves when world drifts slowly",
       "category": "scientific",
       "status": "finished",
       "published": true,
