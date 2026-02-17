@@ -584,6 +584,46 @@
           "filename": "core_comparison_baselineA_baselineB_inZORi_frozen.png",
           "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png",
           "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 on S3 convergence, topology recovery, and S3 throughput."
+        },
+        {
+          "filename": "convergence_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/convergence_over_time.png",
+          "caption": "Convergence over time (global + season stress)."
+        },
+        {
+          "filename": "iterations_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/iterations_over_time.png",
+          "caption": "NR iterations over time (compute usage and near-budget behavior)."
+        },
+        {
+          "filename": "pbl_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/pbl_over_time.png",
+          "caption": "Power Balance Limit (PBL) over time (mean/p95 dynamics)."
+        },
+        {
+          "filename": "shock_events_timeline.png",
+          "url": "tests/pfdelta_phase1_118/figures/shock_events_timeline.png",
+          "caption": "Shock/N-1 event timeline (stress schedule and recovery windows)."
+        },
+        {
+          "filename": "fitness_progression_across_evals.png",
+          "url": "tests/pfdelta_phase1_118/figures/fitness_progression_across_evals.png",
+          "caption": "Fitness progression across evaluations (mean ± CI95)."
+        },
+        {
+          "filename": "seasonal_convergence_by_eval.png",
+          "url": "tests/pfdelta_phase1_118/figures/seasonal_convergence_by_eval.png",
+          "caption": "Seasonal convergence trajectory across evaluations (S0–S3)."
+        },
+        {
+          "filename": "seed_convergence_distribution_eval4.png",
+          "url": "tests/pfdelta_phase1_118/figures/seed_convergence_distribution_eval4.png",
+          "caption": "Distribution of per-seed convergence rates at eval 4."
+        },
+        {
+          "filename": "recovery_time_distribution_eval4.png",
+          "url": "tests/pfdelta_phase1_118/figures/recovery_time_distribution_eval4.png",
+          "caption": "Distribution of recovery times over shock events at eval 4."
         }
       ]
     }
