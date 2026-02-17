@@ -579,10 +579,36 @@
         {
           "label": "Paper README",
           "url": "papers/pfdelta_phase1_118_arxiv/README.md"
+        },
+        {
+          "label": "PFΔ figures folder",
+          "url": "tests/pfdelta_phase1_118/figures/"
         }
       ],
       "domain": "Power systems (PFΔ)",
-      "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events"
+      "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events",
+      "images": [
+        {
+          "filename": "convergence_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/convergence_over_time.png",
+          "caption": "Convergence over time (global + season stress)."
+        },
+        {
+          "filename": "iterations_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/iterations_over_time.png",
+          "caption": "NR iterations over time (compute usage and near-budget behavior)."
+        },
+        {
+          "filename": "pbl_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/pbl_over_time.png",
+          "caption": "Power Balance Limit (PBL) over time (mean/p95 dynamics)."
+        },
+        {
+          "filename": "shock_events_timeline.png",
+          "url": "tests/pfdelta_phase1_118/figures/shock_events_timeline.png",
+          "caption": "Shock/N-1 event timeline (stress schedule and recovery windows)."
+        }
+      ]
     }
   ]
 }
