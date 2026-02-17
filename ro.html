@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>inZORi – Broșură de prezentare</title>
+  <meta name="description" content="inZORi: ce este, cum funcționează, cum se deosebește de alte sisteme, unde se încadrează. Motor universal pentru evoluție emergentă.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="lang-switch" aria-label="Limbă">
+        <a href="index.html">English</a>
+        <a href="de.html">Deutsch</a>
+        <a href="fr.html">Français</a>
+        <a href="ro.html" class="active">Română</a>
+        <a href="DEMO_ZOR_EN.html">Demo EN</a>
+      </nav>
+      <h1>inZORi</h1>
+      <p class="tagline">Broșură de prezentare: ce este inZORi, stadiul actual, cum funcționează, cu ce se deosebește de alte sisteme, unde e bun (și unde nu), în ce sectoare se încadrează.</p>
+      <p class="meta">Versiune 1.1 · Februarie 2026</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="nav" aria-label="Secțiuni">
+      <a href="#audience">Pentru cine</a>
+      <a href="#key-messages">Mesaje cheie</a>
+      <a href="#what-is">Ce este inZORi</a>
+      <a href="#how-it-works">Cum funcționează</a>
+      <a href="#stage">Stadiu</a>
+      <a href="#comparison">Comparație</a>
+      <a href="#strengths">Puncte forte</a>
+      <a href="#limits">Limitări</a>
+      <a href="#sectors">Sectoare</a>
+      <a href="#tech">Tehnologie</a>
+      <a href="#catalog">Catalog teste</a>
+      <a href="#format">Format și web</a>
+    </nav>
+
+    <section id="audience">
+      <h2>Pentru cine e broșura</h2>
+      <ul>
+        <li><strong>Oricine</strong> care trebuie să înțeleagă inZORi rapid: cercetători, parteneri, investitori, echipe tehnice.</li>
+        <li><strong>Utilizare externă:</strong> conținutul poate fi copiat sau adaptat pentru site-uri, prezentări, articole, fără a pierde mesajul central.</li>
+      </ul>
+    </section>
+
+    <section id="key-messages">
+      <h2>Mesaje cheie</h2>
+      <ul>
+        <li><strong>inZORi nu programează comportamente – le evoluează.</strong> Strategiile complexe apar din reguli simple și selecție, nu din cod explicit.</li>
+        <li><strong>inZORi nu simulează evoluția – o implementează.</strong> Același motor pe domenii foarte diferite: roboți, semnale astronomice, proteine, populații sociale.</li>
+        <li><strong>inZORi e altfel, nu neapărat „mai bun”.</strong> E pentru probleme fără soluție fixă, mediu în schimbare, obiective implicite (supraviețuire, persistență).</li>
+        <li><strong>Zeci de teste</strong> pe multiple domenii au demonstrat ce poate inZORi în condiții unde optimizarea clasică, RL sau ML supervizat eșuează sau nu sunt concepute pentru asta.</li>
+      </ul>
+    </section>
+
+    <section id="what-is">
+      <h2>1. Ce este inZORi</h2>
+      <p><strong>inZORi</strong> este un motor de <strong>viață artificială persistentă</strong> care evoluează comportamente, nu le programează. Pleacă de la reguli simple și genome expresive; sistemul descoperă singur strategii adaptive complexe, asemănător evoluției naturale, dar accelerat.</p>
+      <ul>
+        <li><strong>Motor:</strong> populații de organisme cu genome care se exprimă diferit în funcție de context (scenă, task, mediu).</li>
+        <li><strong>Selecție:</strong> fitness-ul apare din interacțiuni (supraviețuire, resurse, mediu), nu din formule de recompensă predefinite.</li>
+        <li><strong>Memorie evolutivă (opțional):</strong> organisme care învață din experiență și transmit informații prin genome sau memory.</li>
+      </ul>
+      <p>Rezultat: comportament <strong>emergent</strong> – nimeni nu a codat strategia; ea a apărut din presiunea de a rămâne viabil.</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>2. Cum funcționează (nivel broșură)</h2>
+      <ol>
+        <li><strong>Task:</strong> un fișier de configurare (JSON) descrie scenariul: scene (mediu), parametri de populație, evaluatorul.</li>
+        <li><strong>Populație:</strong> organisme cu genome (vectori de parametri). Dimensiuni tipice: de la zeci până la mii de indivizi.</li>
+        <li><strong>Scenă / mediu:</strong> fiecare organism trăiește în același mediu (grid, spațiu de semnale, lume socială etc.); mediu poate fi dinamic (faze, sezoane, drift).</li>
+        <li><strong>Evaluator:</strong> modul specific domeniului măsoară supraviețuirea, resursele, comportamentul – <strong>fără</strong> a primi o funcție de recompensă explicită; fitness-ul <strong>emerge</strong> din interacțiuni.</li>
+        <li><strong>Selecție și evoluție:</strong> cei mai viabili se reproduc; populația evoluează peste generații. Fără convergență forțată – diversitatea rămâne relevantă.</li>
+        <li><strong>Rezultat:</strong> strategii adaptive, pattern-uri reutilizabile sau ranking/prioritizare, în funcție de task – toate <strong>descoperite</strong>, nu programate.</li>
+      </ol>
+      <p class="note">Detalii tehnice: solver unificat în <code>zor_task_solver</code>, evaluatoare per domeniu în <code>problems/&lt;nume&gt;/</code>.</p>
+    </section>
+
+    <section id="stage">
+      <h2>3. La ce etapă este inZORi</h2>
+      <ul>
+        <li><strong>Stadiu:</strong> sistem finisat, production-ready pentru scenarii definite. <strong>Zeci de teste</strong> rulate pe <strong>multiple domenii</strong>.</li>
+        <li><strong>Scale atestate:</strong> 40→2000+ organisme, 600–800 pași per run, 20 seeds × 500 „ani” (IQ), ~13k semnale TESS, grid 100×100, 5 faze (robotică), 3 sezoane × cicluri (tradiții), drift static/slow/medium/chaotic (SDC).</li>
+        <li><strong>Ce există:</strong> solver unificat (<code>zor_task_solver</code>), task-uri JSON, evaluatoare pe domeniu (robotică, TESS, protein folding, Go, tradiții, IQ/fertility, trading, continuitate la drift etc.), demo HTML/PDF, date reale pentru demo.</li>
+        <li><strong>Documentație:</strong> broșura asta e sursa canonică; DEMO_*, QUICK_START, README-uri per problem se aliniază la ea. Export: PDF sau <strong>site web</strong> cu secțiuni clare și linkuri la teste.</li>
+      </ul>
+    </section>
+
+    <section id="comparison">
+      <h2>4. Cu ce se deosebește de alte sisteme</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Alte sisteme (optimizare clasică, RL, ML supervizat)</th>
+              <th>inZORi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Obiectiv</strong></td><td>Funcție de recompensă / loss explicită</td><td>Supraviețuire și persistență; fitness emergent</td></tr>
+            <tr><td><strong>Convergență</strong></td><td>Către un optim sau policy fix</td><td>Fără convergență impusă; populația rămâne diversă, se adaptează continuu</td></tr>
+            <tr><td><strong>Mediu în schimbare</strong></td><td>Retraining, fine-tuning, resimulare</td><td>Adaptare în timp real; memorie și selecție continuă</td></tr>
+            <tr><td><strong>Explicații</strong></td><td>Adesea black-box</td><td>Parametri, genome, selecție – auditabile și interpretabile</td></tr>
+            <tr><td><strong>Domenii</strong></td><td>Un task = un pipeline, de obicei</td><td>Același motor evolutiv pe maze, proteine, roboți, semnale TESS, populații sociale</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>inZORi nu e „mai bun” în sensul de a bate SOTA pe un benchmark fix – e <strong>altfel</strong>: pentru probleme fără soluție fixă, unde mediu și obiective se schimbă, și unde vrei comportament <strong>emergent</strong> (nu programat).</p>
+    </section>
+
+    <section id="strengths">
+      <h2>5. La ce e bun inZORi</h2>
+      <ul>
+        <li><strong>Medii dinamice:</strong> hazarduri, resurse, zgomot de senzori care se schimbă în timp – strategii care evoluează fără retraining.</li>
+        <li><strong>Obiective implicite:</strong> supraviețuire, persistență, „rămâne viabil” – fără a defini o recompensă explicită.</li>
+        <li><strong>Versatilitate:</strong> același engine pe domenii foarte diferite (navigare, folding, prioritizare semnale, comportament social).</li>
+        <li><strong>Transparență și control:</strong> parametri, genome, selecție – înțelegi de ce au apărut anumite pattern-uri.</li>
+        <li><strong>Validare biologică / socială:</strong> pattern-uri observate în natură sau în societăți (ex. fertilitate vs. educație) pot apărea emergent din reguli simple.</li>
+        <li><strong>Scenarii realiste (proxy):</strong> roboți, semnale astronomice, populații socio-economice – aplicații reale fără a fi încă production deployment.</li>
+      </ul>
+    </section>
+
+    <section id="limits">
+      <h2>6. La ce NU e bun inZORi</h2>
+      <ul>
+        <li><strong>Task-uri cu răspuns unic corect</strong> (ex: clasificare imagini cu etichete fixe) – RL/supervised sunt potrivite.</li>
+        <li><strong>Când ai deja un model foarte bine antrenat</strong> și vrei doar inferență rapidă – inZORi e pentru evoluție/adaptare, nu pentru inferență one-shot.</li>
+        <li><strong>Latency foarte mică obligatorie</strong> – evoluția necesită pași și populații; nu e pentru decizii în milisecunde.</li>
+        <li><strong>Comparații „cine e mai bun” pe benchmark-uri clasice</strong> – inZORi nu e optimizat pentru a bate AlphaGo sau modele de limbaj; e pentru scenarii unde „cel mai bun” nu e bine definit sau se schimbă în timp.</li>
+      </ul>
+    </section>
+
+    <section id="sectors">
+      <h2>7. Sectoare și utilitate</h2>
+      <ul>
+        <li><strong>Optimizare industrială / procese:</strong> procese care evoluează spre eficiență în condiții care se schimbă.</li>
+        <li><strong>Descoperire de medicamente / molecule:</strong> simulări de interacțiuni moleculă–proteină în spații de parametri.</li>
+        <li><strong>Modelare socială / economică:</strong> comportamente emergente în populații (fertilitate vs. IQ, tradiții, resurse).</li>
+        <li><strong>Robotică adaptivă:</strong> roboți care învață strategii în medii necunoscute sau în schimbare (fără retraining).</li>
+        <li><strong>Analiză de risc și scenarii:</strong> evoluții pentru decizii strategice în condiții incerte.</li>
+        <li><strong>Prioritizare și explorare:</strong> ranking semnale (ex. TESS), explorare spații fără etichete (claritate, stabilitate, zgomot redus).</li>
+      </ul>
+    </section>
+
+    <section id="tech">
+      <h2>8. Tehnologie (nivel broșură, fără detalii proprietare)</h2>
+      <ul>
+        <li><strong>Genome expresiv:</strong> genele se manifestă diferit în funcție de context (scenă, mediu).</li>
+        <li><strong>Selecție naturală:</strong> fitness-ul emerge din interacțiuni, nu din formule predefinite.</li>
+        <li><strong>Memorie evolutivă:</strong> organisme care învață din experiență și pot transmite informații.</li>
+        <li><strong>Scalabilitate:</strong> de la 40 la 2000+ organisme; paralelizare pe multi-CPU.</li>
+      </ul>
+    </section>
+
+    <section id="catalog">
+      <h2>9. Catalog de teste – ce a demonstrat inZORi (de la început)</h2>
+      <p>Testele ilustrează <strong>ce poate inZORi</strong> în condiții unde alte sisteme eșuează sau nu sunt concepute pentru asta – nu „inZORi e mai bun”, ci <strong>inZORi e altfel și pentru altceva</strong>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Domeniu</th>
+              <th>Problem / Test</th>
+              <th>Ce a demonstrat inZORi</th>
+              <th>Metrici / observații cheie</th>
+              <th>Locație</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mediu dinamic</td><td>Dynamic Worlds</td><td>Adaptare la schimbare periodică hrană/pericol; economie de energie emergentă</td><td>600 steps, 40→200 org; creștere energie medie după șocuri</td><td>scene_dynamic_worlds, demo</td></tr>
+            <tr><td>Comportament social</td><td>IQ &amp; Fertility</td><td>Pattern fertilitate vs. IQ (top vs. bottom 20) emergent, fără recompensă explicită</td><td>Top 20: 57 copii, bottom 20: 69; −17.4%; 20 seeds × 500 ani</td><td>iq_mating_v1</td></tr>
+            <tr><td>Versatilitate</td><td>Maze, protein, colony</td><td>Același motor pe navigare, folding, supraviețuire resurse</td><td>Diverse scene, același solver</td><td>eco_space, protein_fold_repro_v1</td></tr>
+            <tr><td>Semnale / prioritizare</td><td>TESS</td><td>Ranking ~13k semnale după claritate, regularitate, stabilitate – fără antrenament supervizat</td><td>Listă scurtă candidați calitate; auditabil</td><td>zor_astr_1_tess</td></tr>
+            <tr><td>Robotică adaptivă</td><td>Robotics Adapt</td><td>Supraviețuire pe grid cu hazarduri/resurse/senzor în schimbare; fără retraining</td><td>100×100, 5 faze, 800 steps; survival &gt;600, adaptation score</td><td>robotics_adapt_v1</td></tr>
+            <tr><td>Robotică (variante)</td><td>Risk islands, volatility, resource planning, dynamic worlds, opt_2d</td><td>Comportament robust la hazarduri, volatilitate, planificare resurse</td><td>Task-uri derivate din robotics_adapt_v1</td><td>robotics_adapt_v1</td></tr>
+            <tr><td>Tradiții</td><td>Traditions</td><td>Pattern sezoniere reutilizabile, „tradiții” la nivel de populație fără obiective explicite</td><td>3 sezoane × cicluri; repeatability, robustness, diversity</td><td>traditions_v1</td></tr>
+            <tr><td>Continuitate la drift</td><td>Slow Drift Continuity (SDC)</td><td>Comportament robust la drift lent; degradare controlată la drift haotic</td><td>Regimes: static, drift_slow, drift_medium, drift_chaotic; continuity score</td><td>slow_drift_continuity_v1</td></tr>
+            <tr><td>Trading / resurse</td><td>inZORi Trading</td><td>Adaptare la piețe/volatilitate; sesiuni cu feed real sau simulat</td><td>Session runner, web UI</td><td>zor_trading_v1</td></tr>
+            <tr><td>Emergență generală</td><td>Emergence Lab</td><td>Comportament emergent pe scene multiple</td><td>Multi-scene, seed-based</td><td>emergence_lab_v1</td></tr>
+            <tr><td>Energie / viață</td><td>inZORi Energy Life</td><td>Supraviețuire și resurse în scenarii de viață</td><td>Task energy/life</td><td>zor_energy_life_1</td></tr>
+            <tr><td>Smoke / validare</td><td>Z2W smoke</td><td>Validare pipeline Z2W (candidați, budget)</td><td>Seeds 701, 702</td><td>z2w_smoke_v1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Pentru orice material (broșură, site, articol), referinția acest tabel și fișierele din <code>problems/&lt;nume&gt;/</code> (README, task_*.json, evaluatoare).</p>
+    </section>
+
+    <section id="format">
+      <h2>10. Format broșură și versiune web</h2>
+      <ul>
+        <li><strong>Această pagină</strong> este versiunea web a broșurii canonice (sursă Markdown: <code>inZORi_BROCHURE.md</code>). Utilizabilă pentru export PDF, partajare sau ca site live.</li>
+        <li><strong>Cum o folosești:</strong> (1) <strong>Prezentare:</strong> secțiunile 1–2 + mesaje cheie + 1–2 scenarii din catalog. (2) <strong>PDF:</strong> print sau export din browser. (3) <strong>Site:</strong> deploy acest folder pe orice host static (vezi README_HOSTING.md).</li>
+        <li><strong>Demo interactiv:</strong> <a href="DEMO_ZOR_EN.html">Demo EN</a> (<code>DEMO_ZOR_EN.html</code> + <code>demo_data.json</code>, pachetul include toate imaginile) – date reale din rulări inZORi.</li>
+      </ul>
+    </section>
+
+    <blockquote class="quote" cite="">
+      „inZORi nu simulează evoluția – o implementează.”
+    </blockquote>
+  </main>
+
+  <footer class="container">
+    <p>Broșură inZORi · Versiune 1.1 · Februarie 2026</p>
+  </footer>
+</body>
+</html>

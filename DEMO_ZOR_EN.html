@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inZORi - Scientific Demonstration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.6;
+            color: #222;
+            background: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            color: #111;
+            padding: 40px 20px 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #222;
+        }
+        
+        h1 {
+            font-size: 2.6em;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .tagline {
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        
+        .section {
+            background: #ffffff;
+            border: 1px solid #c8c8c8;
+            border-radius: 0;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: none;
+            animation: none;
+        }
+        
+        h2 {
+            color: #111;
+            font-size: 1.8em;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #111;
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            color: #222;
+            font-size: 1.3em;
+            margin: 26px 0 12px 0;
+        }
+        
+        .intro-text {
+            font-size: 1.1em;
+            color: #222;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+        
+        .highlight {
+            background: #f4f4f4;
+            padding: 16px;
+            border-left: 4px solid #333;
+            margin: 16px 0;
+            border-radius: 0;
+        }
+        
+        .stat-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat {
+            background: #ffffff;
+            color: #111;
+            padding: 18px;
+            border-radius: 0;
+            text-align: center;
+            border: 1px solid #c8c8c8;
+            box-shadow: none;
+        }
+        
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .chart-container {
+            margin: 24px 0;
+            padding: 16px;
+            background: #fafafa;
+            border: 1px solid #dcdcdc;
+            border-radius: 0;
+        }
+        
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+        
+        .key-points {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .key-points li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f7f7f7;
+            border-left: 3px solid #333;
+            border-radius: 0;
+        }
+        
+        .conclusion {
+            background: #ffffff;
+            color: #111;
+            padding: 28px;
+            border-radius: 0;
+            text-align: left;
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-top: 28px;
+            border: 2px solid #111;
+        }
+        
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .scenario-grid.two-col {
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+        }
+        
+        .scenario-grid.one-col {
+            grid-template-columns: 1fr;
+        }
+        
+        .scenario-card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 0;
+            border: 1px solid #dcdcdc;
+        }
+        
+        .scenario-card h4 {
+            color: #111;
+            margin-bottom: 12px;
+            font-size: 1.15em;
+        }
+        
+        .world-indicator {
+            display: inline-block;
+            padding: 0;
+            border-radius: 0;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+        
+        .world-a {
+            background: transparent;
+            color: #111;
+        }
+        
+        .world-b {
+            background: transparent;
+            color: #111;
+        }
+        
+        .image-caption {
+            margin-top: 10px;
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.1em; }
+            .tagline { font-size: 1.05em; }
+            .section { padding: 22px; }
+            .scenario-grid.two-col { grid-template-columns: 1fr; }
+        }
+
+        /* A4 print – fit content, no cut-off */
+        @media print {
+            @page {
+                size: A4;
+                margin: 18mm;
+            }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body {
+                background: #fff;
+                font-size: 11pt;
+                line-height: 1.5;
+                max-width: 100%;
+                padding: 0;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            header {
+                padding: 0 0 12pt;
+                margin-bottom: 16pt;
+                border-bottom: 2px solid #222;
+                page-break-after: avoid;
+            }
+            h1 { font-size: 22pt; margin-bottom: 4pt; }
+            .tagline { font-size: 12pt; }
+            .section {
+                margin-bottom: 16pt;
+                padding: 14pt;
+                border: 1px solid #999;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            h2 {
+                font-size: 14pt;
+                margin-bottom: 10pt;
+                padding-bottom: 4pt;
+                page-break-after: avoid;
+            }
+            h3 {
+                font-size: 12pt;
+                margin: 14pt 0 6pt 0;
+                page-break-after: avoid;
+            }
+            .intro-text { font-size: 11pt; margin-bottom: 12pt; }
+            .highlight {
+                padding: 10pt;
+                margin: 10pt 0;
+                page-break-inside: avoid;
+            }
+            .stat-box {
+                gap: 10pt;
+                margin: 14pt 0;
+                page-break-inside: avoid;
+            }
+            .stat {
+                padding: 10pt;
+                border: 1px solid #999;
+            }
+            .stat-value { font-size: 1.6em; }
+            .stat-label { font-size: 9pt; }
+            .chart-container {
+                margin: 12pt 0;
+                padding: 10pt;
+                page-break-inside: avoid;
+            }
+            .chart-container canvas {
+                max-height: 220px !important;
+                width: 100% !important;
+            }
+            .scenario-grid {
+                gap: 12pt;
+                margin: 14pt 0;
+            }
+            .scenario-card {
+                padding: 12pt;
+                page-break-inside: avoid;
+            }
+            .scenario-card h4 {
+                font-size: 11pt;
+                margin-bottom: 6pt;
+                page-break-after: avoid;
+            }
+            .scenario-card img {
+                max-width: 100%;
+                height: auto;
+                max-height: 280px;
+                object-fit: contain;
+            }
+            .image-caption {
+                font-size: 9pt;
+                margin-top: 6pt;
+            }
+            .key-points li {
+                padding: 8pt;
+                margin: 4pt 0;
+                page-break-inside: avoid;
+            }
+            .conclusion {
+                padding: 14pt;
+                margin-top: 14pt;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>inZORi: Emergent Intelligence in a Persistent Evolutionary System</h1>
+        <div class="tagline">A single engine for population dynamics, adaptive robotics, behavioral traditions, and signal prioritization—without explicit objectives or reward-based training. All results reported below come from executed runs and associated artifacts (tables/plots/reports).</div>
+    </header>
+    
+    <div class="container">
+        <div class="section">
+            <h2>1. Overview: What is inZORi?</h2>
+            <p class="intro-text">
+                inZORi is an operational emergent intelligence system in which population-level behavior arises over time from autonomous entities interacting with a changing environment. The system is not defined as a reward-optimization problem and does not aim to converge to a single fixed solution. Instead, it is governed by an implicit viability constraint: entities that cannot sustain themselves disappear, while those that adapt persist and reproduce. In this framing, “intelligence” is treated as an observable, population-level phenomenon that depends on historical interaction and selection, rather than a policy trained toward a predefined objective.
+            </p>
+            <div class="highlight">
+                <strong>Motivation (non-stationarity):</strong> Task-centric methods are highly effective under stable objectives and distributions. However, in non-stationary settings—where conditions drift and objectives may not remain stable—it can be useful to study systems that maintain viability and adaptation without assuming a fixed target function.
+            </div>
+            <div class="highlight">
+                <strong>Scope / versatility:</strong> The same engine can be evaluated across scenario families by changing the environment and experimental conditions, not the underlying mechanism (e.g., population dynamics, navigation under changing hazards, behavioral traditions across seasonal cycles, and prioritization in signal streams).
+            </div>
+        </div>
+        
+        <!-- Scenario 1: Dynamic Worlds -->
+        <div class="section">
+            <h2>Scenario 1: Adaptation to a dynamic environment</h2>
+            
+            <h3>Setup</h3>
+            <p>
+                A population of 40 virtual organisms in a 2D environment that <strong>periodically alternates</strong>
+                between two worlds. Each organism has a genome controlling risk sensitivity, step size,
+                memory, and exploration tendencies.
+            </p>
+            <ul class="key-points">
+                <li><span class="world-indicator world-a">World A</span> – Food bottom‑left, danger top‑right</li>
+                <li><span class="world-indicator world-b">World B</span> – Food top‑right, danger bottom‑left</li>
+            </ul>
+            <p style="margin-top: 20px;">
+                <strong>Important:</strong> Organisms do <em>not</em> know the world will switch.
+                There are no instructions on how to survive — only persistence over time.
+            </p>
+            
+            <h3>Emergent result</h3>
+            <div class="chart-container">
+                <canvas id="dynamicWorldsChart"></canvas>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat">
+                    <div class="stat-value" id="dw-generations">-</div>
+                    <div class="stat-label">Evolution steps</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="dw-transitions">-</div>
+                    <div class="stat-label">World transitions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="dw-survival">-</div>
+                    <div class="stat-label">Survival rate</div>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>Observation:</strong> After a few generations, <strong>energy‑conservation strategies</strong>
+                emerge. The population no longer collapses when the world changes, because survivor genomes
+                favor lower risk and better timing. This is not a “trained” rule; it is population‑level
+                adaptation driven by repeated environmental shocks.
+            </div>
+        </div>
+        
+        <!-- Scenario 2: IQ & Fertility -->
+        <div class="section">
+            <h2>Scenario 2: Emergence of social behavior</h2>
+            
+            <h3>Setup</h3>
+            <p>
+                A population with genomes encoding <strong>intelligence (IQ)</strong>. We introduced only
+                <strong>two subtle factors</strong> reflecting real constraints:
+            </p>
+            <ul class="key-points">
+                <li>Higher‑IQ individuals start reproduction later (education delay)</li>
+                <li>Higher‑IQ individuals incur a slightly higher “opportunity cost” per child</li>
+            </ul>
+            <p style="margin-top: 20px;">
+                <strong>No explicit rule</strong> specifies how many children a pair should have.
+                We only change timing and opportunity cost.
+            </p>
+            
+            <h3>Emergent result</h3>
+            <div class="stat-box">
+                <div class="stat">
+                    <div class="stat-value" id="iq-top-births">-</div>
+                    <div class="stat-label">Children (Top 20 high‑IQ pairs)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="iq-bottom-births">-</div>
+                    <div class="stat-label">Children (Bottom 20 low‑IQ pairs)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="iq-difference">-</div>
+                    <div class="stat-label">Percent difference</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="iqFertilityChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <p style="margin:0;">Additional observations from 20‑seed runs:</p>
+                <ul style="margin:10px 0 0 20px; color:#555;">
+                    <li>The effect is strongest at extremes: very high‑IQ pairs have ~16–18% fewer children than very low‑IQ pairs.</li>
+                    <li>Medians remain relatively balanced — the shift appears in the tails, not the whole population.</li>
+                    <li>Small biases (timing + opportunity cost) accumulate and produce a stable long‑term gap.</li>
+                    <li>In tests with periodic culling, the M/F ratio drops immediately after the event and normalizes over time.</li>
+                    <li>Culling reduces total births and increases volatility of the adult M/F ratio.</li>
+                    <li>Average age at death decreases, especially for males, under culling scenarios.</li>
+                    <li>Extra‑pair birth rate remains stable (no significant change between cull and no‑cull).</li>
+                    <li>Fertility per mother is slightly higher without culling, while total population remains similar.</li>
+                </ul>
+            </div>
+            
+            <div class="highlight">
+                <strong>Observation:</strong> High‑IQ pairs have <strong id="iq-pct-text">-</strong>
+                fewer children than low‑IQ pairs. The gap is explained by delayed reproduction
+                and accumulated opportunity cost — a small bias that, over time, changes population‑level outcomes.
+            </div>
+        </div>
+        
+        <!-- Scenario 3: Versatility -->
+        <div class="section">
+            <h2>Scenario 3: Versatility – Same engine, different problems</h2>
+            
+            <p class="intro-text">
+                inZORi is not specialized for a single problem. The same core code can:
+            </p>
+            
+            <div class="scenario-grid">
+                <div class="scenario-card">
+                    <h4>Maze solving</h4>
+                    <p>Genomes evolve navigation and exploration strategies to find exits
+                    from complex mazes without a predefined map.</p>
+                </div>
+                
+                <div class="scenario-card">
+                    <h4>Tools Fountain</h4>
+                    <p>Genomes evolve spatial strategies to locate and prioritize useful tools
+                    and points of interest in a structured environment.</p>
+                </div>
+                
+                <div class="scenario-card">
+                    <h4>Space colonization</h4>
+                    <p>Genomes develop survival strategies for Martian colonies,
+                    managing limited resources and variable risks.</p>
+                </div>
+            </div>
+            
+            <div class="highlight">
+                <strong>Interpretation:</strong> The same genetic parameters express as navigation, exploration,
+                or risk strategies depending on the domain. inZORi does not retrain for each problem —
+                it adapts through persistence and selection in the environment you place it in.
+            </div>
+        </div>
+        
+        <!-- Scenario 4: TESS -->
+        <div class="section">
+            <h2>Scenario 4: inZORi prioritization for TESS</h2>
+            <p class="intro-text">
+                inZORi analyzed the full set of 13,000 TESS signals and produced a short list
+                of transit candidates. The score reflects clarity, regularity, stability, and low noise —
+                it does <strong>not</strong> confirm discoveries; it prioritizes what is worth follow‑up.
+            </p>
+            <div class="stat-box">
+                <div class="stat">
+                    <div class="stat-value">13,000</div>
+                    <div class="stat-label">signals analyzed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">Top 10</div>
+                    <div class="stat-label">quality candidates</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">spike‑based lists</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <p style="margin:0;">Candidate examples (quality, risk):</p>
+                <ul style="margin:10px 0 0 20px; color:#555;">
+                    <li>tess2025258001959-s0097-0000000300969635-0294-s_lc – 0.868, 0.136</li>
+                    <li>tess2025258001959-s0097-0000000055497281-0294-s_lc – 0.844, 0.163</li>
+                    <li>tess2025258001959-s0097-0000000259589049-0294-s_lc – 0.781, 0.227</li>
+                </ul>
+            </div>
+            <div class="highlight">
+                <strong>Observation:</strong> Top signals show high regularity and stability,
+                with low noise. Separate spike‑based lists isolate rare events for manual review.
+                The result is a clear, auditable shortlist for astronomers without supervised training.
+            </div>
+        </div>
+
+        <!-- Scenario 5: Adaptive Robotics -->
+        <div class="section">
+            <h2>Scenario 5: Adaptive robotics – navigation in a changing environment</h2>
+
+            <h3>Setup</h3>
+            <p>
+                A robot navigates a 100×100 grid for <strong>800 steps</strong>, split into
+                <strong>5 phases</strong> where hazards, resources, and sensor noise change dynamically.
+                There is no map and no global reward — only survival pressure.
+            </p>
+            <ul class="key-points">
+                <li>Mobile hazards: ~15% change probability per step</li>
+                <li>Relocating resources: ~20% volatility</li>
+                <li>Variable sensor noise: 30–90% reliability</li>
+                <li>Abrupt transitions every 160 steps</li>
+            </ul>
+
+            <h3>Results</h3>
+            <div class="stat-box">
+                <div class="stat">
+                    <div class="stat-value">137.53</div>
+                    <div class="stat-label">Mean fitness (harsh_dynamic)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">139.27</div>
+                    <div class="stat-label">Best seed (702)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1200</div>
+                    <div class="stat-label">Max population</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">800</div>
+                    <div class="stat-label">Steps / 5 phases</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <p style="margin:0;">Key visualizations (robotics test):</p>
+                <div class="scenario-grid one-col">
+                    <div class="scenario-card">
+                        <h4>Phase‑colored trajectory</h4>
+                        <img src="problems/robotics_adapt_v1/plots/best_trajectory.png" alt="Robot trajectory by phase" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Left: the robot’s path on the grid, colored by phase (0–4). A central cluster appears
+                            early (cautious exploration), followed by a gradual drift toward the top‑right corner
+                            where resources are more profitable in later phases. Right: energy remains near the top
+                            during early phases, with short dips when crossing risky zones; the final sharp decline
+                            indicates energy depletion near the end of the run.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Fitness evolution</h4>
+                        <img src="problems/robotics_adapt_v1/plots/fitness_evolution.png" alt="Fitness evolution" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Top: fitness across successive evaluations; the red line marks “best so far”.
+                            A dip at evaluation 2 signals a weak strategy, followed by rapid recovery in
+                            evaluations 3–5 and stabilization near ~118–120. Bottom: survival duration
+                            rebounds after evaluation 2 and stabilizes around ~550–560 steps, indicating
+                            consistent adaptation without reaching the full 800 steps.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Survival by phase</h4>
+                        <img src="problems/robotics_adapt_v1/plots/phase_survival.png" alt="Survival by phase" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Left: average survival steps by phase (with variation across runs).
+                            Phases 0–1 show high survival, phase 2 remains solid despite severe sensor noise,
+                            while phase 3 drops sharply — indicating maximal pressure from hazard barriers and
+                            dispersed resources. Right: distribution of adaptation scores; the mean (~0.744)
+                            indicates balanced adaptation across phases, not just a single phase.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Hazard–resource balance</h4>
+                        <img src="problems/robotics_adapt_v1/plots/hazard_resource_balance.png" alt="Hazard-resource balance" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Each point is a run: X‑axis = hazard hits, Y‑axis = resources collected.
+                            The dashed line marks an ideal balance (resources rising with hazard exposure).
+                            Points cluster near X=0 and high Y: good strategies avoid hazards while still collecting
+                            resources. Greener colors indicate higher fitness, associated with minimal risk and
+                            high resource gain.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>Observation:</strong> In a dynamic environment, evolved strategies maintain high
+                survival in phases 1–3, consistently avoid hazards, and adapt to severe sensor noise.
+                There is no explicit objective — behavior emerges through selection.
+            </div>
+        </div>
+
+        <!-- Scenario 6: SDC_v1 - Slow Drift Continuity -->
+        <div class="section">
+            <h2>Scenario 6: SDC_v1 – What ZOR preserves when the world drifts slowly</h2>
+
+            <h3>Goal</h3>
+            <p>
+                Test what ZOR preserves when the world changes slowly. No optimization, no RL, no policy updates.
+                We measure <strong>behavioral continuity</strong> under slow drift and <strong>collapse under chaotic drift</strong>.
+            </p>
+
+            <h3>Setup</h3>
+            <p>
+                A 2D environment with food and danger zones (Gaussian fields). Zone centers, amplitude, and spread
+                can drift over time. Population (e.g. 12–40 organisms) survives on energy; genomes control
+                risk sensitivity, step scale, jump chance, memory. Metrics are computed over sliding windows
+                (e.g. 1000 steps).
+            </p>
+            <ul class="key-points">
+                <li><strong>static</strong> – baseline, no drift; zones fixed</li>
+                <li><strong>drift_slow</strong> – slow sinusoidal drift of zone positions and shape</li>
+                <li><strong>drift_medium</strong> – faster sinusoidal drift</li>
+                <li><strong>drift_chaotic</strong> – rapid random walk of zones (negative control)</li>
+            </ul>
+
+            <h3>Metrics (per window)</h3>
+            <p>
+                <strong>Continuity score</strong> – how stable behavior is across the window.
+                <strong>Tradition index</strong> – persistence of behavioral signature.
+                <strong>Drift tracking lag</strong> – how well the population follows moving zones.
+                <strong>Diversity under drift</strong> – maintained genomic/behavioral diversity.
+                <strong>Population stability</strong> – variance of population size.
+            </p>
+
+            <h3>Results (from SUMMARY_REPORT – mean across windows)</h3>
+            <div class="stat-box">
+                <div class="stat">
+                    <div class="stat-value">0.98</div>
+                    <div class="stat-label">Continuity (static)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0.97</div>
+                    <div class="stat-label">Continuity (drift_slow)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0.73</div>
+                    <div class="stat-label">Continuity (drift_medium)</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0.59</div>
+                    <div class="stat-label">Continuity (drift_chaotic)</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <p style="margin:0;">Key visualizations (SDC_v1):</p>
+                <div class="scenario-grid one-col">
+                    <div class="scenario-card">
+                        <h4>Continuity score over time</h4>
+                        <img src="runs/sdc_v1/20260208_231108/plots/continuity_score_over_time.png" alt="Continuity over time" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Continuity remains high under static and slow drift; it drops under medium and collapses under chaotic drift.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Drift tracking distance</h4>
+                        <img src="runs/sdc_v1/20260208_231108/plots/drift_tracking_distance.png" alt="Drift tracking" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            How well the population tracks moving food/danger zones across regimes.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Tradition reappearance timeline</h4>
+                        <img src="runs/sdc_v1/20260208_231108/plots/tradition_reappearance_timeline.png" alt="Tradition reappearance" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            When behavioral signatures reappear over time under drift.
+                        </p>
+                    </div>
+                    <div class="scenario-card">
+                        <h4>Static vs chaotic</h4>
+                        <img src="runs/sdc_v1/20260208_231108/plots/static_vs_chaotic.png" alt="Static vs chaotic" style="width:100%; border-radius:8px;">
+                        <p class="image-caption">
+                            Contrast between stable behavior in static/slow drift and collapse under chaotic drift.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>Observation:</strong> Under slow drift, continuity and population stability stay high (~0.97);
+                under chaotic drift they drop (~0.59). ZOR preserves behavior when change is predictable and
+                degrades gracefully when it is not — without any explicit reward or optimization.
+            </div>
+
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h2 style="color: #111; border: none;">What makes inZORi distinctive?</h2>
+            <ul class="key-points" style="text-align: left; background: transparent;">
+                <li style="background: #f7f7f7; border-color: #111; color: #111;">
+                    <strong>Emergent behaviors</strong> – Observed across scenarios (see Scenarios 1–6)
+                </li>
+                <li style="background: #f7f7f7; border-color: #111; color: #111;">
+                    <strong>Demographic-style patterns</strong> – Scenario 2 (IQ & fertility) and related runs report outcomes analogous to phenomena discussed in population studies
+                </li>
+                <li style="background: #f7f7f7; border-color: #111; color: #111;">
+                    <strong>Same engine, multiple domains</strong> – Evaluated in distinct scenario families (Scenarios 1–6) by changing environment and conditions only
+                </li>
+                <li style="background: #f7f7f7; border-color: #111; color: #111;">
+                    <strong>Documented parameters and metrics</strong> – Settings and emergent patterns are reported with tables and plots (Scenarios 1–6)
+                </li>
+            </ul>
+            <p style="margin-top: 20px; font-size: 1.05em;">
+                inZORi instantiates evolutionary mechanisms (variation and selection) in a persistent operational setting.
+            </p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Load data
+        fetch('demo_data.json')
+            .then(response => response.json())
+            .then(data => {
+                const dwData = data.dynamic_worlds;
+                const ctx1 = document.getElementById('dynamicWorldsChart').getContext('2d');
+                
+                const bgColors = dwData.world.map(w => w === 'A' ? 'rgba(120, 120, 120, 0.1)' : 'rgba(60, 60, 60, 0.1)');
+                
+                new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: dwData.steps,
+                        datasets: [
+                            {
+                                label: 'Population',
+                                data: dwData.population,
+                                borderColor: '#333',
+                                backgroundColor: 'rgba(80, 80, 80, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                fill: true,
+                                yAxisID: 'y',
+                            },
+                            {
+                                label: 'Average energy',
+                                data: dwData.energy,
+                                borderColor: '#666',
+                                backgroundColor: 'rgba(100, 100, 100, 0.1)',
+                                borderWidth: 2,
+                                tension: 0.4,
+                                borderDash: [5, 5],
+                                yAxisID: 'y1',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 2,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Population evolution in alternating worlds (A ↔ B)',
+                                font: { size: 16, weight: 'bold' }
+                            },
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            annotation: {
+                                annotations: dwData.transitions.map((step, i) => ({
+                                    type: 'line',
+                                    xMin: step,
+                                    xMax: step,
+                                    borderColor: '#666',
+                                    borderWidth: 2,
+                                    borderDash: [10, 5],
+                                    label: {
+                                        content: 'Switch',
+                                        enabled: true,
+                                        position: 'top'
+                                    }
+                                }))
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Population'
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: 'Average energy'
+                                },
+                                grid: {
+                                    drawOnChartArea: false
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                document.getElementById('dw-generations').textContent = dwData.steps[dwData.steps.length - 1];
+                document.getElementById('dw-transitions').textContent = dwData.transitions.length;
+                const finalPop = dwData.population[dwData.population.length - 1];
+                const initialPop = dwData.population[0];
+                document.getElementById('dw-survival').textContent = Math.round((finalPop / initialPop) * 100) + '%';
+                
+                const iqData = data.iq_mating;
+                const ctx2 = document.getElementById('iqFertilityChart').getContext('2d');
+                
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Top 20 Pairs\n(High IQ)', 'Bottom 20 Pairs\n(Low IQ)'],
+                        datasets: [{
+                            label: 'Total children',
+                            data: [iqData.top20_births, iqData.bottom20_births],
+                            backgroundColor: [
+                                'rgba(80, 80, 80, 0.8)',
+                                'rgba(140, 140, 140, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(80, 80, 80, 1)',
+                                'rgba(140, 140, 140, 1)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 2,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Children count: high IQ vs low IQ (20 seeds, 500 years)',
+                                font: { size: 16, weight: 'bold' }
+                            },
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Total children'
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                document.getElementById('iq-top-births').textContent = iqData.top20_births;
+                document.getElementById('iq-bottom-births').textContent = iqData.bottom20_births;
+                document.getElementById('iq-difference').textContent = iqData.difference_pct + '%';
+                document.getElementById('iq-pct-text').textContent = Math.abs(iqData.difference_pct) + '%';
+            })
+            .catch(error => {
+                console.error('Data load error:', error);
+                document.querySelectorAll('.stat-value').forEach(el => el.textContent = 'N/A');
+            });
+    </script>
+</body>
+</html>

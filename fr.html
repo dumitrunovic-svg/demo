@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>inZORi – Brochure de présentation</title>
+  <meta name="description" content="inZORi : ce que c'est, comment ça fonctionne, en quoi c'est différent des autres systèmes. Moteur universel pour l'évolution émergente.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="lang-switch" aria-label="Langue">
+        <a href="index.html">English</a>
+        <a href="de.html">Deutsch</a>
+        <a href="fr.html" class="active">Français</a>
+        <a href="ro.html">Română</a>
+        <a href="DEMO_ZOR_EN.html">Demo EN</a>
+      </nav>
+      <h1>inZORi</h1>
+      <p class="tagline">Brochure de présentation : ce qu’est inZORi, stade actuel, fonctionnement, différences avec les autres systèmes, points forts et limites, secteurs concernés.</p>
+      <p class="meta">Version 1.1 · Février 2026</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="nav" aria-label="Sections">
+      <a href="#audience">Public</a>
+      <a href="#key-messages">Messages clés</a>
+      <a href="#what-is">Qu’est-ce qu’inZORi</a>
+      <a href="#how-it-works">Fonctionnement</a>
+      <a href="#stage">Stade actuel</a>
+      <a href="#comparison">Comparaison</a>
+      <a href="#strengths">Points forts</a>
+      <a href="#limits">Limites</a>
+      <a href="#sectors">Secteurs</a>
+      <a href="#tech">Technologie</a>
+      <a href="#catalog">Catalogue de tests</a>
+      <a href="#format">Format &amp; web</a>
+    </nav>
+
+    <section id="audience">
+      <h2>Pour qui</h2>
+      <ul>
+        <li><strong>Toute personne</strong> devant comprendre inZORi rapidement : chercheurs, partenaires, investisseurs, équipes techniques.</li>
+        <li><strong>Usage externe :</strong> le contenu peut être copié ou adapté pour des sites, présentations, articles, sans perdre le message central.</li>
+      </ul>
+    </section>
+
+    <section id="key-messages">
+      <h2>Messages clés</h2>
+      <ul>
+        <li><strong>inZORi ne programme pas les comportements – il les fait évoluer.</strong> Les stratégies complexes émergent de règles simples et de la sélection, pas d’un code explicite.</li>
+        <li><strong>inZORi ne simule pas l’évolution – il l’implémente.</strong> Le même moteur sur des domaines très différents : robotique, signaux astronomiques, protéines, populations sociales.</li>
+        <li><strong>inZORi est différent, pas nécessairement « meilleur ».</strong> Il vise les problèmes sans solution fixe, environnements changeants, objectifs implicites (survie, persistance).</li>
+        <li><strong>Des dizaines de tests</strong> dans plusieurs domaines ont montré ce qu’inZORi peut faire là où l’optimisation classique, le RL ou le ML supervisé échouent ou ne sont pas conçus pour.</li>
+      </ul>
+    </section>
+
+    <section id="what-is">
+      <h2>1. Qu’est-ce qu’inZORi</h2>
+      <p><strong>inZORi</strong> est un moteur de <strong>vie artificielle persistante</strong> qui fait évoluer les comportements au lieu de les programmer. Il part de règles simples et de génomes expressifs ; le système découvre seul des stratégies adaptatives complexes, à la manière de l’évolution naturelle mais accélérée.</p>
+      <ul>
+        <li><strong>Moteur :</strong> populations d’organismes dont les génomes s’expriment différemment selon le contexte (scène, tâche, environnement).</li>
+        <li><strong>Sélection :</strong> la fitness émerge des interactions (survie, ressources, environnement), pas de formules de récompense prédéfinies.</li>
+        <li><strong>Mémoire évolutive (optionnelle) :</strong> organismes qui apprennent de l’expérience et transmettent des informations via les génomes ou la mémoire.</li>
+      </ul>
+      <p>Résultat : comportement <strong>émergent</strong> – personne n’a codé la stratégie ; elle est née de la pression pour rester viable.</p>
+    </section>
+
+    <section id="how-it-works">
+      <h2>2. Fonctionnement (niveau brochure)</h2>
+      <ol>
+        <li><strong>Tâche :</strong> un fichier de config (JSON) décrit le scénario : scènes (environnement), paramètres de population, évaluateur.</li>
+        <li><strong>Population :</strong> organismes avec génomes (vecteurs de paramètres). Tailles typiques : dizaines à milliers d’individus.</li>
+        <li><strong>Scène / environnement :</strong> chaque organisme vit dans le même environnement (grille, espace de signaux, monde social, etc.) ; l’environnement peut être dynamique (phases, saisons, dérive).</li>
+        <li><strong>Évaluateur :</strong> un module spécifique au domaine mesure la survie, les ressources, le comportement – <strong>sans</strong> fonction de récompense explicite ; la fitness <strong>émerge</strong> des interactions.</li>
+        <li><strong>Sélection et évolution :</strong> les plus viables se reproduisent ; la population évolue sur les générations. Pas de convergence forcée – la diversité reste pertinente.</li>
+        <li><strong>Résultat :</strong> stratégies adaptatives, motifs réutilisables ou classement/priorisation, selon la tâche – le tout <strong>découvert</strong>, pas programmé.</li>
+      </ol>
+      <p class="note">Détails techniques : solveur unifié dans <code>zor_task_solver</code>, évaluateurs par domaine dans <code>problems/&lt;nom&gt;/</code>.</p>
+    </section>
+
+    <section id="stage">
+      <h2>3. Stade actuel d’inZORi</h2>
+      <ul>
+        <li><strong>Statut :</strong> système finalisé, prêt pour la production sur des scénarios définis. <strong>Des dizaines de tests</strong> exécutés sur <strong>plusieurs domaines</strong>.</li>
+        <li><strong>Échelle éprouvée :</strong> 40→2000+ organismes, 600–800 pas par run, 20 seeds × 500 « années » (IQ), ~13k signaux TESS, grille 100×100, 5 phases (robotique), 3 saisons × cycles (traditions), dérive statique/lente/moyenne/chaotique (SDC).</li>
+        <li><strong>Existant :</strong> solveur unifié (<code>zor_task_solver</code>), tâches JSON, évaluateurs par domaine (robotique, TESS, repliement de protéines, Go, traditions, IQ/fertilité, trading, continuité sous dérive, etc.), démo HTML/PDF, données réelles pour la démo.</li>
+        <li><strong>Documentation :</strong> cette brochure est la source canonique ; DEMO_*, QUICK_START, README par problème s’y alignent. Export : PDF ou <strong>site web</strong> avec sections claires et liens vers les tests.</li>
+      </ul>
+    </section>
+
+    <section id="comparison">
+      <h2>4. En quoi inZORi diffère des autres systèmes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Autres systèmes (optimisation classique, RL, ML supervisé)</th>
+              <th>inZORi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Objectif</strong></td><td>Fonction de récompense / perte explicite</td><td>Survie et persistance ; fitness émergente</td></tr>
+            <tr><td><strong>Convergence</strong></td><td>Vers un optimum ou une policy fixe</td><td>Pas de convergence imposée ; la population reste diverse, s’adapte en continu</td></tr>
+            <tr><td><strong>Environnement changeant</strong></td><td>Retraining, fine-tuning, resimulation</td><td>Adaptation en temps réel ; mémoire et sélection continues</td></tr>
+            <tr><td><strong>Explicabilité</strong></td><td>Souvent boîte noire</td><td>Paramètres, génomes, sélection – auditable et interprétable</td></tr>
+            <tr><td><strong>Domaines</strong></td><td>En général une tâche = un pipeline</td><td>Même moteur évolutif sur labyrinthes, protéines, robots, signaux TESS, populations sociales</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>inZORi n’est pas « meilleur » au sens de battre le SOTA sur un benchmark fixe – il est <strong>différent</strong> : pour des problèmes sans solution fixe, où l’environnement et les objectifs changent, et où l’on veut un comportement <strong>émergent</strong> (pas programmé).</p>
+    </section>
+
+    <section id="strengths">
+      <h2>5. Où inZORi est fort</h2>
+      <ul>
+        <li><strong>Environnements dynamiques :</strong> dangers, ressources, bruit de capteurs qui évoluent – stratégies qui évoluent sans retraining.</li>
+        <li><strong>Objectifs implicites :</strong> survie, persistance, « rester viable » – sans définir de récompense explicite.</li>
+        <li><strong>Polyvalence :</strong> le même moteur sur des domaines très différents (navigation, repliement, priorisation de signaux, comportement social).</li>
+        <li><strong>Transparence et contrôle :</strong> paramètres, génomes, sélection – on peut voir pourquoi certains motifs ont émergé.</li>
+        <li><strong>Validation biologique / sociale :</strong> des motifs observés dans la nature ou les sociétés (ex. fertilité vs. éducation) peuvent émerger de règles simples.</li>
+        <li><strong>Proxys réalistes :</strong> robots, signaux astronomiques, populations socio-économiques – applications réelles sans être encore du déploiement production.</li>
+      </ul>
+    </section>
+
+    <section id="limits">
+      <h2>6. Où inZORi n’est pas adapté</h2>
+      <ul>
+        <li><strong>Tâches à réponse unique correcte</strong> (ex. classification d’images avec labels fixes) – RL/supervisé sont plus adaptés.</li>
+        <li><strong>Quand on a déjà un modèle bien entraîné</strong> et qu’on veut seulement de l’inférence rapide – inZORi sert à l’évolution/adaptation, pas à l’inférence one-shot.</li>
+        <li><strong>Contraintes de latence très faible</strong> – l’évolution nécessite des pas et des populations ; pas pour des décisions en millisecondes.</li>
+        <li><strong>« Qui est le meilleur » sur des benchmarks classiques</strong> – inZORi n’est pas optimisé pour battre AlphaGo ou les modèles de langage ; il sert aux scénarios où « meilleur » est mal défini ou change dans le temps.</li>
+      </ul>
+    </section>
+
+    <section id="sectors">
+      <h2>7. Secteurs et cas d’usage</h2>
+      <ul>
+        <li><strong>Optimisation industrielle / processus :</strong> processus qui évoluent vers l’efficacité dans des conditions changeantes.</li>
+        <li><strong>Découverte de médicaments / molécules :</strong> simulation d’interactions molécule–protéine dans des espaces de paramètres.</li>
+        <li><strong>Modélisation sociale / économique :</strong> comportements émergents dans les populations (fertilité vs. IQ, traditions, ressources).</li>
+        <li><strong>Robotique adaptative :</strong> robots qui apprennent des stratégies dans des environnements inconnus ou changeants (sans retraining).</li>
+        <li><strong>Analyse de risque et scénarios :</strong> scénarios évolutifs pour décisions stratégiques sous incertitude.</li>
+        <li><strong>Priorisation et exploration :</strong> classement de signaux (ex. TESS), exploration d’espaces sans labels (clarté, stabilité, faible bruit).</li>
+      </ul>
+    </section>
+
+    <section id="tech">
+      <h2>8. Technologie (niveau brochure, sans détail propriétaire)</h2>
+      <ul>
+        <li><strong>Génome expressif :</strong> les gènes s’expriment différemment selon le contexte (scène, environnement).</li>
+        <li><strong>Sélection naturelle :</strong> la fitness émerge des interactions, pas de formules prédéfinies.</li>
+        <li><strong>Mémoire évolutive :</strong> les organismes apprennent de l’expérience et peuvent transmettre des informations.</li>
+        <li><strong>Scalabilité :</strong> de 40 à 2000+ organismes ; parallélisation multi-CPU.</li>
+      </ul>
+    </section>
+
+    <section id="catalog">
+      <h2>9. Catalogue de tests – ce qu’inZORi a démontré (dès le début)</h2>
+      <p>Ces tests montrent <strong>ce qu’inZORi peut faire</strong> dans des conditions où les autres systèmes échouent ou ne sont pas conçus pour – pas « inZORi est meilleur », mais <strong>inZORi est différent et pour autre chose</strong>.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Domaine</th>
+              <th>Problème / Test</th>
+              <th>Ce qu’inZORi a démontré</th>
+              <th>Métriques / observations clés</th>
+              <th>Emplacement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Environnement dynamique</td><td>Dynamic Worlds</td><td>Adaptation au changement périodique nourriture/danger ; économie d’énergie émergente</td><td>600 pas, 40→200 org. ; hausse énergie moyenne après chocs</td><td>scene_dynamic_worlds, demo</td></tr>
+            <tr><td>Comportement social</td><td>IQ &amp; Fertility</td><td>Motif fertilité vs. IQ (top vs. bottom 20) émergent, sans récompense explicite</td><td>Top 20 : 57 enfants, bottom 20 : 69 ; −17,4 % ; 20 seeds × 500 ans</td><td>iq_mating_v1</td></tr>
+            <tr><td>Polyvalence</td><td>Maze, protein, colony</td><td>Même moteur sur navigation, repliement, survie aux ressources</td><td>Scènes variées, même solveur</td><td>eco_space, protein_fold_repro_v1</td></tr>
+            <tr><td>Signaux / priorisation</td><td>TESS</td><td>Classement ~13k signaux par clarté, régularité, stabilité – sans apprentissage supervisé</td><td>Courte liste de candidats de qualité ; auditable</td><td>zor_astr_1_tess</td></tr>
+            <tr><td>Robotique adaptative</td><td>Robotics Adapt</td><td>Survie sur grille avec dangers/ressources/capteurs changeants ; sans retraining</td><td>100×100, 5 phases, 800 pas ; survie &gt;600, score d’adaptation</td><td>robotics_adapt_v1</td></tr>
+            <tr><td>Robotique (variantes)</td><td>Risk islands, volatility, resource planning, dynamic worlds, opt_2d</td><td>Comportement robuste sous dangers, volatilité, planification des ressources</td><td>Tâches dérivées de robotics_adapt_v1</td><td>robotics_adapt_v1</td></tr>
+            <tr><td>Traditions</td><td>Traditions</td><td>Motifs saisonniers réutilisables, « traditions » au niveau population sans objectifs explicites</td><td>3 saisons × cycles ; repeatability, robustesse, diversité</td><td>traditions_v1</td></tr>
+            <tr><td>Continuité sous dérive</td><td>Slow Drift Continuity (SDC)</td><td>Comportement robuste sous dérive lente ; dégradation contrôlée sous dérive chaotique</td><td>Régimes : static, drift_slow, drift_medium, drift_chaotic ; continuity score</td><td>slow_drift_continuity_v1</td></tr>
+            <tr><td>Trading / ressources</td><td>inZORi Trading</td><td>Adaptation aux marchés/volatilité ; sessions avec flux réel ou simulé</td><td>Session runner, interface web</td><td>zor_trading_v1</td></tr>
+            <tr><td>Émergence générale</td><td>Emergence Lab</td><td>Comportement émergent sur plusieurs scènes</td><td>Multi-scène, seed-based</td><td>emergence_lab_v1</td></tr>
+            <tr><td>Énergie / vie</td><td>inZORi Energy Life</td><td>Survie et ressources dans des scénarios de vie</td><td>Task energy/life</td><td>zor_energy_life_1</td></tr>
+            <tr><td>Smoke / validation</td><td>Z2W smoke</td><td>Validation pipeline Z2W (candidats, budget)</td><td>Seeds 701, 702</td><td>z2w_smoke_v1</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Pour tout support (brochure, site, article), s’appuyer sur ce tableau et les fichiers sous <code>problems/&lt;nom&gt;/</code> (README, task_*.json, évaluateurs).</p>
+    </section>
+
+    <section id="format">
+      <h2>10. Format brochure et version web</h2>
+      <ul>
+        <li><strong>Cette page</strong> est la version web de la brochure canonique (source Markdown : <code>inZORi_BROCHURE.md</code>). Utilisable pour export PDF, partage ou site en ligne.</li>
+        <li><strong>Comment s’en servir :</strong> (1) <strong>Présentation :</strong> sections 1–2 + messages clés + 1–2 scénarios du catalogue. (2) <strong>PDF :</strong> impression ou export depuis le navigateur. (3) <strong>Site :</strong> déployer ce dossier sur un hébergeur statique (voir README_HOSTING.md).</li>
+        <li><strong>Démo interactive :</strong> <a href="DEMO_ZOR_EN.html">Demo EN</a> (<code>DEMO_ZOR_EN.html</code> + <code>demo_data.json</code>, package avec toutes les images) – données réelles de runs inZORi.</li>
+      </ul>
+    </section>
+
+    <blockquote class="quote" cite="">
+      « inZORi ne simule pas l’évolution – il l’implémente. »
+    </blockquote>
+  </main>
+
+  <footer class="container">
+    <p>Brochure inZORi · Version 1.1 · Février 2026</p>
+  </footer>
+</body>
+</html>
