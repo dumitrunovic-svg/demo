@@ -57,7 +57,12 @@
                     
                     test.images.forEach(img => {
                         let imgPath = '';
-                        if (test.id === 'scenario-5-robotics' || test.id === 'scenario-6-sdc') {
+                        if (test.id === 'scenario-1-dynamic-worlds' || 
+                            test.id === 'scenario-2-social-iq' ||
+                            test.id === 'scenario-3-versatility' ||
+                            test.id === 'scenario-4-tess' ||
+                            test.id === 'scenario-5-robotics' || 
+                            test.id === 'scenario-6-sdc') {
                             imgPath = `demo_images/${img.filename}`;
                         } else if (test.id === 'social-density-effect') {
                             imgPath = `tests/social_density/${img.filename}`;

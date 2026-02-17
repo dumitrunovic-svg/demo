@@ -44,6 +44,12 @@
           "label": "View in Demo",
           "url": "DEMO_ZOR_EN.html#scenario-1"
         }
+      ],
+      "images": [
+        {
+          "filename": "scenario1_population_evolution.png",
+          "caption": "Population evolution in alternating worlds (A \u2194 B) showing survival and adaptation over 600 steps"
+        }
       ]
     },
     {
@@ -73,6 +79,12 @@
         {
           "label": "View in Demo",
           "url": "DEMO_ZOR_EN.html#scenario-2"
+        }
+      ],
+      "images": [
+        {
+          "filename": "scenario2_children_count.png",
+          "caption": "Children count comparison: high IQ vs low IQ pairs showing -17.4% difference due to delayed reproduction"
         }
       ]
     },

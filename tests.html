@@ -200,10 +200,18 @@ async function loadTests() {
                 test.images.forEach(img => {
                     // Construct image path based on test ID
                     let imgPath = '';
-                    if (test.id === 'scenario-5-robotics') imgPath = `demo_images/${img.filename}`;
-                    else if (test.id === 'scenario-6-sdc') imgPath = `demo_images/${img.filename}`;
-                    else if (test.id === 'social-density-effect') imgPath = `tests/social_density/${img.filename}`;
-                    else if (test.id === 'zor-refract-20seeds') imgPath = `tests/refract/${img.filename}`;
+                    if (test.id === 'scenario-1-dynamic-worlds' || 
+                        test.id === 'scenario-2-social-iq' ||
+                        test.id === 'scenario-3-versatility' ||
+                        test.id === 'scenario-4-tess' ||
+                        test.id === 'scenario-5-robotics' || 
+                        test.id === 'scenario-6-sdc') {
+                        imgPath = `demo_images/${img.filename}`;
+                    } else if (test.id === 'social-density-effect') {
+                        imgPath = `tests/social_density/${img.filename}`;
+                    } else if (test.id === 'zor-refract-20seeds') {
+                        imgPath = `tests/refract/${img.filename}`;
+                    }
                     
                     if (imgPath) {
                         html += `<div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
