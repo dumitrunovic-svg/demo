@@ -193,6 +193,46 @@ async function loadTests() {
                 html += '</div>';
             }
             
+            // Images (if any)
+            if (test.images && test.images.length > 0) {
+                html += '<div class="test-images" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin: 20px 0;">';
+                test.images.forEach(img => {
+                    // Construct image path based on test ID
+                    let imgPath = '';
+                    if (test.id === 'scenario-5-robotics') imgPath = `demo_images/${img.filename}`;
+                    else if (test.id === 'scenario-6-sdc') imgPath = `demo_images/${img.filename}`;
+                    else if (test.id === 'social-density-effect') imgPath = `tests/social_density/${img.filename}`;
+                    else if (test.id === 'zor-refract-20seeds') imgPath = `tests/refract/${img.filename}`;
+                    
+                    if (imgPath) {
+                        html += `<div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                            <img src="${imgPath}" alt="${img.caption}" style="width: 100%; display: block;">
+                            <p style="padding: 8px; font-size: 12px; color: #666; margin: 0;">${img.caption}</p>
+                        </div>`;
+                    }
+                });
+                html += '</div>';
+            }
+            
+            // Animations (GIFs)
+            if (test.animations && test.animations.length > 0) {
+                html += '<div class="test-animations" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin: 20px 0;">';
+                test.animations.forEach(anim => {
+                    // Construct animation path based on test ID
+                    let animPath = '';
+                    if (test.id === 'social-density-effect') animPath = `tests/social_density/${anim.filename}`;
+                    else if (test.id === 'zor-refract-20seeds') animPath = `tests/refract/${anim.filename}`;
+                    
+                    if (animPath) {
+                        html += `<div style="border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+                            <img src="${animPath}" alt="${anim.caption}" style="width: 100%; display: block;">
+                            <p style="padding: 8px; font-size: 12px; color: #666; margin: 0;">${anim.caption}</p>
+                        </div>`;
+                    }
+                });
+                html += '</div>';
+            }
+            
             // Links
             if (test.links && test.links.length > 0) {
                 html += '<div class="links">';
