@@ -154,7 +154,10 @@ Phase 2 transitions from the controlled nonlinear surrogate used in Phase 1 to a
 
 <div class="comp-fig">
     <img src="figures/fig5_demo_interactive_result.png" alt="Interactive Demo">
-    <div class="cap"><strong>Figure 5.</strong> Interactive terminal demo results at <code>nr_max=3</code> (most constrained budget). In 10 consecutive steps on a healthy network, Baseline A converges 0/10 times while inZORi Frozen Elite converges 10/10 — demonstrating the maximum differentiation point of the genome's <code>jump_chance</code> mechanism.</div>
+    <div class="cap"><strong>Figure 5.</strong> Interactive terminal demo — real measured data. <code>nr_max=3</code>, 1.75× load, normal (no N-1) grid.
+    Left panel: convergence per step (green = converge, red = fail). Baseline A: 0/10 convergences.
+    inZORi Frozen Elite: <strong>9/10 convergences</strong> (90%) — Step 7 fails for both, reflecting a genuine hard operating point at this load level.
+    Right panel: solve time (ms) per step. inZORi spikes at Step 1 (~20 ms) and Step 8 (~22 ms) due to DC-init retry via <code>jump_chance</code> — the extra compute that enables convergence recovery. Both strategies use <code>iter=3</code> when converging. inZORi is not perfect; it reflects real physics, not artificial tuning.</div>
 </div>
 
 <h2>5. Experimental Setup</h2>
