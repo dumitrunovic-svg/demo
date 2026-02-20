@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "updated_at": "2026-02-17",
+  "updated_at": "2026-02-20",
   "tests": [
     {
       "id": "scenario-1-dynamic-worlds",
@@ -33,7 +33,8 @@
         }
       ],
       "domain": "Artificial life",
-      "short_description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B)"
+      "short_description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B)",
+      "created_at": "2026-02-10"
     },
     {
       "id": "scenario-2-social-iq",
@@ -67,7 +68,8 @@
         }
       ],
       "domain": "Social dynamics",
-      "short_description": "Population with IQ-encoded genomes"
+      "short_description": "Population with IQ-encoded genomes",
+      "created_at": "2026-02-11"
     },
     {
       "id": "scenario-4-tess",
@@ -125,7 +127,8 @@
         }
       ],
       "domain": "Astronomy (TESS)",
-      "short_description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine"
+      "short_description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine",
+      "created_at": "2026-02-12"
     },
     {
       "id": "scenario-5-robotics",
@@ -194,7 +197,8 @@
         }
       ],
       "domain": "Robotics",
-      "short_description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise"
+      "short_description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise",
+      "created_at": "2026-02-13"
     },
     {
       "id": "scenario-6-sdc",
@@ -259,7 +263,8 @@
         }
       ],
       "domain": "Artificial life",
-      "short_description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift"
+      "short_description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift",
+      "created_at": "2026-02-13"
     },
     {
       "id": "social-density-effect",
@@ -419,7 +424,8 @@
         }
       ],
       "domain": "Social dynamics",
-      "short_description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organi…"
+      "short_description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organi…",
+      "created_at": "2026-02-14"
     },
     {
       "id": "zor-refract-20seeds",
@@ -541,7 +547,8 @@
         }
       ],
       "domain": "Physics (optics)",
-      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds."
+      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
+      "created_at": "2026-02-15"
     },
     {
       "id": "pfdelta-phase2-real",
@@ -614,7 +621,8 @@
           "url": "tests/pfdelta_phase2_real/figures/fig4_phase1_vs_phase2_evolution.png",
           "caption": "Research evolution from Phase 1 surrogate to Phase 2 real AC PF."
         }
-      ]
+      ],
+      "created_at": "2026-02-20"
     },
     {
       "id": "pfdelta-phase1-118",
@@ -702,7 +710,8 @@
           "url": "tests/pfdelta_phase1_118/figures/recovery_time_distribution_eval4.png",
           "caption": "Recovery-time distribution at eval 4 (all recorded events recover in 1 step)."
         }
-      ]
+      ],
+      "created_at": "2026-02-17"
     }
   ]
 }

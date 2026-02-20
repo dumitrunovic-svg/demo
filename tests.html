@@ -111,6 +111,18 @@
         white-space: nowrap;
         background: rgba(34, 211, 238, 0.06);
       }
+      .pill-date {
+        background: rgba(74, 144, 217, 0.08);
+        border-color: rgba(74, 144, 217, 0.25);
+        color: #7ab5e8;
+        font-size: 0.85rem;
+      }
+      .pill-updated {
+        background: rgba(46, 204, 113, 0.07);
+        border-color: rgba(46, 204, 113, 0.22);
+        color: #6dcf97;
+        font-size: 0.85rem;
+      }
 
       .test__meta {
         display: flex;
@@ -315,8 +327,10 @@
         <div class="field">
           <label for="sort">Sort</label>
           <select id="sort">
-            <option value="date_desc">Date (newest)</option>
-            <option value="date_asc">Date (oldest)</option>
+            <option value="created_desc">Created (newest first)</option>
+            <option value="created_asc">Created (oldest first)</option>
+            <option value="updated_desc">Updated (newest first)</option>
+            <option value="updated_asc">Updated (oldest first)</option>
             <option value="name_asc">Name (A→Z)</option>
             <option value="name_desc">Name (Z→A)</option>
           </select>
@@ -365,7 +379,12 @@
     }
 
     function fmtDate(s) {
-      return s || '';
+      if (!s) return '';
+      // Format YYYY-MM-DD → "Feb 20, 2026"
+      try {
+        const d = new Date(s + 'T00:00:00');
+        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      } catch(e) { return s; }
     }
 
     function closeOthers(openDetails) {
@@ -424,8 +443,10 @@
 
     function renderTest(test) {
       const domain = domainOf(test);
-      const date = fmtDate(test.updated_at);
+      const created = fmtDate(test.created_at);
+      const updated = fmtDate(test.updated_at);
       const status = (test.status || '').toString();
+      const wasUpdated = test.created_at && test.updated_at && test.created_at !== test.updated_at;
 
       const summary = `
         <div>
@@ -434,7 +455,8 @@
         </div>
         <div class="test__meta">
           <span class="pill">${domain}</span>
-          ${date ? `<span class="pill">Updated ${date}</span>` : ''}
+          ${created ? `<span class="pill pill-date" title="Date created">📅 ${created}</span>` : ''}
+          ${wasUpdated ? `<span class="pill pill-updated" title="Last updated">🔄 ${updated}</span>` : ''}
           ${status ? `<span class="pill">${status}</span>` : ''}
           <span class="chevron">▾</span>
         </div>
@@ -460,12 +482,16 @@
 
     function sortTests(arr, mode) {
       const a = [...arr];
-      const byName = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
-      const byDate = (x, y) => (x.updated_at || '').localeCompare((y.updated_at || ''));
-      if (mode === 'name_asc') a.sort(byName);
-      else if (mode === 'name_desc') a.sort((x, y) => byName(y, x));
-      else if (mode === 'date_asc') a.sort(byDate);
-      else a.sort((x, y) => byDate(y, x)); // date_desc default
+      const byName    = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
+      const byCreated = (x, y) => (x.created_at || x.updated_at || '').localeCompare((y.created_at || y.updated_at || ''));
+      const byUpdated = (x, y) => (x.updated_at || x.created_at || '').localeCompare((y.updated_at || y.created_at || ''));
+      if (mode === 'name_asc')     a.sort(byName);
+      else if (mode === 'name_desc')    a.sort((x, y) => byName(y, x));
+      else if (mode === 'created_asc')  a.sort(byCreated);
+      else if (mode === 'created_desc') a.sort((x, y) => byCreated(y, x));
+      else if (mode === 'updated_asc')  a.sort(byUpdated);
+      else if (mode === 'updated_desc') a.sort((x, y) => byUpdated(y, x));
+      else a.sort((x, y) => byCreated(y, x)); // default: created newest first
       return a;
     }
 
