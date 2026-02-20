@@ -582,6 +582,10 @@
       },
       "links": [
         {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18717007"
+        },
+        {
           "label": "Full Details",
           "url": "tests/pfdelta_phase2_real/index.html"
         },
@@ -626,7 +630,9 @@
           "caption": "Research evolution from Phase 1 surrogate to Phase 2 real AC PF."
         }
       ],
-      "created_at": "2026-02-20"
+      "created_at": "2026-02-20",
+      "doi": "10.5281/zenodo.18717007",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18717007"
     },
     {
       "id": "pfdelta-phase1-118",
@@ -668,6 +674,10 @@
         {
           "label": "Phase 2 (Real AC PF) →",
           "url": "tests/pfdelta_phase2_real/index.html"
+        },
+        {
+          "label": "Phase 2 on Zenodo →",
+          "url": "https://doi.org/10.5281/zenodo.18717007"
         }
       ],
       "domain": "Power systems (PFΔ)",
