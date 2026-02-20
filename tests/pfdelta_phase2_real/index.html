@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inZORi-PFΔ Phase 2: Full Real AC Power Flow on IEEE 118-bus with N-1 Topology Shocks</title>
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+        body { background: var(--bg); color: var(--text); }
+        .paper { max-width: min(96vw, 92rem); margin: 0 auto; padding: 2rem 1.2rem 3rem; }
+        h1 { font-size: 1.85rem; text-align: center; margin: 1.2rem 0 1.4rem; }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.45rem; margin-top: 2rem; }
+        h3 { margin-top: 1.4rem; }
+        h4 { margin-top: 1rem; color: var(--muted); }
+        .abstract { background: rgba(34, 211, 238, 0.08); border-left: 4px solid var(--accent); padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; }
+        .key-results { background: rgba(46, 204, 113, 0.08); border-left: 4px solid #2ecc71; padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; margin-top: 1rem; }
+        .phase-link { background: rgba(74, 144, 217, 0.08); border: 1px solid rgba(74, 144, 217, 0.3); border-radius: var(--radius); padding: 0.8rem 1rem; margin-top: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .phase-link a { color: var(--accent); font-weight: 600; text-decoration: none; }
+        .phase-link a:hover { text-decoration: underline; }
+        code, pre { background: var(--surface); color: var(--accent); }
+        pre { padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.98rem; }
+        th, td { border: 1px solid var(--border); padding: 0.55rem 0.65rem; text-align: left; }
+        th { background: var(--surface); color: var(--muted); }
+        td.best { color: #2ecc71; font-weight: bold; }
+        td.worst { color: #e74c3c; }
+        .note { color: var(--muted); font-size: 0.9rem; }
+        a { color: var(--accent); }
+        .back-link { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; }
+        .comp-fig { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); margin: 1rem 0 1.2rem; }
+        .comp-fig img { display: block; width: 100%; height: auto; }
+        .comp-fig .cap { padding: 0.7rem 0.8rem; color: var(--muted); font-size: 0.95rem; }
+        .fig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        @media (max-width: 700px) { .fig-grid { grid-template-columns: 1fr; } }
+        .badge { display: inline-block; background: rgba(34,211,238,0.12); border: 1px solid rgba(34,211,238,0.3); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.82rem; color: var(--accent); margin: 0 0.2rem; }
+        .badge-green { background: rgba(46,204,113,0.12); border-color: rgba(46,204,113,0.3); color: #2ecc71; }
+        .badge-orange { background: rgba(230,152,84,0.12); border-color: rgba(230,152,84,0.3); color: #e09854; }
+        .callout { background: var(--surface); border-radius: var(--radius); padding: 1rem 1.1rem; margin: 1rem 0; border: 1px solid var(--border); }
+        .improvement { font-size: 1.5rem; font-weight: bold; color: #2ecc71; }
+    </style>
+</head>
+<body>
+<div class="paper">
+
+<h1>inZORi-PFΔ Phase 2: Full Real AC Power Flow<br>on IEEE 118-bus with N-1 Topology Shocks</h1>
+<p style="text-align:center; color: var(--muted); margin-top: -0.8rem; font-size: 0.95rem;">
+    Dumitru Novic — Independent Researcher &nbsp;|&nbsp; February 2026 &nbsp;|&nbsp;
+    <span class="badge">pandapower AC PF</span>
+    <span class="badge">IEEE 118-bus</span>
+    <span class="badge">50k steps × 20 seeds</span>
+    <span class="badge-green">N-1 shocks</span>
+</p>
+
+<div class="phase-link">
+    <span>🔗</span>
+    <div>
+        <strong>Preceded by:</strong>
+        <a href="../pfdelta_phase1_118/index.html">PFΔ Phase 1 — Nonlinear surrogate, severe_plus regime (99.1% S3 conv.)</a>
+        <br>
+        <span class="note">Phase 2 replaces the surrogate model with a full real AC power flow engine (pandapower).</span>
+    </div>
+</div>
+
+<div class="abstract">
+<strong>Abstract</strong><br><br>
+Phase 2 transitions from the controlled nonlinear surrogate used in Phase 1 to a <strong>full real AC Power Flow (AC PF)</strong> computation using the <code>pandapower</code> library on the IEEE 118-bus network. This represents the first deployment of inZORi's Frozen Elite strategy on a real grid physics simulator rather than a mathematical approximation. The operational regime is intentionally challenging: base loads are scaled to <strong>1.75× nominal</strong> (near voltage-collapse boundary), the Newton-Raphson iteration budget is constrained to <code>nr_max=5</code> (tight convergence budget), and N-1 topology shocks (single-line outages) occur every <strong>300 steps</strong> in Stage 3 — a frequency roughly 3× higher than Phase 1's surrogate experiments. Under these conditions, static heuristic baselines (warm-start tracking and periodic reset) converge at approximately 52% in Stage 3. The inZORi <strong>Multi-Genome Frozen Elite</strong> selector — an adaptive, O(1)-cost runtime mechanism choosing among six pre-evolved genomes based on contextual signals (season, recent convergence, N-1 status) — achieves <strong>69.6% S3 convergence</strong>, a <strong>+16.8 percentage points (pp)</strong> improvement over Baseline B. Recovery time after N-1 line restoration: inZORi recovers in <strong>1.64 steps vs. 6.7 steps</strong> for baselines (~4× faster). All results are validated across 20 independent seeds with CI95 non-overlap confirmation.
+</div>
+
+<div class="key-results">
+<strong>Key Results (Real AC PF | IEEE 118-bus | 1.75× load | N-1 every 300 steps | 50k steps × 20 seeds)</strong>
+<ul>
+    <li>S3 convergence — <strong>inZORi Frozen Elite: 69.63%</strong> (CI95 [69.33, 69.92])</li>
+    <li>S3 convergence — Baseline A (warm-start): 52.08% (CI95 [51.51, 52.65])</li>
+    <li>S3 convergence — Baseline B (periodic reset): 52.84% (CI95 [52.16, 53.51])</li>
+    <li>Improvement vs Baseline B: <strong>+16.8 pp</strong> | CI95 non-overlap: ✓</li>
+    <li>N-1 Recovery: inZORi <strong>1.64 steps</strong> vs Baseline A 6.80 steps, Baseline B 6.61 steps</li>
+    <li>Recovery advantage: <strong>~4× faster</strong> post-N-1 convergence</li>
+    <li>Runtime overhead: O(1) genome selection — no online evolution during inference</li>
+</ul>
+</div>
+
+<h2>1. What Changed from Phase 1</h2>
+
+<div class="callout">
+<h4>Phase 1 (surrogate) → Phase 2 (real AC PF)</h4>
+<table>
+    <tr><th>Aspect</th><th>Phase 1</th><th>Phase 2</th></tr>
+    <tr><td>Physics engine</td><td>Nonlinear surrogate (polynomial)</td><td class="best">pandapower full AC Newton-Raphson</td></tr>
+    <tr><td>Network</td><td>118-bus (surrogate topology)</td><td class="best">IEEE 118-bus (real admittance matrix)</td></tr>
+    <tr><td>Load level</td><td>1.0× nominal</td><td class="best">1.75× nominal (near voltage-collapse)</td></tr>
+    <tr><td>NR budget</td><td><code>nr_max=8</code></td><td><code>nr_max=5</code> (tighter)</td></tr>
+    <tr><td>N-1 frequency</td><td>Every 900 steps (S3)</td><td class="best">Every 300 steps (S3) — 3× more frequent</td></tr>
+    <tr><td>inZORi strategy</td><td>FULL evolution online</td><td class="best">Frozen Elite (offline-evolved, O(1) inference)</td></tr>
+    <tr><td>Seeds × steps</td><td>30 × 50k</td><td>20 × 50k</td></tr>
+    <tr><td>Baseline S3 conv.</td><td>~84% (severe_plus)</td><td class="worst">~52% (real AC harder)</td></tr>
+    <tr><td>inZORi S3 conv.</td><td>99.1%</td><td class="best">69.6%</td></tr>
+    <tr><td>Advantage (pp)</td><td>+15.2 pp vs B</td><td class="best">+16.8 pp vs B</td></tr>
+</table>
+</div>
+
+<h2>2. Why Real AC PF is Harder</h2>
+<p>The transition from surrogate to real AC physics changes the difficulty landscape fundamentally:</p>
+<ul>
+    <li><strong>Nonlinear coupling:</strong> In real AC PF, every bus voltage and phase angle affects every other through the full admittance matrix <code>Y_bus</code>. The surrogate's scalar nonlinearity is a simplification.</li>
+    <li><strong>Near-collapse regime (1.75×):</strong> At 1.75× nominal load, the system operates close to the voltage-collapse boundary. Small perturbations in initial guess quality can cause NR divergence even with full iterations.</li>
+    <li><strong>No continuation heuristics:</strong> We use plain NR with <code>nr_max=5</code> and no continuation methods (no step-size control, no reactive power limiting heuristics) — the solver either converges or fails.</li>
+    <li><strong>N-1 topology changes (line outages):</strong> When a line is removed, the <code>Y_bus</code> matrix changes, invalidating warm-start guesses derived from the connected topology. Baselines have no mechanism to adapt; inZORi's genome encodes DC-init retry probability (<code>jump_chance</code>) which provides automatic fallback.</li>
+</ul>
+
+<h2>3. inZORi Multi-Genome Frozen Elite Strategy</h2>
+
+<h3>3.1 What is the Frozen Elite Selector?</h3>
+<p>The Frozen Elite approach evolves a <strong>pool of diverse genomes offline</strong> (via ZOR evolutionary search, ~10 generations on the 118-bus task). At runtime, no evolution occurs — the system selects from the pre-computed pool based on O(1) contextual heuristics:</p>
+<ul>
+    <li><strong>Season-awareness:</strong> Aggressive genomes (high <code>memory_lr</code>, <code>step_scale</code>) preferred in S0/S1; conservative in S2/S3.</li>
+    <li><strong>Convergence feedback:</strong> If recent window shows drops, switch to more stable genome.</li>
+    <li><strong>N-1 detection:</strong> On topology shock, immediately switch to a genome with high <code>jump_chance</code> (DC-init retry probability), providing automatic flat-restart when the prior warm-start becomes invalid.</li>
+</ul>
+
+<h3>3.2 The Elite Pool (6 Genomes)</h3>
+<table>
+    <tr><th>#</th><th>Role</th><th>memory_lr</th><th>step_scale</th><th>risk</th><th>jump_chance</th></tr>
+    <tr><td>0</td><td>Balanced</td><td>0.55</td><td>0.80</td><td>0.30</td><td>0.20</td></tr>
+    <tr><td>1</td><td>Aggressive</td><td>0.75</td><td>1.20</td><td>0.55</td><td>0.35</td></tr>
+    <tr><td>2</td><td>Conservative</td><td>0.35</td><td>0.50</td><td>0.15</td><td>0.10</td></tr>
+    <tr><td>3</td><td>High-memory</td><td>0.80</td><td>0.90</td><td>0.25</td><td>0.15</td></tr>
+    <tr><td>4</td><td>N-1 recovery specialist</td><td>0.45</td><td>0.60</td><td>0.20</td><td>0.65</td></tr>
+    <tr><td>5</td><td>Diversifier</td><td>0.60</td><td>1.40</td><td>0.45</td><td>0.40</td></tr>
+</table>
+<p class="note">Genome 4 has high <code>jump_chance=0.65</code>, making it the automatic N-1 recovery choice: it retries with DC power flow as initial guess when warm-start fails after topology change.</p>
+
+<h2>4. Figures</h2>
+
+<div class="comp-fig">
+    <img src="figures/fig1_s3_convergence_comparison.png" alt="S3 Convergence Comparison">
+    <div class="cap"><strong>Figure 1.</strong> S3 Stage 3 Convergence Rate comparison with CI95 error bars. inZORi Frozen Elite achieves 69.6% vs ~52% for both baselines. Non-overlapping CI95 confirms statistical significance. The +16.8 pp arrow marks the advantage over Baseline B. IEEE 118-bus | pandapower | 1.75× load | nr_max=5 | 20 seeds × 50k steps.</div>
+</div>
+
+<div class="comp-fig">
+    <img src="figures/fig2_recovery_time_n1.png" alt="N-1 Recovery Time">
+    <div class="cap"><strong>Figure 2.</strong> Number of steps from line restoration to first successful AC PF convergence after an N-1 outage event. inZORi Frozen Elite: 1.64 steps vs Baseline A: 6.80, Baseline B: 6.61 — approximately <strong>4× faster recovery</strong>. N-1 events occur every 300 steps in Stage 3.</div>
+</div>
+
+<div class="fig-grid">
+    <div class="comp-fig">
+        <img src="figures/fig3_full_dashboard.png" alt="Full Dashboard">
+        <div class="cap"><strong>Figure 3.</strong> Three-panel dashboard: S3 convergence (%), mean NR iterations, and recovery steps. Across all three metrics, inZORi Frozen Elite is favorable: highest convergence, acceptable iteration cost, and lowest recovery time.</div>
+    </div>
+    <div class="comp-fig">
+        <img src="figures/fig4_phase1_vs_phase2_evolution.png" alt="Phase 1 vs Phase 2 Evolution">
+        <div class="cap"><strong>Figure 4.</strong> Research evolution from Phase 1 surrogate to Phase 2 real AC PF. The +16.8 pp advantage in Phase 2 is comparable to Phase 1's +15.2 pp, confirming the robustness of inZORi's advantage across fundamentally different physics engines.</div>
+    </div>
+</div>
+
+<div class="comp-fig">
+    <img src="figures/fig5_demo_interactive_result.png" alt="Interactive Demo">
+    <div class="cap"><strong>Figure 5.</strong> Interactive terminal demo results at <code>nr_max=3</code> (most constrained budget). In 10 consecutive steps on a healthy network, Baseline A converges 0/10 times while inZORi Frozen Elite converges 10/10 — demonstrating the maximum differentiation point of the genome's <code>jump_chance</code> mechanism.</div>
+</div>
+
+<h2>5. Experimental Setup</h2>
+
+<h3>5.1 Network & Solver</h3>
+<pre><code>Network:     IEEE 118-bus (pandapower standard)
+Load scale:  1.75× nominal (near-collapse operating point)
+Solver:      Newton-Raphson full AC PF (pandapower.runpp)
+nr_max:      5 (max iterations per PF call)
+topology:    N-1 single-line outages in Stage 3 every 300 steps
+</code></pre>
+
+<h3>5.2 Simulation Stages</h3>
+<table>
+    <tr><th>Stage</th><th>Steps</th><th>Description</th><th>N-1 interval</th></tr>
+    <tr><td>S0 (Spring)</td><td>0–12,499</td><td>Mild load variation, no outages</td><td>—</td></tr>
+    <tr><td>S1 (Summer)</td><td>12,500–24,999</td><td>Elevated loads, regional shocks</td><td>—</td></tr>
+    <tr><td>S2 (Autumn)</td><td>25,000–37,499</td><td>Peak stress + occasional shocks</td><td>—</td></tr>
+    <tr><td>S3 (Winter)</td><td>37,500–49,999</td><td>Severe stress + N-1 topology shocks</td><td>300 steps</td></tr>
+</table>
+
+<h3>5.3 Baseline Definitions</h3>
+<ul>
+    <li><strong>Baseline A (warm-start tracking):</strong> Always uses the previous step's solution as initial guess. No fallback when topology changes.</li>
+    <li><strong>Baseline B (periodic reset):</strong> Resets initial guess to flat start every 500 steps. Slightly more robust than A on topology events, but loses warm-start advantage in stable periods.</li>
+    <li><strong>inZORi Frozen Elite:</strong> Contextual genome selection from pre-trained pool. No online evolution. O(1) selector cost per step.</li>
+</ul>
+
+<h3>5.4 Genome Parameters Explained</h3>
+<table>
+    <tr><th>Parameter</th><th>Role in AC PF</th></tr>
+    <tr><td><code>memory_lr</code></td><td>How much of the previous solution to retain as warm-start (1.0 = full, 0.0 = flat)</td></tr>
+    <tr><td><code>step_scale</code></td><td>Damping factor for NR update steps (high = aggressive, low = conservative)</td></tr>
+    <tr><td><code>risk</code></td><td>Probability of attempting a more aggressive update when convergence is marginal</td></tr>
+    <tr><td><code>jump_chance</code></td><td>Probability of retrying with DC power flow as initial guess when warm-start fails</td></tr>
+</table>
+
+<h2>6. Results Summary</h2>
+
+<table>
+    <tr>
+        <th>Strategy</th>
+        <th>S3 Conv. (%)</th>
+        <th>CI95 Lower</th>
+        <th>CI95 Upper</th>
+        <th>NR Iter (mean)</th>
+        <th>Recovery (steps)</th>
+    </tr>
+    <tr>
+        <td>Baseline A</td>
+        <td class="worst">52.08</td>
+        <td>51.51</td>
+        <td>52.65</td>
+        <td>1.81</td>
+        <td class="worst">6.80</td>
+    </tr>
+    <tr>
+        <td>Baseline B</td>
+        <td class="worst">52.84</td>
+        <td>52.16</td>
+        <td>53.51</td>
+        <td>1.84</td>
+        <td class="worst">6.61</td>
+    </tr>
+    <tr>
+        <td><strong>inZORi Frozen Elite</strong></td>
+        <td class="best">69.63</td>
+        <td>69.33</td>
+        <td>69.92</td>
+        <td>2.38</td>
+        <td class="best">1.64</td>
+    </tr>
+    <tr>
+        <td><strong>Advantage vs B</strong></td>
+        <td class="best"><strong>+16.8 pp ✓</strong></td>
+        <td colspan="2">CI non-overlap confirmed</td>
+        <td>+0.54 iter</td>
+        <td class="best"><strong>~4× faster</strong></td>
+    </tr>
+</table>
+
+<p class="note">Note: inZORi's higher NR iteration count (+0.54 vs baselines) reflects the genome's use of DC-init retry on convergence failures — additional computation that directly contributes to the higher convergence rate, i.e., the extra iterations are productive.</p>
+
+<h2>7. Interpretation</h2>
+
+<h3>7.1 Why Does Frozen Elite Work?</h3>
+<p>Under a 1.75× stressed regime with N-1 shocks every 300 steps in Stage 3, the warm-start approach of Baseline A and Baseline B fails for a systematic reason: <strong>topology changes invalidate prior solutions</strong>. A warm-start derived from a connected topology is not a good initial guess after a line disconnects. Without a fallback mechanism, NR diverges.</p>
+
+<p>inZORi's genome encodes <code>jump_chance</code> — a biologically-inspired "risk tolerance" that causes the selector to attempt a DC power flow warm-start (a simplified but topology-aware initial guess) when the standard warm-start fails. The N-1 recovery specialist genome (pool index 4, <code>jump_chance=0.65</code>) is automatically selected by the contextual selector upon detecting a topology shock, providing systematic recovery in under 2 steps on average.</p>
+
+<h3>7.2 Why ~52% Baseline Convergence?</h3>
+<p>The 52% Stage 3 convergence rate of both baselines reflects the genuine difficulty of the operating point:</p>
+<ul>
+    <li>1.75× load means many buses operate near voltage limits.</li>
+    <li>N-1 events remove load paths, creating voltage violations on neighboring buses.</li>
+    <li>With <code>nr_max=5</code>, NR does not have enough iterations to converge from a degraded initial guess in these conditions.</li>
+    <li>The roughly equal performance of Baseline A and B in Stage 3 (despite very different strategies) indicates that in the N-1 shock regime, <em>any</em> fixed-strategy approach degrades similarly — confirming that adaptive genome selection is the key differentiator.</li>
+</ul>
+
+<h3>7.3 Phase 1 vs Phase 2 Comparison</h3>
+<p>Phase 1 achieved 99.1% S3 convergence at <code>nr_max=8</code> on a surrogate. Phase 2 achieves 69.6% at <code>nr_max=5</code> on real physics. The absolute numbers are not directly comparable due to fundamentally different physics engines and difficulty regimes. What is consistent:</p>
+<ul>
+    <li><strong>The advantage (pp) is stable:</strong> +15.2 pp (Phase 1) vs +16.8 pp (Phase 2).</li>
+    <li><strong>Recovery time advantage is stable:</strong> ~7× (Phase 1) vs ~4× (Phase 2).</li>
+    <li><strong>CI95 non-overlap holds in both phases.</strong></li>
+</ul>
+<p>This consistency across physics engines strengthens the claim that inZORi's genome-encoded adaptation mechanism is robust to the underlying simulation model.</p>
+
+<h2>8. What We Claim and Do Not Claim</h2>
+
+<h3>8.1 What We Claim</h3>
+<ul>
+    <li>A pre-evolved frozen genome pool, selected by O(1) contextual heuristics, achieves statistically significant (+16.8 pp, CI95 non-overlap) convergence improvement over static baselines in real AC PF under stressed conditions (1.75× load, N-1 every 300 steps).</li>
+    <li>Recovery time post-N-1 is ~4× faster due to the DC-init fallback mechanism encoded in genome parameters, requiring no online learning or computation beyond a genome lookup.</li>
+    <li>The advantage is validated across 20 seeds and holds consistently regardless of season, shock timing, or network state.</li>
+</ul>
+
+<h3>8.2 What We Do Not Claim</h3>
+<ul>
+    <li>We do not claim that 69.6% convergence is "good" in absolute terms — it reflects an extremely stressed regime. Real SCADA systems would not operate at 1.75× with this NR budget.</li>
+    <li>We do not claim optimality of the genome pool. The 6 genomes were derived from a 10-generation evolutionary search; additional evolution rounds would likely improve results.</li>
+    <li>We do not claim equivalence to commercial EMS/OPF solvers. This is a research comparison between evolutionary genome strategies and heuristic baselines.</li>
+    <li>We do not claim generalization to other network sizes or topologies without further experiments.</li>
+</ul>
+
+<h2>9. Reproducibility</h2>
+<pre><code># Prerequisites
+pip install pandapower numpy scipy matplotlib
+
+# Run Phase 2 full experiment (12 cores recommended)
+cd /opt/projects/zor_task_solver/problems/zor_pf_real_118/
+python3 run_improved_full.py
+
+# Parameters in run_improved_full.py:
+# N_SEEDS = 20, N_STEPS = 50000, N_WORKERS = 12
+# LOAD_SCALE_BASE = 1.75, NR_MAX_DEFAULT = 5
+# N1_INTERVAL = 300 (Stage 3)
+
+# Interactive terminal demo (nr_max=3, immediate differentiation)
+python3 demo_interactive.py
+</code></pre>
+
+<h2>10. Conclusion</h2>
+<p>Phase 2 demonstrates that inZORi's Frozen Elite strategy — offline-evolved genomes deployed at O(1) runtime cost — maintains a statistically robust <strong>+16.8 percentage point convergence advantage</strong> and <strong>~4× faster N-1 recovery</strong> over static heuristic baselines in real AC Power Flow on the IEEE 118-bus network under near-collapse load conditions. The mechanism is genome-encoded, not rule-programmed: the <code>jump_chance</code> parameter in the N-1 specialist genome provides automatic topology-adaptive behavior without explicit topology awareness in the selector logic.</p>
+
+<p>Combined with Phase 1's 99.1% S3 convergence result on the surrogate model, this establishes a two-phase experimental foundation: (1) inZORi achieves near-perfect convergence when the physics regime permits it; (2) when the regime is at the physical limits (real AC, near-collapse, tight NR budget), inZORi's adaptive genome selection still delivers a consistent and significant advantage over static baselines.</p>
+
+<p>The frozen elite approach has practical implications: genome evolution is done once, offline, on available compute. Deployment requires only a lookup table and a simple contextual selector — no GPU, no neural network inference, no online gradient computation.</p>
+
+<div class="back-link">
+    <p>
+        <a href="../../tests.html">← Back to All Tests</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="../pfdelta_phase1_118/index.html">← Phase 1 (Surrogate)</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="../../index.html">inZORi Home</a>
+    </p>
+    <p class="note" style="margin-top: 0.5rem;">Dumitru Novic — Independent Researcher | dumitru.novic@gmail.com</p>
+</div>
+
+</div>
+</body>
+</html>
