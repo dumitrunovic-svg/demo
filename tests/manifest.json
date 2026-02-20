@@ -596,6 +596,10 @@
         {
           "label": "N-1 Recovery Chart",
           "url": "tests/pfdelta_phase2_real/figures/fig2_recovery_time_n1.png"
+        },
+        {
+          "label": "Phase 1 on Zenodo",
+          "url": "https://doi.org/10.5281/zenodo.18716837"
         }
       ],
       "domain": "Power systems (Real AC PF)",
@@ -649,6 +653,10 @@
         "conv_steps_per_sec": "443.7"
       },
       "links": [
+        {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18716837"
+        },
         {
           "label": "Full Details",
           "url": "tests/pfdelta_phase1_118/index.html"
@@ -711,7 +719,9 @@
           "caption": "Recovery-time distribution at eval 4 (all recorded events recover in 1 step)."
         }
       ],
-      "created_at": "2026-02-17"
+      "created_at": "2026-02-17",
+      "doi": "10.5281/zenodo.18716837",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18716837"
     }
   ]
 }

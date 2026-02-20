@@ -31,6 +31,17 @@
 
 <h1>inZORi-PFΔ Phase 1: Streaming Power Flow Robustness<br>under Multi-Shocks and N-1 Topology Events (118-bus)</h1>
 
+<p style="text-align:center; margin-top:-0.6rem; margin-bottom:1.2rem;">
+  <strong>Dumitru Novic</strong> — Independent Researcher &nbsp;|&nbsp; February 2026 &nbsp;|&nbsp;
+  <a href="https://doi.org/10.5281/zenodo.18716837" target="_blank" rel="noopener"
+     style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);border-radius:6px;padding:0.3rem 0.7rem;color:var(--accent);text-decoration:none;font-size:0.95rem;">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.18716837.svg" alt="DOI badge"
+         style="height:1.3rem;vertical-align:middle;">
+  </a>
+  &nbsp;|&nbsp;
+  <a href="../pfdelta_phase2_real/index.html" style="color:var(--accent);font-size:0.95rem;">Phase 2 (Real AC PF) →</a>
+</p>
+
 <div class="abstract">
 <strong>Abstract</strong><br><br>
 We demonstrate inZORi's adaptive capacity in a challenging streaming power flow (PF) scenario inspired by PFΔ benchmark motivation. This phase uses a controlled nonlinear surrogate inspired by PFΔ's motivation, not a full AC power flow reproduction. The problem: maintain robust convergence of a Newton-Raphson PF solver under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines (simple warm-start tracking, periodic resets) suffer significant convergence degradation under the severe_plus regime (S3 convergence ~84–86%, vs. inZORi's ~99%). We establish this through a rigorous experimental pipeline: (1) world-level PF evaluation architecture (K=2 top-K candidates per step, not per-organism), (2) fairness-controlled comparisons (equal PF budget, equal wall-clock time), (3) statistical validation (CI95, 30 seeds for FULL runs), and (4) a frozen-elites runtime extension showing that offline-evolved genomes can achieve comparable robustness without online evolution, enabling practical deployment in seconds-per-step scenarios. Scope of this phase: 118-bus streaming nonlinear model only. All results are reproducible from the provided command logs and artifact paths. Key takeaway: inZORi's emergent parameter selection (damping, warm-start mix) adapts to severe conditions where static heuristics fail, achieving +15.2 percentage points (pp) vs Baseline B and +3.1 percentage points (pp) vs Baseline A in S3 convergence under identical compute budgets, with recovery times ~7× faster than periodic-reset baseline.
