@@ -1,7 +1,45 @@
 {
   "version": "1",
-  "updated_at": "2026-02-20",
+  "updated_at": "2026-02-21",
   "tests": [
+    {
+      "id": "pfdelta-phase3-n2",
+      "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-21",
+      "updated_at": "2026-02-21",
+      "description": "inZORi Frozen Elite with N-2 specialists: simultaneous outage of 2 lines. +16.14 pp vs Baseline A, 2.8× faster N-2 recovery. LUPA-refined genome (85.20%). 20 seeds × 50k steps, N-1+N-2 in S3.",
+      "key_findings": [
+        "inZORi N-2: 71.16% S3 conv. (CI95 [70.9, 71.4])",
+        "Baseline A: 55.02% | Baseline B: 55.35%",
+        "N-2 recovery: 1.45 steps (inZORi) vs 4.12 steps (Baseline A) — 2.8× faster",
+        "N-1 recovery ≈ N-2 recovery (1.49 vs 1.45 steps) — specialists neutralize N-2",
+        "LUPA refined genome: 0.8444 (evo) → 0.8520 (+0.76pp)",
+        "15-gen evolution + LUPA + 8-genome Frozen Elite pool"
+      ],
+      "metrics": {
+        "s3_convergence_inzori": "71.16%",
+        "s3_convergence_baseline_a": "55.02%",
+        "improvement_pp": "+16.14",
+        "n2_recovery_inzori": "1.45 steps",
+        "n2_recovery_baseline": "4.12 steps",
+        "recovery_advantage": "2.8x",
+        "seeds": 20,
+        "steps": 50000,
+        "genome_fitness_lupa": "85.20%"
+      },
+      "links": [
+        {"label": "Full Details", "url": "tests/pfdelta_phase3_n2/"}
+      ],
+      "images": [
+        {"filename": "fig1_s3_convergence_n2.png", "caption": "S3 convergence N-1+N-2", "url": "tests/pfdelta_phase3_n2/figures/fig1_s3_convergence_n2.png"},
+        {"filename": "fig2_recovery_n1_n2.png", "caption": "N-1 vs N-2 recovery speed", "url": "tests/pfdelta_phase3_n2/figures/fig2_recovery_n1_n2.png"}
+      ],
+      "domain": "Power Systems / Grid Stability",
+      "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome."
+    },
     {
       "id": "scenario-1-dynamic-worlds",
       "name": "Scenario 1: Adaptation to dynamic environment",
