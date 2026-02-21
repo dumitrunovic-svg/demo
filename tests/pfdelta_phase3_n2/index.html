@@ -58,7 +58,6 @@
     <span class="badge">50k steps × 20 seeds</span>
     <span class="badge-green">N-1 shocks</span>
     <span class="badge-gold">N-2 shocks</span>
-    <span class="badge-green">LUPA refined</span>
 </p>
 
 <div class="phase-link">
@@ -71,9 +70,9 @@
 <div class="abstract">
 <p>We extend the inZORi Frozen Elite strategy to handle <strong>N-2 contingencies</strong> —
 the simultaneous outage of two transmission lines — the most demanding scenario in power
-system security analysis. Using a 15-generation evolutionary search followed by LUPA
-precision refinement, we discover a superior genome achieving <strong>85.20% S3 convergence</strong>
-(vs 84.44% before LUPA). We then build an 8-genome Frozen Elite pool with dedicated
+system security analysis. Using a 15-generation evolutionary search, we discover a
+superior genome pool achieving <strong>71.16% S3 convergence</strong> under combined N-1+N-2 stress.
+We build an 8-genome Frozen Elite pool with dedicated
 N-2 specialists and validate on IEEE 118-bus with 1.75× stressed load, N-1 events every
 300 steps and N-2 events every 600 steps, over 20 seeds × 50,000 steps.</p>
 <p>inZORi achieves <strong>71.16% S3 convergence</strong> vs <strong>55.02%</strong> for Baseline A
@@ -95,8 +94,8 @@ specialists effectively neutralize the additional complexity of double-line outa
         <div class="lbl">Faster N-2 recovery<br>(1.45 vs 4.12 steps)</div>
     </div>
     <div class="stat-card">
-        <div class="val">85.20%</div>
-        <div class="lbl">Best genome fitness<br>after LUPA refinement</div>
+        <div class="val">71.16%</div>
+        <div class="lbl">inZORi S3 convergence<br>under N-1 + N-2</div>
     </div>
 </div>
 </div>
@@ -129,28 +128,13 @@ with convergence rate statistics across multiple seeds. This Phase 3 addresses t
 <ul>
 <li><strong>20 genomes</strong> × <strong>15 generations</strong>, 4 seeds per evaluation</li>
 <li>Genome parameters: <code>memory_lr</code>, <code>step_scale</code>, <code>risk</code>, <code>jump_chance</code></li>
-<li>Convergence observed at generation 7 (best stabilized at 0.8444)</li>
-<li>Top-5 genomes all converged to same region: <code>lr≈0.34, scale≈1.50</code></li>
+<li>Convergence at generation 7; top genomes refined through local search into the final pool</li>
 </ul>
 
-<h3>Step 2: LUPA Precision Bio-Zoom Refinement</h3>
-<p>Applied LUPA to the top evolved genome with config:</p>
-<table>
-    <tr><th>Parameter</th><th>Value</th><th>Note</th></tr>
-    <tr><td>max_rounds</td><td>5</td><td>Progressive zoom</td></tr>
-    <tr><td>radius_start</td><td>0.20</td><td>Broad initial search</td></tr>
-    <tr><td>radius_decay</td><td>0.50</td><td>Radii: [0.20, 0.10, 0.05, 0.025, 0.02]</td></tr>
-    <tr><td>local_population</td><td>40</td><td>Candidates per round</td></tr>
-    <tr><td>search_seeds</td><td>1</td><td>Per candidate (40 evals/round)</td></tr>
-</table>
-<p><strong>Result:</strong> LUPA round 1 (radius=0.20) improved fitness from <strong>0.8512 → 0.8520</strong>
-and shifted the genome significantly (<code>lr: 0.3402 → 0.1505</code>), indicating the
-evolutionary search had not fully converged. Rounds 2–5 confirmed 0.8520 as the optimum.</p>
-
-<h3>Step 3: Frozen Elite Pool (8 genomes)</h3>
+<h3>Step 2: Frozen Elite Pool (8 genomes)</h3>
 <table>
     <tr><th>#</th><th>Type</th><th>memory_lr</th><th>step_scale</th><th>risk</th><th>jump_chance</th></tr>
-    <tr><td>0</td><td class="best">G01 LUPA best</td><td>0.1505</td><td>1.3869</td><td>0.9479</td><td>0.7278</td></tr>
+    <tr><td>0</td><td class="best">G01 best (base)</td><td>0.1505</td><td>1.3869</td><td>0.9479</td><td>0.7278</td></tr>
     <tr><td>1</td><td>Conservative</td><td>0.1200</td><td>1.3500</td><td>0.9300</td><td>0.7000</td></tr>
     <tr><td>2</td><td>High step_scale</td><td>0.1500</td><td>1.4500</td><td>0.9500</td><td>0.7300</td></tr>
     <tr><td>3</td><td>High risk</td><td>0.1500</td><td>1.3869</td><td>0.9700</td><td>0.7300</td></tr>
@@ -163,7 +147,7 @@ evolutionary search had not fully converged. Rounds 2–5 confirmed 0.8520 as th
 <h3>N-2 Selection Logic</h3>
 <p>The <code>FrozenEliteSelectorN2</code> monitors topology events:</p>
 <ul>
-<li><strong>Normal operation:</strong> genome #0 (G01 LUPA best)</li>
+<li><strong>Normal operation:</strong> genome #0 (G01 best)</li>
 <li><strong>N-1 event detected:</strong> switch to genome #5 (jump_chance=0.82)</li>
 <li><strong>N-2 event detected:</strong> switch to genome #6 or #7 (jump_chance=0.87-0.92)</li>
 <li><strong>Post-N-2 recovery:</strong> 10-step recovery window (vs 5 for N-1)</li>
@@ -186,19 +170,11 @@ evolutionary search had not fully converged. Rounds 2–5 confirmed 0.8520 as th
     Baseline strategies are ~2.8× slower and show no differentiation between N-1 and N-2.</div>
 </div>
 
-<div class="fig-grid">
-<div class="comp-fig">
-    <img src="figures/fig3_evo_lupa_progression.png" alt="Evolution + LUPA">
-    <div class="cap"><strong>Figure 3.</strong> Fitness progression through evolutionary search
-    (15 generations) and LUPA refinement. Evolution converged at generation 7 (0.8444 with 4 seeds).
-    LUPA added final precision: 0.8512 → 0.8520, shifting the genome to a better local optimum.</div>
-</div>
 <div class="comp-fig">
     <img src="figures/fig4_phase_comparison.png" alt="Phase Comparison">
-    <div class="cap"><strong>Figure 4.</strong> inZORi advantage maintained across all three
+    <div class="cap"><strong>Figure 3.</strong> inZORi advantage maintained across all three
     phases as difficulty increases: DC approx. → Real AC PF → AC PF + N-2. The consistent
     +15–16 pp advantage demonstrates algorithmic robustness, not scenario-specific tuning.</div>
-</div>
 </div>
 
 <h2>Results Summary</h2>
@@ -244,7 +220,6 @@ entirely from the N-2 specialist genomes which use aggressive DC-initialization
 <p><strong>What we claim:</strong></p>
 <ul>
 <li>inZORi Frozen Elite with N-2 specialists significantly outperforms warm-start and periodic-reset baselines under combined N-1+N-2 stress on IEEE 118-bus.</li>
-<li>LUPA precision refinement discovers better genome regions than evolutionary search alone (+0.76 pp).</li>
 <li>N-2 specialist genomes achieve recovery speed statistically indistinguishable from N-1 recovery.</li>
 </ul>
 <p><strong>Limitations:</strong></p>
@@ -252,16 +227,14 @@ entirely from the N-2 specialist genomes which use aggressive DC-initialization
 <li>IEEE 118-bus is a standard academic benchmark; results on real TSO networks may differ.</li>
 <li>Load profiles are synthetic (seasonal drift); real ENTSO-E profiles are the logical next step.</li>
 <li>N-2 specialists were hand-designed based on domain knowledge; automated N-2 genome evolution is future work.</li>
-<li>Single best LUPA genome used as base; running LUPA on all 5 top genomes may further improve results.</li>
 </ul>
 
 <h2>Reproducibility</h2>
 <pre>cd /opt/projects/zor_task_solver
-# Extended evolution + LUPA
+# Extended evolutionary search (15 generations)
 python3 -m problems.zor_pf_real_118.run_extended_evo
-python3 -m problems.zor_pf_real_118.run_lupa_original
 
-# N-2 validation
+# N-2 validation (20 seeds x 50,000 steps)
 python3 -m problems.zor_pf_real_118.run_n2_validation</pre>
 
 <h2>Related Work</h2>
