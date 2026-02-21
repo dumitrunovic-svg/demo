@@ -3,6 +3,45 @@
   "updated_at": "2026-02-21",
   "tests": [
     {
+      "id": "pfdelta-phase4-real",
+      "name": "PFΔ Phase 4 — Real Load Profiles UA/DE/FR + Historical Blackouts",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-21",
+      "updated_at": "2026-02-21",
+      "description": "inZORi FrozenElite validated on real OPSD load profiles (Ukraine, Germany, France) and three historical blackout events: Balkans 2006, Ukraine Cyberattack 2015, Moldova 31 Jan 2026. 5 seeds × 4 variants × 3 countries. CI95 non-overlapping advantage confirmed.",
+      "key_findings": [
+        "FrozenElite +3.64% over NR on Ukraine real profile (CI95 non-overlapping)",
+        "FrozenElite +3.69% over NR on Germany real profile",
+        "FrozenElite +3.31% over NR on France real profile",
+        "Balkans 2006 (N-2): 90.7% convergence vs 88.8% NR during event",
+        "Moldova 31 Jan 2026 (N-1 Isaccea-Vulcanesti): 22.5% vs 21.4% NR",
+        "Advantage consistent across post-Soviet, renewables-heavy, and nuclear-dominant grids"
+      ],
+      "metrics": {
+        "countries": ["UA", "DE", "FR"],
+        "seeds": 5,
+        "steps": 50000,
+        "variants": 4,
+        "total_runs": 60,
+        "ua_advantage": "+3.64%",
+        "de_advantage": "+3.69%",
+        "fr_advantage": "+3.31%",
+        "blackout_scenarios": 3,
+        "runtime_min": 65.2
+      },
+      "links": [
+        {"label": "Full Details", "url": "tests/pfdelta_phase4_real/"}
+      ],
+      "images": [
+        {"filename": "fig1_s3_convergence_countries.png", "caption": "S3 convergence per country with CI95", "url": "tests/pfdelta_phase4_real/figures/fig1_s3_convergence_countries.png"},
+        {"filename": "fig3_blackout_scenarios.png", "caption": "Blackout scenario replay results", "url": "tests/pfdelta_phase4_real/figures/fig3_blackout_scenarios.png"}
+      ],
+      "domain": "Power Systems / Real Data Validation",
+      "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed."
+    },
+    {
       "id": "pfdelta-phase3-n2",
       "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
       "category": "scientific",
