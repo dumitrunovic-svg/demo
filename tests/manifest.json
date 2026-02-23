@@ -20,24 +20,48 @@
         "Real ENTSO-E profiles less extreme than synthetic — validates under realistic conditions"
       ],
       "metrics": {
-        "countries": ["RO", "DE", "FR"],
-        "seeds": 4,
-        "steps": 40000,
-        "variants": 4,
-        "total_jobs": 48,
-        "ro_fe_s3": "75.3%",
-        "de_fe_s3": "82.5%",
-        "fr_fe_s3": "91.7%",
-        "ro_nr_s3": "4.5%",
-        "de_nr_s3": "11.4%",
-        "fr_nr_s3": "15.1%",
-        "max_factor": "×16.7",
-        "data_source": "ENTSO-E Transparency Platform API 2024"
+        "RO — FrozenElite S3": "75.3%",
+        "RO — NR Standard S3": "4.5%",
+        "DE — FrozenElite S3": "82.5%",
+        "DE — NR Standard S3": "11.4%",
+        "FR — FrozenElite S3": "91.7%",
+        "FR — NR Standard S3": "15.1%",
+        "Max advantage factor": "×16.7 (RO)",
+        "Total jobs": "48 (3 countries × 4 variants × 4 seeds)",
+        "Data source": "ENTSO-E API 2024 — 8,760 h/country"
       },
-      "links": {
-        "html": "tests/pfdelta_phase5_entsoe/index.html",
-        "pdf": "zenodo_publish/phase5/inZORi_PFDelta_Phase5_Zenodo.pdf"
-      }
+      "images": [
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig1_s3_convergence.png",
+          "caption": "Fig 1 — S3 Convergence Rate: FrozenElite vs G01 vs NR vs Synthetic across RO/DE/FR (ENTSO-E 2024)"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig2_fe_advantage.png",
+          "caption": "Fig 2 — Absolute advantage (pp) and multiplicative factor: FrozenElite vs NR on real ENTSO-E data"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig3_recovery_times.png",
+          "caption": "Fig 3 — Average recovery steps after N-1/N-2/N-4 contingencies: FrozenElite recovers 2–6× faster"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig4_phase_progression.png",
+          "caption": "Fig 4 — Research progression Phase 1→5: advantage gap widens as test conditions become more realistic"
+        }
+      ],
+      "links": [
+        {
+          "url": "tests/pfdelta_phase5_entsoe/index.html",
+          "label": "📄 Full Report (HTML)"
+        },
+        {
+          "url": "results/real_vs_baseline.json",
+          "label": "📊 Raw Results (JSON)"
+        },
+        {
+          "url": "zenodo_publish/phase5/inZORi_PFDelta_Phase5_Zenodo.pdf",
+          "label": "📥 PDF Zenodo"
+        }
+      ]
     },
     {
       "id": "pfdelta-phase4-real",
