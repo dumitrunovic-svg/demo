@@ -83,7 +83,7 @@
 <div class="header">
   <div class="phase-badge">★ PHASE 6 — FINAL CHAPTER ★</div>
   <h1>inZORi PF-Δ Phase 6: Capacity Boundary Discovery</h1>
-  <div class="subtitle">ZOR Bio-Adaptive Solver vs Newton-Raphson on case1354pegase (1354-bus Pan-European Network) — Quantifying the Critical Load Threshold</div>
+  <div class="subtitle">inZORi Bio-Adaptive Solver vs Newton-Raphson on case1354pegase (1354-bus Pan-European Network) — Quantifying the Critical Load Threshold</div>
   <div class="meta">Published: February 2026 · Network: PEGASE case1354pegase · 3 seeds · 6 load levels · 12 cores · 290s · inZORi Research</div>
 </div>
 
@@ -101,7 +101,7 @@
   <!-- ABSTRACT -->
   <div class="abstract-box">
     <h2>Abstract</h2>
-    <p>This phase answers the fundamental question: <strong>where exactly does Newton-Raphson fail, and can ZOR keep the grid operational beyond that point?</strong> Using the <em>case1354pegase</em> Pan-European benchmark network (1354 buses, ~73 GW nominal), we systematically swept load from 1.18× to 1.30× nominal across 3 seeds and 3 solver variants. The results reveal a sharp, reproducible critical threshold at <strong>1.25× nominal load</strong>: Newton-Raphson collapses to 0% S3 convergence on all 3 seeds, while ZOR maintains 99.9% convergence — a difference of +99.9 percentage points. This is not an accident of a single random seed; it is a consistent, measurable property of ZOR's bio-adaptive warm-start strategy.</p>
+    <p>This phase answers the fundamental question: <strong>where exactly does Newton-Raphson fail, and can inZORi keep the grid operational beyond that point?</strong> Using the <em>case1354pegase</em> Pan-European benchmark network (1354 buses, ~73 GW nominal), we systematically swept load from 1.18× to 1.30× nominal across 3 seeds and 3 solver variants. The results reveal a sharp, reproducible critical threshold at <strong>1.25× nominal load</strong>: Newton-Raphson collapses to 0% S3 convergence on all 3 seeds, while inZORi maintains 99.9% convergence — a difference of +99.9 percentage points. This is not an accident of a single random seed; it is a consistent, measurable property of inZORi's bio-adaptive warm-start strategy.</p>
   </div>
 
   <!-- KEY RESULTS -->
@@ -112,7 +112,7 @@
     </div>
     <div class="kr-card">
       <div class="kr-value success">99.9%</div>
-      <div class="kr-label">ZOR S3 convergence at 1.25×<br>(mean over 3 seeds)</div>
+      <div class="kr-label">inZORi S3 convergence at 1.25×<br>(mean over 3 seeds)</div>
     </div>
     <div class="kr-card">
       <div class="kr-value danger">0.0%</div>
@@ -120,7 +120,7 @@
     </div>
     <div class="kr-card">
       <div class="kr-value" style="color:#7c3aed">+99.9pp</div>
-      <div class="kr-label">ZOR advantage at critical point<br>Largest gap measured across all phases</div>
+      <div class="kr-label">inZORi advantage at critical point<br>Largest gap measured across all phases</div>
     </div>
     <div class="kr-card">
       <div class="kr-value" style="color:#0891b2">1354</div>
@@ -163,7 +163,7 @@
       <tr><td>Seeds per combination</td><td>3 (seeds 0, 1, 2)</td></tr>
       <tr><td>Steps per job</td><td>2000 (500 in S3 season)</td></tr>
       <tr><td>N-1 interval</td><td>100 steps (during S3 only)</td></tr>
-      <tr><td>NR_MAX</td><td>4 iterations (ZOR), 30 (bootstrap flat-start)</td></tr>
+      <tr><td>NR_MAX</td><td>4 iterations (inZORi), 30 (bootstrap flat-start)</td></tr>
       <tr><td>Total jobs</td><td>54 (6 × 3 × 3)</td></tr>
       <tr><td>Parallel workers</td><td>12</td></tr>
       <tr><td>Total wall time</td><td>290 seconds</td></tr>
@@ -176,13 +176,13 @@
 
     <h3>2.1 Capacity Curve</h3>
     <div class="fig-wrap">
-      <img src="figures/fig1_capacity_curve.png" alt="ZOR vs NR Capacity Curve">
-      <div class="fig-caption">Fig. 1 — S3 convergence rate vs. load scale factor (mean ± std over 3 seeds). The dashed gold line marks the critical threshold at 1.25× where NR collapses and ZOR maintains 99.9% convergence. Green zone = normal operation; blue zone = ZOR-only operability; red zone = total collapse.</div>
+      <img src="figures/fig1_capacity_curve.png" alt="inZORi vs NR Capacity Curve">
+      <div class="fig-caption">Fig. 1 — S3 convergence rate vs. load scale factor (mean ± std over 3 seeds). The dashed gold line marks the critical threshold at 1.25× where NR collapses and inZORi maintains 99.9% convergence. Green zone = normal operation; blue zone = inZORi-only operability; red zone = total collapse.</div>
     </div>
 
     <h3>2.2 Numerical Results — All Levels</h3>
     <table>
-      <tr><th>Load Scale</th><th>Real Load (GW)</th><th>FrozenElite S3</th><th>G01static S3</th><th>NR S3</th><th>ZOR Advantage</th><th>Zone</th></tr>
+      <tr><th>Load Scale</th><th>Real Load (GW)</th><th>FrozenElite S3</th><th>G01static S3</th><th>NR S3</th><th>inZORi Advantage</th><th>Zone</th></tr>
       <tr class="success-row"><td>1.18×</td><td>86.3 GW</td><td>99.9% ±0.1</td><td>99.9% ±0.1</td><td>100.0% ±0.0</td><td>~0pp</td><td><span class="badge badge-ok">Normal</span></td></tr>
       <tr class="success-row"><td>1.20×</td><td>87.7 GW</td><td>99.9% ±0.1</td><td>99.9% ±0.1</td><td>100.0% ±0.0</td><td>~0pp</td><td><span class="badge badge-ok">Normal</span></td></tr>
       <tr class="success-row"><td>1.22×</td><td>89.2 GW</td><td>99.9% ±0.1</td><td>99.9% ±0.1</td><td>100.0% ±0.0</td><td>~0pp</td><td><span class="badge badge-ok">Normal</span></td></tr>
@@ -194,13 +194,13 @@
     <h3>2.3 Reproducibility Across Seeds</h3>
     <div class="fig-wrap">
       <img src="figures/fig2_reproducibility.png" alt="Reproducibility at 1.25x">
-      <div class="fig-caption">Fig. 2 — S3 convergence at 1.25× nominal load for each of the 3 independent seeds. NR achieves exactly 0% on all three seeds (std=0). ZOR FrozenElite and G01static achieve 99.8%–100% on all three seeds. The result is fully reproducible.</div>
+      <div class="fig-caption">Fig. 2 — S3 convergence at 1.25× nominal load for each of the 3 independent seeds. NR achieves exactly 0% on all three seeds (std=0). inZORi FrozenElite and G01static achieve 99.8%–100% on all three seeds. The result is fully reproducible.</div>
     </div>
 
     <h3>2.4 Heatmap — Full Results Matrix</h3>
     <div class="fig-wrap">
       <img src="figures/fig3_heatmap.png" alt="Full Results Heatmap">
-      <div class="fig-caption">Fig. 3 — Heatmap of mean S3 convergence rate across all 6 load levels and 3 variants. Green = stable convergence, red = failure. The sharp transition at 1.25× is clearly visible for NR. ZOR remains green up to 1.27×.</div>
+      <div class="fig-caption">Fig. 3 — Heatmap of mean S3 convergence rate across all 6 load levels and 3 variants. Green = stable convergence, red = failure. The sharp transition at 1.25× is clearly visible for NR. inZORi remains green up to 1.27×.</div>
     </div>
 
     <h3>2.5 Notable Anomaly: G01static at 1.30×</h3>
@@ -221,22 +221,22 @@
       <tr><td>1.00×</td><td>73.1 GW</td><td>Normal winter evening (design point)</td><td>All solvers stable</td></tr>
       <tr><td>1.18×</td><td>86.3 GW</td><td>Extreme cold wave, high industrial demand</td><td>All solvers stable</td></tr>
       <tr><td>1.22×</td><td>89.2 GW</td><td>Record consumption + reduced generation (plant outages)</td><td>All solvers stable</td></tr>
-      <tr class="highlight"><td><strong>1.25×</strong></td><td><strong>91.4 GW</strong></td><td><strong>Crisis: record demand + N-1 line outage + reduced reserve</strong></td><td><strong>NR fails, ZOR operates</strong></td></tr>
-      <tr><td>1.27×</td><td>92.8 GW</td><td>Compound crisis: demand peak + multiple plant failures</td><td>NR fails, ZOR operates</td></tr>
+      <tr class="highlight"><td><strong>1.25×</strong></td><td><strong>91.4 GW</strong></td><td><strong>Crisis: record demand + N-1 line outage + reduced reserve</strong></td><td><strong>NR fails, inZORi operates</strong></td></tr>
+      <tr><td>1.27×</td><td>92.8 GW</td><td>Compound crisis: demand peak + multiple plant failures</td><td>NR fails, inZORi operates</td></tr>
       <tr><td>1.30×</td><td>95.0 GW</td><td>Catastrophic overload — beyond physical design limits</td><td>All solvers fail</td></tr>
     </table>
 
     <p>The 1.25× threshold is not an arbitrary number. It represents the boundary between what classical power flow solvers can handle and what requires a more adaptive, warm-start-aware approach. In practice, this corresponds to a scenario where <strong>an operator needs to assess grid stability during an ongoing N-1 contingency at peak load</strong> — exactly the situation during events like the 2006 European blackout, the 2015 Ukraine attack, and the 2026 Moldova incident studied in Phase 4.</p>
 
-    <p>ZOR's bio-adaptive memory allows it to warm-start from the previous converged state, effectively providing the solver with a better initial voltage estimate. At 1.25× load, this initial estimate is the difference between convergence and divergence for Newton-Raphson.</p>
+    <p>inZORi's bio-adaptive memory allows it to warm-start from the previous converged state, effectively providing the solver with a better initial voltage estimate. At 1.25× load, this initial estimate is the difference between convergence and divergence for Newton-Raphson.</p>
   </div>
 
   <!-- FIGURES 4: JOURNEY -->
   <div class="section">
-    <h2>4. The Full ZOR Journey — All Phases</h2>
+    <h2>4. The Full inZORi Journey — All Phases</h2>
     <div class="fig-wrap">
-      <img src="figures/fig4_journey.png" alt="ZOR Evolution Across All Phases">
-      <div class="fig-caption">Fig. 4 — S3 convergence across all 6 phases of the inZORi research program. The jump from Phase 5 to Phase 6 represents an 11× increase in network size and the discovery of the capacity boundary where ZOR advantage becomes absolute (+99.9pp).</div>
+      <img src="figures/fig4_journey.png" alt="inZORi Evolution Across All Phases">
+      <div class="fig-caption">Fig. 4 — S3 convergence across all 6 phases of the inZORi research program. The jump from Phase 5 to Phase 6 represents an 11× increase in network size and the discovery of the capacity boundary where inZORi advantage becomes absolute (+99.9pp).</div>
     </div>
   </div>
 
@@ -256,7 +256,7 @@
         <div class="timeline-dot">1</div>
         <div class="timeline-content">
           <strong>Phase 1 — Proof of Concept (IEEE 118-bus, Synthetic Data)</strong>
-          <span>Established the ZOR framework: bio-adaptive genomes with memory_lr, step_scale, risk, jump_chance parameters. Demonstrated ~96% vs ~89% NR on synthetic seasonal stress profiles. Showed that warm-start biological memory consistently outperforms cold Newton-Raphson in S3 stress conditions.</span>
+          <span>Established the inZORi framework: bio-adaptive genomes with memory_lr, step_scale, risk, jump_chance parameters. Demonstrated ~96% vs ~89% NR on synthetic seasonal stress profiles. Showed that warm-start biological memory consistently outperforms cold Newton-Raphson in S3 stress conditions.</span>
         </div>
       </div>
 
@@ -264,7 +264,7 @@
         <div class="timeline-dot">2</div>
         <div class="timeline-content">
           <strong>Phase 2 — Real Load Validation (OPSD Ukraine 2018)</strong>
-          <span>Replaced synthetic profiles with real Ukrainian consumption data from OPSD. Confirmed ZOR advantage (~94% vs ~84%) on real temporal patterns including daily/weekly cycles and seasonal variation. Demonstrated that ZOR's adaptation works on real data, not just synthetic stress scenarios.</span>
+          <span>Replaced synthetic profiles with real Ukrainian consumption data from OPSD. Confirmed inZORi advantage (~94% vs ~84%) on real temporal patterns including daily/weekly cycles and seasonal variation. Demonstrated that inZORi's adaptation works on real data, not just synthetic stress scenarios.</span>
         </div>
       </div>
 
@@ -272,7 +272,7 @@
         <div class="timeline-dot">3</div>
         <div class="timeline-content">
           <strong>Phase 3 — N-2 Contingencies (Two Simultaneous Line Outages)</strong>
-          <span>Extended from N-1 to N-2 topology stress. ZOR maintained ~91% vs ~72% NR — the gap widened as contingency severity increased. Introduced specialized N-2 genomes evolved specifically for two-line outage scenarios. Validated on blackout-inspired scenarios including the 2006 Balkans event.</span>
+          <span>Extended from N-1 to N-2 topology stress. inZORi maintained ~91% vs ~72% NR — the gap widened as contingency severity increased. Introduced specialized N-2 genomes evolved specifically for two-line outage scenarios. Validated on blackout-inspired scenarios including the 2006 Balkans event.</span>
         </div>
       </div>
 
@@ -280,7 +280,7 @@
         <div class="timeline-dot">4</div>
         <div class="timeline-content">
           <strong>Phase 4 — N-4 Contingencies + Historical Blackout Replay</strong>
-          <span>Pushed to N-4 (four simultaneous outages). Replayed the 2006 Balkans blackout, 2015 Ukraine cyberattack, and 2026 Moldova N-1 crisis. ZOR achieved ~87% vs ~61% NR. Established that ZOR's advantage grows monotonically with contingency severity — the harder the scenario, the more ZOR's biological memory matters.</span>
+          <span>Pushed to N-4 (four simultaneous outages). Replayed the 2006 Balkans blackout, 2015 Ukraine cyberattack, and 2026 Moldova N-1 crisis. inZORi achieved ~87% vs ~61% NR. Established that inZORi's advantage grows monotonically with contingency severity — the harder the scenario, the more inZORi's biological memory matters.</span>
         </div>
       </div>
 
@@ -288,7 +288,7 @@
         <div class="timeline-dot">5</div>
         <div class="timeline-content">
           <strong>Phase 5 — ENTSO-E Real Load Data (RO, DE, FR 2024)</strong>
-          <span>Integrated live ENTSO-E Transparency Platform API data (8760 hours of 2024 actual consumption for Romania, Germany, France). Validated 4 variants: FrozenElite+Real, G01static+Real, NR+Real, FrozenElite+Synthetic. ZOR outperformed NR consistently across 3 countries and 4 seeds, proving that real consumption data doesn't undermine ZOR's advantage.</span>
+          <span>Integrated live ENTSO-E Transparency Platform API data (8760 hours of 2024 actual consumption for Romania, Germany, France). Validated 4 variants: FrozenElite+Real, G01static+Real, NR+Real, FrozenElite+Synthetic. inZORi outperformed NR consistently across 3 countries and 4 seeds, proving that real consumption data doesn't undermine inZORi's advantage.</span>
         </div>
       </div>
 
@@ -296,7 +296,7 @@
         <div class="timeline-dot gold">6</div>
         <div class="timeline-content">
           <strong>Phase 6 — Capacity Boundary on case1354pegase (FINAL)</strong>
-          <span>Scaled to an 11× larger network (1354 buses, Pan-European PEGASE model). Discovered the precise critical load threshold at 1.25× nominal (~91.4 GW): NR collapses completely (0%), ZOR maintains 99.9%. Reproduced across 3 independent seeds. Quantified the exact operability window that ZOR extends.</span>
+          <span>Scaled to an 11× larger network (1354 buses, Pan-European PEGASE model). Discovered the precise critical load threshold at 1.25× nominal (~91.4 GW): NR collapses completely (0%), inZORi maintains 99.9%. Reproduced across 3 independent seeds. Quantified the exact operability window that inZORi extends.</span>
         </div>
       </div>
 
@@ -305,36 +305,36 @@
     <h3>5.2 Core Technical Claims — What We Can State</h3>
     <table>
       <tr><th>Claim</th><th>Evidence</th><th>Confidence</th></tr>
-      <tr><td>ZOR outperforms NR in S3 stress conditions on IEEE 118-bus</td><td>Phases 1–5, consistent across 4 seeds, real and synthetic data</td><td>High — reproduced 5× independently</td></tr>
-      <tr><td>ZOR advantage grows with contingency severity (N-1 → N-4)</td><td>Phases 3–4, +7pp (N-1) → +26pp (N-4)</td><td>High — monotonic trend observed</td></tr>
-      <tr><td>ZOR works on real ENTSO-E data (RO, DE, FR)</td><td>Phase 5, 3 countries × 4 seeds</td><td>Medium-High — limited to 2024 data</td></tr>
+      <tr><td>inZORi outperforms NR in S3 stress conditions on IEEE 118-bus</td><td>Phases 1–5, consistent across 4 seeds, real and synthetic data</td><td>High — reproduced 5× independently</td></tr>
+      <tr><td>inZORi advantage grows with contingency severity (N-1 → N-4)</td><td>Phases 3–4, +7pp (N-1) → +26pp (N-4)</td><td>High — monotonic trend observed</td></tr>
+      <tr><td>inZORi works on real ENTSO-E data (RO, DE, FR)</td><td>Phase 5, 3 countries × 4 seeds</td><td>Medium-High — limited to 2024 data</td></tr>
       <tr><td>Critical threshold at 1.25× on case1354pegase</td><td>Phase 6, 3 seeds, 0% variance in NR collapse</td><td>High — zero variance across seeds</td></tr>
-      <tr><td>ZOR extends operable load range by ~5.5% (1.22× → 1.27×)</td><td>Phase 6 capacity sweep</td><td>High — consistent across seeds</td></tr>
+      <tr><td>inZORi extends operable load range by ~5.5% (1.22× → 1.27×)</td><td>Phase 6 capacity sweep</td><td>High — consistent across seeds</td></tr>
       <tr><td>Genome diversity (12-pool) equals best single genome at critical point</td><td>Phase 6: FrozenElite ≈ G01static at 1.25×</td><td>Medium — single network tested</td></tr>
     </table>
 
-    <h3>5.3 What ZOR Is — and What It Is Not</h3>
+    <h3>5.3 What inZORi Is — and What It Is Not</h3>
     <div class="claims-box">
       <ul>
-        <li><strong>ZOR IS</strong> a bio-adaptive wrapper around Newton-Raphson that uses biological memory (warm-start voltage estimates from previous converged states) to improve convergence in stressed conditions.</li>
-        <li><strong>ZOR IS</strong> a real-time operational tool — each "genome decision" takes microseconds, adding negligible overhead to the power flow computation.</li>
-        <li><strong>ZOR IS NOT</strong> a replacement for physical grid reinforcement, energy storage, or demand response — it is a software improvement to an existing computational tool.</li>
-        <li><strong>ZOR IS NOT</strong> proven on a real operational SCADA system — all tests use pandapower simulation with benchmark networks.</li>
-        <li><strong>ZOR IS NOT</strong> effective beyond the physical collapse boundary (1.30× on 1354pegase) — it cannot solve physically infeasible power systems.</li>
-        <li><strong>ZOR DOES</strong> provide the largest benefit precisely in the scenarios where grid operators need it most: N-1 contingencies at peak load, just before the system becomes infeasible.</li>
+        <li><strong>inZORi IS</strong> a bio-adaptive wrapper around Newton-Raphson that uses biological memory (warm-start voltage estimates from previous converged states) to improve convergence in stressed conditions.</li>
+        <li><strong>inZORi IS</strong> a real-time operational tool — each "genome decision" takes microseconds, adding negligible overhead to the power flow computation.</li>
+        <li><strong>inZORi IS NOT</strong> a replacement for physical grid reinforcement, energy storage, or demand response — it is a software improvement to an existing computational tool.</li>
+        <li><strong>inZORi IS NOT</strong> proven on a real operational SCADA system — all tests use pandapower simulation with benchmark networks.</li>
+        <li><strong>inZORi IS NOT</strong> effective beyond the physical collapse boundary (1.30× on 1354pegase) — it cannot solve physically infeasible power systems.</li>
+        <li><strong>inZORi DOES</strong> provide the largest benefit precisely in the scenarios where grid operators need it most: N-1 contingencies at peak load, just before the system becomes infeasible.</li>
       </ul>
     </div>
 
     <h3>5.4 Practical Value Proposition</h3>
     <p>In real grid operations, power flow solvers run every few minutes to assess system state. During N-1 contingency analysis (required by ENTSO-E operational security standards), an operator may need to solve hundreds of contingency scenarios per security assessment cycle. When the system is close to its operational limits — during heatwaves, cold snaps, or during ongoing incidents — <strong>NR-based solvers begin to diverge or require many more iterations.</strong></p>
-    <p>ZOR addresses this by maintaining a biological memory of recent voltage states, effectively providing a warm-start that is always closer to the true solution than a flat start or a stale previous solution. The result, as demonstrated across all six phases, is <strong>statistically significant improvement in convergence rate and iteration count</strong> exactly when and where it matters.</p>
-    <p>The 1.25× threshold on case1354pegase corresponds to a scenario where classical tools fail entirely. ZOR does not just converge faster — it converges when NR cannot. This is the core claim.</p>
+    <p>inZORi addresses this by maintaining a biological memory of recent voltage states, effectively providing a warm-start that is always closer to the true solution than a flat start or a stale previous solution. The result, as demonstrated across all six phases, is <strong>statistically significant improvement in convergence rate and iteration count</strong> exactly when and where it matters.</p>
+    <p>The 1.25× threshold on case1354pegase corresponds to a scenario where classical tools fail entirely. inZORi does not just converge faster — it converges when NR cannot. This is the core claim.</p>
 
     <h3>5.5 Limitations and Future Work</h3>
     <div class="claims-box">
       <ul>
         <li><strong>Network models only:</strong> All experiments use pandapower benchmark networks. Real transmission system data is proprietary and not available.</li>
-        <li><strong>N-1 only on 1354pegase:</strong> Phase 6 uses only single-line N-1 contingencies. N-2/N-3 on 1354pegase would likely show an even larger ZOR advantage.</li>
+        <li><strong>N-1 only on 1354pegase:</strong> Phase 6 uses only single-line N-1 contingencies. N-2/N-3 on 1354pegase would likely show an even larger inZORi advantage.</li>
         <li><strong>Fixed genome pool:</strong> The 12-genome FrozenElite pool was evolved for one network and may require re-evolution for different networks or operating conditions.</li>
         <li><strong>No voltage/thermal limits:</strong> The convergence metric measures mathematical convergence, not physical constraint satisfaction (voltage limits, thermal ratings).</li>
         <li><strong>Future directions:</strong> N-2 sweep on 1354pegase; validation on case2869pegase (2869 buses); integration with ENTSO-E security assessment workflows; transfer learning of genomes across networks.</li>
@@ -345,8 +345,8 @@
     <div class="conclusion-box">
       <h3>What We Set Out to Prove — What We Proved</h3>
       <p><strong>Hypothesis (Phase 1):</strong> Biological memory and adaptive genome diversity can improve Newton-Raphson convergence under power system stress.</p>
-      <p style="margin-top:0.75rem"><strong>Result (Phase 6):</strong> Confirmed. ZOR maintains 99.9% convergence at 1.25× nominal load on a 1354-bus Pan-European network where Newton-Raphson achieves 0% — reproduced identically across 3 independent random seeds. The advantage is not marginal; it is total. The critical threshold is not approximate; it is sharp and reproducible.</p>
-      <p style="margin-top:0.75rem"><strong>The grid at 91.4 GW can be operated with ZOR. It cannot be operated with classical Newton-Raphson. That is the finding.</strong></p>
+      <p style="margin-top:0.75rem"><strong>Result (Phase 6):</strong> Confirmed. inZORi maintains 99.9% convergence at 1.25× nominal load on a 1354-bus Pan-European network where Newton-Raphson achieves 0% — reproduced identically across 3 independent random seeds. The advantage is not marginal; it is total. The critical threshold is not approximate; it is sharp and reproducible.</p>
+      <p style="margin-top:0.75rem"><strong>The grid at 91.4 GW can be operated with inZORi. It cannot be operated with classical Newton-Raphson. That is the finding.</strong></p>
     </div>
   </div>
 
@@ -368,7 +368,7 @@
 cd /opt/projects/zor_task_solver
 python3 /tmp/capacity_full.py
 # Expected output: 54 jobs in ~290s on 12 cores
-# Key result: NR=0% at 1.25x, ZOR=99.9% at 1.25x (all 3 seeds)
+# Key result: NR=0% at 1.25x, inZORi=99.9% at 1.25x (all 3 seeds)
       </div>
     </div>
   </div>
@@ -388,7 +388,7 @@ python3 /tmp/capacity_full.py
 </div>
 
 <div class="footer">
-  <p><strong>inZORi PF-Δ Phase 6</strong> — ZOR Bio-Adaptive Power Flow Solver · February 2026</p>
+  <p><strong>inZORi PF-Δ Phase 6</strong> — inZORi Bio-Adaptive Power Flow Solver · February 2026</p>
   <p style="margin-top:0.5rem">case1354pegase from PEGASE EU FP7 project · Simulation: pandapower · Research: inZORi</p>
 </div>
 

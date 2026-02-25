@@ -10,17 +10,17 @@
       "published": true,
       "created_at": "2026-02-25",
       "updated_at": "2026-02-25",
-      "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18\u00d7 to 1.30\u00d7 nominal across 3 seeds. At exactly 1.25\u00d7, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while ZOR FrozenElite maintains 99.9% \u2014 a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
+      "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18\u00d7 to 1.30\u00d7 nominal across 3 seeds. At exactly 1.25\u00d7, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while inZORi FrozenElite maintains 99.9% \u2014 a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
       "key_findings": [
-        "Sharp critical threshold at 1.25\u00d7 nominal (~91.4 GW): NR=0%, ZOR=99.9% \u2014 reproducible on 3 seeds",
-        "ZOR extends operable load range by ~5.5%: from 1.22\u00d7 (both work) to 1.27\u00d7 (ZOR only)",
-        "Below 1.22\u00d7: all methods equivalent (~100%) \u2014 ZOR adds no overhead in normal conditions",
-        "Above 1.30\u00d7: all methods fail \u2014 ZOR cannot solve physically infeasible systems",
+        "Sharp critical threshold at 1.25\u00d7 nominal (~91.4 GW): NR=0%, inZORi=99.9% \u2014 reproducible on 3 seeds",
+        "inZORi extends operable load range by ~5.5%: from 1.22\u00d7 (both work) to 1.27\u00d7 (inZORi only)",
+        "Below 1.22\u00d7: all methods equivalent (~100%) \u2014 inZORi adds no overhead in normal conditions",
+        "Above 1.30\u00d7: all methods fail \u2014 inZORi cannot solve physically infeasible systems",
         "11\u00d7 larger network than Phases 1\u20135 (1354 vs 118 buses) \u2014 advantage holds at scale",
         "54 jobs completed in 290s on 12 cores \u2014 production-ready computational efficiency"
       ],
       "metrics": {
-        "ZOR at 1.25\u00d7 (critical)": "99.9% \u00b10.1",
+        "inZORi at 1.25\u00d7 (critical)": "99.9% \u00b10.1",
         "NR at 1.25\u00d7 (critical)": "0.0% \u00b10.0",
         "Advantage at critical point": "+99.9pp (\u221e\u00d7 factor)",
         "Critical threshold": "1.25\u00d7 nominal = ~91.4 GW",
@@ -32,11 +32,11 @@
       "images": [
         {
           "url": "tests/pfdelta_phase6_capacity/figures/fig1_capacity_curve.png",
-          "caption": "Fig 1 \u2014 ZOR vs NR Capacity Curve: S3 convergence rate vs load scale (1.18\u00d7\u20131.30\u00d7). Sharp NR collapse at 1.25\u00d7."
+          "caption": "Fig 1 \u2014 inZORi vs NR Capacity Curve: S3 convergence rate vs load scale (1.18\u00d7\u20131.30\u00d7). Sharp NR collapse at 1.25\u00d7."
         },
         {
           "url": "tests/pfdelta_phase6_capacity/figures/fig2_reproducibility.png",
-          "caption": "Fig 2 \u2014 Reproducibility at 1.25\u00d7: NR=0% on all 3 seeds, ZOR=99.8\u2013100% on all 3 seeds."
+          "caption": "Fig 2 \u2014 Reproducibility at 1.25\u00d7: NR=0% on all 3 seeds, inZORi=99.8\u2013100% on all 3 seeds."
         },
         {
           "url": "tests/pfdelta_phase6_capacity/figures/fig3_heatmap.png",
@@ -44,7 +44,7 @@
         },
         {
           "url": "tests/pfdelta_phase6_capacity/figures/fig4_journey.png",
-          "caption": "Fig 4 \u2014 Complete ZOR journey: all 6 phases from 118-bus synthetic to 1354-bus capacity boundary."
+          "caption": "Fig 4 \u2014 Complete inZORi journey: all 6 phases from 118-bus synthetic to 1354-bus capacity boundary."
         }
       ],
       "links": [
