@@ -1,7 +1,63 @@
 {
   "version": "1",
-  "updated_at": "2026-02-23",
+  "updated_at": "2026-02-08",
   "tests": [
+    {
+      "id": "pfdelta-phase6-capacity",
+      "name": "PFΔ Phase 6 ★ FINAL — Capacity Boundary on case1354pegase (1354-bus Pan-European)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-08",
+      "updated_at": "2026-02-08",
+      "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18× to 1.30× nominal across 3 seeds. At exactly 1.25×, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while ZOR FrozenElite maintains 99.9% — a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
+      "key_findings": [
+        "Sharp critical threshold at 1.25× nominal (~91.4 GW): NR=0%, ZOR=99.9% — reproducible on 3 seeds",
+        "ZOR extends operable load range by ~5.5%: from 1.22× (both work) to 1.27× (ZOR only)",
+        "Below 1.22×: all methods equivalent (~100%) — ZOR adds no overhead in normal conditions",
+        "Above 1.30×: all methods fail — ZOR cannot solve physically infeasible systems",
+        "11× larger network than Phases 1–5 (1354 vs 118 buses) — advantage holds at scale",
+        "54 jobs completed in 290s on 12 cores — production-ready computational efficiency"
+      ],
+      "metrics": {
+        "ZOR at 1.25× (critical)": "99.9% ±0.1",
+        "NR at 1.25× (critical)": "0.0% ±0.0",
+        "Advantage at critical point": "+99.9pp (∞× factor)",
+        "Critical threshold": "1.25× nominal = ~91.4 GW",
+        "Network": "case1354pegase (1354 buses, 1991 lines)",
+        "Seeds": "3 (fully reproducible)",
+        "Total jobs": "54 (6 scales × 3 variants × 3 seeds)",
+        "Wall time": "290 seconds on 12 cores"
+      },
+      "images": [
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig1_capacity_curve.png",
+          "caption": "Fig 1 — ZOR vs NR Capacity Curve: S3 convergence rate vs load scale (1.18×–1.30×). Sharp NR collapse at 1.25×."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig2_reproducibility.png",
+          "caption": "Fig 2 — Reproducibility at 1.25×: NR=0% on all 3 seeds, ZOR=99.8–100% on all 3 seeds."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig3_heatmap.png",
+          "caption": "Fig 3 — Full results heatmap: convergence across all 6 load levels × 3 variants. Sharp transition visible."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig4_journey.png",
+          "caption": "Fig 4 — Complete ZOR journey: all 6 phases from 118-bus synthetic to 1354-bus capacity boundary."
+        }
+      ],
+      "links": [
+        {
+          "url": "tests/pfdelta_phase6_capacity/index.html",
+          "label": "Full Results Page"
+        },
+        {
+          "url": "results/capacity_full_results.json",
+          "label": "Raw JSON Results"
+        }
+      ]
+    },
     {
       "id": "pfdelta-phase5-entsoe",
       "name": "PFΔ Phase 5 — ENTSO-E Real Load: Romania, Germany, France (2024)",
