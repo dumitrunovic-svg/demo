@@ -57,6 +57,10 @@
         {
           "url": "results/entsoe_iter_study.json",
           "label": "Raw JSON Results"
+        },
+        {
+          "url": "tests/re_study/inZORi_RE_Study_N1_Security_Zenodo.pdf",
+          "label": "PDF (Zenodo preprint)"
         }
       ]
     },
