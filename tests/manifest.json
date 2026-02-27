@@ -129,7 +129,9 @@
       "status": "finished",
       "published": true,
       "created_at": "2026-02-23",
-      "updated_at": "2026-02-23",
+      "updated_at": "2026-02-27",
+      "doi": "10.5281/zenodo.18806567",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18806567",
       "description": "First validation of inZORi FrozenElite on live ENTSO-E Transparency Platform data (2024). Three grids tested: Romania (thermal/hydro), Germany (renewables-heavy), France (nuclear-dominant). 4 variants × 4 seeds × 3 countries = 48 jobs on 12 cores. FrozenElite achieves 75–92% S3 convergence vs 4.5–15% for NR standard — a 6× to 17× improvement on real European consumption data.",
       "key_findings": [
         "FrozenElite 75.3% vs NR 4.5% on Romania ENTSO-E 2024 (×16.7 advantage)",
