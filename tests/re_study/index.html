@@ -88,23 +88,6 @@
 
 <div class="container">
 
-  <!-- ═══════════════ WHAT IS INZORI ═══════════════ -->
-  <div class="section">
-    <h2>What is inZORi?</h2>
-
-    <p><strong>inZORi</strong> (Intelligent Zonal Optimization &amp; Resilience Infrastructure) is a bio-adaptive framework that wraps around classical Newton-Raphson power flow solvers to accelerate convergence in stressed power grids. Instead of always starting from a generic flat voltage profile (V = 1.0 per unit everywhere), inZORi uses <em>biological memory</em> &mdash; a warm-start strategy evolved through genomic optimization &mdash; to provide the solver with a better initial voltage estimate based on recent system states.</p>
-
-    <p>The core innovation is a set of <strong>evolved genome parameters</strong> that control how much of the previous converged voltage solution is blended into the starting point for the next power flow calculation. This is analogous to how biological organisms retain memory of recent environmental conditions to adapt faster to new situations.</p>
-
-    <div class="highlight-box">
-      <h3>The Problem inZORi Solves</h3>
-      <p>European power grid operators are required by <strong>ENTSO-E operational security standards</strong> to continuously verify that the grid can survive any single equipment failure (N-1 security). This requires solving hundreds of contingency power flow cases every few minutes. As <strong>renewable energy penetration increases</strong> (solar, wind), voltage profiles become more volatile and harder to predict, causing classical Newton-Raphson solvers to need more iterations &mdash; or fail to converge entirely within real-time budgets.</p>
-      <p>Every additional iteration costs computational time. In a real-time control room, this translates directly to <strong>fewer contingencies verified per minute</strong> and therefore <strong>reduced situational awareness</strong> for the operator. The consequence: either the operator accepts higher risk, or the grid must curtail renewable generation to maintain predictable voltage profiles.</p>
-    </div>
-
-    <p><strong>Where inZORi is deployed:</strong> As a software layer in Energy Management Systems (EMS) used by Transmission System Operators (TSOs) for real-time N-1 security assessment. It requires no hardware changes &mdash; only a smarter starting strategy for the existing Newton-Raphson solver.</p>
-  </div>
-
   <!-- ═══════════════ ABSTRACT ═══════════════ -->
   <div class="abstract-box">
     <h2>Abstract</h2>
