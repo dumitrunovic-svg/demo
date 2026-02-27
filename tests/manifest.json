@@ -1,7 +1,57 @@
 {
   "version": "1",
-  "updated_at": "2026-02-25",
+  "updated_at": "2026-02-27",
   "tests": [
+    {
+      "id": "re-study-renewables",
+      "name": "RE Study \u2605 \u2014 83% Renewables: When Newton-Raphson Fails and inZORi Doesn't",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-27",
+      "updated_at": "2026-02-27",
+      "description": "Separate study: N-1 security assessment under real renewable volatility. Uses ENTSO-E Germany Q2 2025 data (8,832 intervals, 15-min resolution) on case1354pegase (1354 buses). Introduces inZORi N-1 Specialist genome evolved for contingency analysis. Under real-time constraints (4 NR iterations), inZORi maintains N-1 security where standard NR fails completely.",
+      "key_findings": [
+        "inZORi N-1 Specialist at >75% renewable share: 52.7% N-1 success rate",
+        "NR (4 iter real-time) at 1.25x load: 0.0% \u2014 complete failure",
+        "inZORi advantage at 1.25x: +0.2pp",
+        "Partial warm-start blend (memory_lr\u22480.3-0.5) beats both full warm-start and flat-start for N-1",
+        "Validated on 8,832 real 15-min intervals: Germany May-July 2025, 20%-91% renewable share"
+      ],
+      "metrics": {
+        "inZORi at >75% renewable (4 iter)": "52.7%",
+        "NR at 1.25x (4 iter, real-time)": "0.0%",
+        "NR at 1.25x (30 iter, standard)": "98.8%",
+        "Max renewable share in data": "91.1% (ENTSO-E DE Q2 2025)",
+        "Network": "case1354pegase (1354 buses)",
+        "Data intervals": "8,832 (15-min, May-Jul 2025)",
+        "Seeds": "3 (fully reproducible)"
+      },
+      "images": [
+        {
+          "url": "tests/re_study/figures/fig1_renewable_bins.png",
+          "caption": "Fig 1 \u2014 N-1 security rate by renewable share bin (ENTSO-E Q2 2025)"
+        },
+        {
+          "url": "tests/re_study/figures/fig2_load_capacity.png",
+          "caption": "Fig 2 \u2014 N-1 capacity curve: inZORi vs NR at different load stress levels"
+        },
+        {
+          "url": "tests/re_study/figures/fig3_heatmap.png",
+          "caption": "Fig 3 \u2014 Heatmap: N-1 rate across renewable share \u00d7 load stress combinations"
+        }
+      ],
+      "links": [
+        {
+          "url": "tests/re_study/index.html",
+          "label": "Full Results Page"
+        },
+        {
+          "url": "results/re_study_results.json",
+          "label": "Raw JSON Results"
+        }
+      ]
+    },
     {
       "id": "pfdelta-phase6-capacity",
       "name": "PF\u0394 Phase 6 \u2605 FINAL \u2014 Capacity Boundary on case1354pegase (1354-bus Pan-European)",
