@@ -71,7 +71,9 @@
       "status": "finished",
       "published": true,
       "created_at": "2026-02-25",
-      "updated_at": "2026-02-25",
+      "updated_at": "2026-02-27",
+      "doi": "10.5281/zenodo.18806643",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18806643",
       "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18× to 1.30× nominal across 3 seeds. At exactly 1.25×, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while inZORi FrozenElite maintains 99.9% — a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
       "key_findings": [
         "Sharp critical threshold at 1.25× nominal (~91.4 GW): NR=0%, inZORi=99.9% — reproducible on 3 seeds",
