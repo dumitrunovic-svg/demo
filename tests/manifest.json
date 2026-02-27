@@ -8,8 +8,8 @@
       "category": "scientific",
       "status": "finished",
       "published": true,
-      "created_at": "2026-02-08",
-      "updated_at": "2026-02-08",
+      "created_at": "2026-02-27",
+      "updated_at": "2026-02-27",
       "description": "Quantifies how inZORi's bio-adaptive warm-start reduces Newton-Raphson iterations for N-1 contingency power flow convergence. 132,480 N-1 assessments on case1354pegase (1354 buses) using real ENTSO-E Germany Q2 2025 data (8,832 intervals). Identical tolerance (1e-6 MVA). inZORi converges in 3.15 iterations vs NR 5.22 — a 1.66× speedup translating to 1,058 vs 638 contingencies/min.",
       "key_findings": [
         "Global speedup: 1.66× (inZORi 3.15 iter vs NR 5.22 iter, identical 1e-6 tolerance)",
