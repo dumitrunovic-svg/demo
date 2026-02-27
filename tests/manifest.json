@@ -3,41 +3,50 @@
   "updated_at": "2026-02-27",
   "tests": [
     {
-      "id": "re-study-renewables",
-      "name": "RE Study — Who Falls First? inZORi vs NR, Same 4-Iteration Budget",
+      "id": "re-study-n1-security",
+      "name": "inZORi: 1.66× Faster Real-Time N-1 Grid Security Under Renewable Volatility",
       "category": "scientific",
       "status": "finished",
       "published": true,
-      "created_at": "2026-02-27",
+      "created_at": "2026-02-08",
       "updated_at": "2026-02-08",
-      "description": "Fair comparison: both solvers get exactly 4 NR iterations per N-1 contingency check. NR uses flat-start; inZORi uses bio-adaptive partial warm-start evolved for topology changes. 8,832 sequential ENTSO-E Germany Q2 2025 intervals on case1354pegase (1354 buses).",
+      "description": "Quantifies how inZORi's bio-adaptive warm-start reduces Newton-Raphson iterations for N-1 contingency power flow convergence. 132,480 N-1 assessments on case1354pegase (1354 buses) using real ENTSO-E Germany Q2 2025 data (8,832 intervals). Identical tolerance (1e-6 MVA). inZORi converges in 3.15 iterations vs NR 5.22 — a 1.66× speedup translating to 1,058 vs 638 contingencies/min.",
       "key_findings": [
-        "NR (4 iter, flat-start) collapses for N-1 assessment at 1.18× load — 0.01% success",
-        "inZORi N-1 Specialist maintains coverage until 1.22× load with same budget",
-        "inZORi wins by +8pp to +20pp across every renewable share bin (real ENTSO-E data)",
-        "Same conditions, same iterations, same network — inZORi falls last"
+        "Global speedup: 1.66× (inZORi 3.15 iter vs NR 5.22 iter, identical 1e-6 tolerance)",
+        "Throughput: 1,058 vs 638 contingencies/min — +66% more N-1 security checks",
+        "Peak speedup 1.99× at 0.92× load (normal operation)",
+        "Both solvers solve exactly the same 130,056 cases; fail on same 2,424 (physical collapse >1.31×)",
+        "Advantage consistent from 0.90× to 1.31× load — full physical operating range",
+        "132,480 N-1 assessments: 8,832 ENTSO-E intervals × 5 lines × 3 seeds"
       ],
       "metrics": {
-        "inZORi at >75% renewable (4 iter)": "52.7%",
-        "NR at 1.25x (4 iter, real-time)": "0.0%",
-        "NR at 1.25x (30 iter, standard)": "98.8%",
-        "Max renewable share in data": "91.1% (ENTSO-E DE Q2 2025)",
-        "Network": "case1354pegase (1354 buses)",
-        "Data intervals": "8,832 (15-min, May-Jul 2025)",
-        "Seeds": "3 (fully reproducible)"
+        "inZORi mean iterations": "3.151",
+        "NR mean iterations": "5.221",
+        "Iterations saved": "+2.07 per contingency",
+        "Speedup": "1.66×",
+        "inZORi ctg/min": "1,058",
+        "NR ctg/min": "638",
+        "N-1 assessments": "132,480",
+        "Network": "case1354pegase (1354 buses, 1991 lines)",
+        "Data": "ENTSO-E DE-LU Q2 2025, 8,832 intervals",
+        "Seeds": "3 (42, 7, 137)"
       },
       "images": [
         {
-          "file": "tests/re_study/figures/fig1_who_falls_first.png",
-          "caption": "Who Falls First — N-1 success rate by load level, same 4-iter budget"
+          "url": "tests/re_study/figures/fig1_iterations_comparison.png",
+          "caption": "Fig 1 — NR vs inZORi: minimum iterations to converge by load factor"
         },
         {
-          "file": "tests/re_study/figures/fig2_advantage_by_ren.png",
-          "caption": "inZORi advantage by renewable share — +8pp to +20pp"
+          "url": "tests/re_study/figures/fig2_speedup_curve.png",
+          "caption": "Fig 2 — Speedup curve across full operating range (0.90×–1.31×)"
         },
         {
-          "file": "tests/re_study/figures/fig3_heatmap_fair.png",
-          "caption": "Heatmap: load × renewable share, side-by-side fair comparison"
+          "url": "tests/re_study/figures/fig3_contingencies_per_minute.png",
+          "caption": "Fig 3 — Operational impact: N-1 contingencies verified per minute"
+        },
+        {
+          "url": "tests/re_study/figures/fig4_savings_and_failures.png",
+          "caption": "Fig 4 — Iteration savings and failure behavior at physical limits"
         }
       ],
       "links": [
@@ -46,7 +55,7 @@
           "label": "Full Results Page"
         },
         {
-          "url": "results/re_study_results.json",
+          "url": "results/entsoe_iter_study.json",
           "label": "Raw JSON Results"
         }
       ]
@@ -220,7 +229,8 @@
         }
       ],
       "domain": "Power Systems / Real Data Validation",
-      "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed."
+      "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed.",
+      "doi": "10.5281/zenodo.18735099"
     },
     {
       "id": "pfdelta-phase3-n2",
@@ -269,7 +279,8 @@
         }
       ],
       "domain": "Power Systems / Grid Stability",
-      "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome."
+      "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome.",
+      "doi": "10.5281/zenodo.18735120"
     },
     {
       "id": "scenario-1-dynamic-worlds",
