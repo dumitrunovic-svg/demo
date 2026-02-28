@@ -62,7 +62,9 @@
           "url": "results/thermal_baws_results.json",
           "label": "Raw JSON Results (Thermal 2D)"
         }
-      ]
+      ],
+      "doi": "10.5281/zenodo.18816838",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18816838"
     },
     {
       "id": "re-study-n1-security",
