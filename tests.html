@@ -1,584 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inZORi — Tests</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-      /* Tests page additions (keep palette + type consistent) */
-      .tests-hero {
-        margin-top: 0.5rem;
-        color: var(--muted);
-        font-size: var(--text-sm);
-        max-width: 46rem;
-      }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi — Research Tests</title>
+<meta name="description" content="inZORi research tests across 12+ domains: power systems, robotics, TESS signals, social behavior, drift continuity, and more.">
+<style>
+  :root {
+    --primary: #1a7dc4;
+    --success: #27ae60;
+    --warning: #e67e22;
+    --gold: #c9a227;
+    --dark: #2c3e50;
+    --light-bg: #f8f9fa;
+    --border: #dee2e6;
+    --accent: #1a7dc4;
+    --muted: #666;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fff; color: var(--dark); line-height: 1.65; }
 
-      .toolbar {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr;
-        gap: 0.75rem;
-        align-items: end;
-        margin: 1.5rem 0 1.25rem;
-        padding-bottom: 1.25rem;
-        border-bottom: 1px solid var(--border);
-      }
+  /* ── HEADER ── */
+  .header { background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%); color: #fff; padding: 2.5rem 2rem 2rem; }
+  .header .badge { display: inline-block; background: rgba(255,215,0,0.22); border: 1px solid rgba(255,215,0,0.55); border-radius: 20px; padding: 0.28rem 1.1rem; font-size: 0.82rem; margin-bottom: 0.8rem; letter-spacing: 0.07em; color: #FFD700; font-weight: 700; text-transform: uppercase; }
+  .header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .header .subtitle { font-size: 1rem; opacity: 0.85; max-width: 680px; }
 
-      .field label {
-        display: block;
-        font-size: 0.95rem;
-        color: var(--muted);
-        margin-bottom: 0.35rem;
-        font-weight: 600;
-      }
+  /* ── NAV BAR ── */
+  .nav-bar { background: #1a3a5c; padding: 0.55rem 2rem; display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+  .nav-bar a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; padding: 0.2rem 0.7rem; border-radius: 12px; transition: all 0.2s; }
+  .nav-bar a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .nav-bar a.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 600; }
 
-      .field input, .field select {
-        width: 100%;
-        background: var(--surface);
-        color: var(--text);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 0.65rem 0.75rem;
-        font-family: var(--font-main);
-        font-size: 1rem;
-        outline: none;
-      }
+  /* ── CONTAINER ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-      .field input:focus, .field select:focus {
-        border-color: rgba(34, 211, 238, 0.55);
-        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.10);
-      }
+  /* ── TOOLBAR ── */
+  .toolbar { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 0.75rem; align-items: end; margin: 1.5rem 0 1.25rem; padding-bottom: 1.25rem; border-bottom: 2px solid var(--border); }
+  .field label { display: block; font-size: 0.88rem; color: var(--muted); margin-bottom: 0.35rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .field input, .field select { width: 100%; background: var(--light-bg); color: var(--dark); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem 0.75rem; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.93rem; outline: none; transition: border-color 0.2s; }
+  .field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,125,196,0.1); }
 
-      .results-meta {
-        margin: 0.75rem 0 1.0rem;
-        color: var(--muted);
-        font-size: 0.98rem;
-      }
+  /* ── RESULTS META ── */
+  .results-meta { margin: 0.75rem 0 1rem; color: var(--muted); font-size: 0.9rem; }
 
-      details.test {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        margin: 0 0 0.9rem;
-        overflow: hidden;
-        transition: border-color 0.2s ease, transform 0.2s ease;
-      }
+  /* ── TEST CARDS ── */
+  details.test { background: #fff; border: 1px solid var(--border); border-radius: 10px; margin: 0 0 0.9rem; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
+  details.test:hover { border-color: var(--primary); }
+  details.test[open] { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,125,196,0.08); }
 
-      details.test:hover {
-        border-color: rgba(34, 211, 238, 0.55);
-      }
+  summary.test__summary { list-style: none; cursor: pointer; padding: 1rem 1.1rem; display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: center; }
+  summary::-webkit-details-marker { display: none; }
 
-      details.test[open] {
-        border-color: rgba(34, 211, 238, 0.65);
-        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
-      }
+  .test__title { margin: 0; font-size: 1.1rem; line-height: 1.35; font-weight: 700; }
+  .test__subtitle { margin-top: 0.3rem; color: var(--muted); font-size: 0.9rem; }
 
-      summary.test__summary {
-        list-style: none;
-        cursor: pointer;
-        padding: 1.0rem 1.1rem;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 0.75rem;
-        align-items: center;
-      }
+  /* ── PILLS ── */
+  .pill { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.65rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-size: 0.82rem; white-space: nowrap; background: var(--light-bg); }
+  .pill-date { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+  .pill-updated { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
 
-      summary::-webkit-details-marker { display: none; }
+  .test__meta { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+  .chevron { color: var(--primary); font-weight: 700; margin-left: 0.25rem; }
 
-      .test__title {
-        margin: 0;
-        font-size: 1.25rem;
-        line-height: 1.35;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-      }
+  /* ── TEST BODY ── */
+  .test__body { padding: 0 1.1rem 1.2rem; border-top: 1px solid var(--border); background: var(--light-bg); }
+  .test__body p { margin: 0.8rem 0; font-size: 0.93rem; }
 
-      .test__subtitle {
-        margin-top: 0.35rem;
-        color: var(--muted);
-        font-size: 0.98rem;
-      }
+  /* ── MEDIA GRID ── */
+  .grid-media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 1rem 0; }
+  .media { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; }
+  .media img { width: 100%; display: block; cursor: zoom-in; }
+  .media .cap { padding: 0.55rem 0.75rem; color: var(--muted); font-size: 0.85rem; font-style: italic; }
 
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 0.35rem 0.6rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        color: var(--muted);
-        font-size: 0.92rem;
-        white-space: nowrap;
-        background: rgba(34, 211, 238, 0.06);
-      }
-      .pill-date {
-        background: rgba(74, 144, 217, 0.08);
-        border-color: rgba(74, 144, 217, 0.25);
-        color: #7ab5e8;
-        font-size: 0.85rem;
-      }
-      .pill-updated {
-        background: rgba(46, 204, 113, 0.07);
-        border-color: rgba(46, 204, 113, 0.22);
-        color: #6dcf97;
-        font-size: 0.85rem;
-      }
+  /* ── METRICS ── */
+  .metrics { margin: 1rem 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.6rem; }
+  .metric { border: 1px solid var(--border); border-radius: 8px; padding: 0.65rem 0.75rem; background: #fff; }
+  .metric .k { color: var(--muted); font-size: 0.82rem; }
+  .metric .v { color: var(--dark); font-weight: 700; font-size: 1rem; }
 
-      .test__meta {
-        display: flex;
-        gap: 0.6rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-      }
+  /* ── KEY FINDINGS ── */
+  .kfind { margin: 1rem 0; padding: 0.9rem 1rem; background: #eff6ff; border-left: 4px solid var(--primary); border-radius: 0 8px 8px 0; }
+  .kfind h3 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--primary); }
+  .kfind ul { padding-left: 1.3rem; }
+  .kfind li { font-size: 0.9rem; margin-bottom: 0.3rem; }
 
-      .chevron {
-        color: var(--accent);
-        font-weight: 700;
-        margin-left: 0.25rem;
-      }
+  /* ── LINKS / BUTTONS ── */
+  .links { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
+  .btn { display: inline-block; padding: 0.45rem 0.9rem; border-radius: 8px; border: 1px solid var(--primary); background: rgba(26,125,196,0.07); color: var(--primary); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: background 0.2s; }
+  .btn:hover { background: rgba(26,125,196,0.14); }
 
-      .test__body {
-        padding: 0 1.1rem 1.15rem;
-        border-top: 1px solid var(--border);
-      }
+  /* ── LIGHTBOX ── */
+  .lightbox { position: fixed; inset: 0; background: rgba(5,8,12,0.92); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 2vh 2vw; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 96vw; max-height: 90vh; width: auto; height: auto; border: 1px solid #444; border-radius: 8px; box-shadow: 0 15px 45px rgba(0,0,0,.45); }
+  .lightbox .cap { position: absolute; left: 50%; transform: translateX(-50%); bottom: 2vh; color: #ccc; font-size: 0.9rem; text-align: center; max-width: 92vw; }
+  .lightbox .close { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: .45rem .7rem; cursor: pointer; font-weight: 700; font-size: 1.1rem; }
 
-      .grid-media {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.75rem;
-        margin: 1.0rem 0;
-      }
+  /* ── FOOTER NAV ── */
+  .footer-nav { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .footer-nav a { color: var(--primary); text-decoration: none; }
+  .footer-nav a:hover { text-decoration: underline; }
 
-      
-      .media img { cursor: zoom-in; }
+  /* ── FOOTER ── */
+  .footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 1.5rem 2rem; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
+  .footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+  .footer p + p { margin-top: 0.4rem; }
 
-      .lightbox {
-        position: fixed;
-        inset: 0;
-        background: rgba(5, 8, 12, 0.92);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        padding: 2vh 2vw;
-      }
-      .lightbox.open { display: flex; }
-      .lightbox img {
-        max-width: 96vw;
-        max-height: 90vh;
-        width: auto;
-        height: auto;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: 0 15px 45px rgba(0,0,0,.45);
-      }
-      .lightbox .cap {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 2vh;
-        color: var(--muted);
-        font-size: 0.95rem;
-        text-align: center;
-        max-width: 92vw;
-      }
-      .lightbox .close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: rgba(34,211,238,.14);
-        color: var(--accent);
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: .45rem .7rem;
-        cursor: pointer;
-        font-weight: 700;
-      }
-
-      .media {
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        overflow: hidden;
-        background: var(--bg);
-      }
-
-      .media img {
-        width: 100%;
-        display: block;
-      }
-
-      .media .cap {
-        padding: 0.65rem 0.75rem;
-        color: var(--muted);
-        font-size: 0.95rem;
-      }
-
-      .links {
-        display: flex;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        margin-top: 0.75rem;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 0.55rem 0.8rem;
-        border-radius: var(--radius);
-        border: 1px solid var(--border);
-        background: rgba(34, 211, 238, 0.10);
-        color: var(--accent);
-        text-decoration: none;
-        font-size: 0.98rem;
-        font-weight: 600;
-        transition: background 0.2s ease, border-color 0.2s ease;
-      }
-
-      .btn:hover {
-        background: rgba(34, 211, 238, 0.16);
-        border-color: rgba(34, 211, 238, 0.55);
-      }
-
-      .kfind {
-        margin: 1.0rem 0;
-        padding: 0.9rem 1.0rem;
-        background: rgba(34, 211, 238, 0.08);
-        border-left: 4px solid var(--accent);
-        border-radius: 0 var(--radius) var(--radius) 0;
-      }
-
-      .kfind h3 {
-        margin: 0 0 0.5rem;
-      }
-
-      .metrics {
-        margin: 1.0rem 0;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.6rem;
-      }
-
-      .metric {
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        padding: 0.65rem 0.75rem;
-        background: rgba(19, 25, 32, 0.55);
-      }
-
-      .metric .k { color: var(--muted); font-size: 0.92rem; }
-      .metric .v { color: var(--text); font-weight: 700; font-size: 1.05rem; }
-
-      .footer-nav {
-        margin-top: 2.25rem;
-        padding-top: 1.25rem;
-        border-top: 1px solid var(--border);
-        color: var(--muted);
-        font-size: var(--text-sm);
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-
-      .footer-nav a { color: var(--accent); text-decoration: none; }
-      .footer-nav a:hover { text-decoration: underline; }
-
-      @media (max-width: 860px) {
-        .toolbar { grid-template-columns: 1fr; }
-        .grid-media { grid-template-columns: 1fr; }
-        .metrics { grid-template-columns: 1fr; }
-        summary.test__summary { grid-template-columns: 1fr; }
-        .test__meta { justify-content: flex-start; }
-      }
-    </style>
+  @media (max-width: 860px) {
+    .toolbar { grid-template-columns: 1fr; }
+    .grid-media { grid-template-columns: 1fr; }
+    .metrics { grid-template-columns: 1fr; }
+    summary.test__summary { grid-template-columns: 1fr; }
+    .test__meta { justify-content: flex-start; }
+  }
+</style>
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <nav class="lang-switch" aria-label="Language">
-        <a href="index.html">Home</a>
-        <a href="tests.html" class="active">Tests</a>
-        <span style="color: var(--muted); padding: 0.35rem 0.6rem;">·</span>
-        <a href="de.html">Deutsch</a>
-        <a href="fr.html">Français</a>
-        <a href="ro.html">Română</a>
-      </nav>
-      <h1>Tests</h1>
-      <p class="tests-hero">
-        inZORi can support research across multiple domains where systems must adapt under uncertainty, changing constraints, and limited compute budgets.
-        The same engine is used as a general research framework, then specialized through scenario evaluators and transparent metrics.
-      </p>
-      
+
+<div class="header">
+  <div class="badge">Empirical Validation &middot; Multiple Domains</div>
+  <h1>inZORi — Research Tests</h1>
+  <div class="subtitle">The same evolutionary engine applied across 12+ domains. Each test publishes raw data, reproducible scripts, and DOIs.</div>
+</div>
+
+<div class="nav-bar">
+  <a href="index.html">&larr; inZORi Home</a>
+  <a href="tests.html" class="active">Tests</a>
+  <a href="de.html">Deutsch</a>
+  <a href="fr.html">Français</a>
+  <a href="ro.html">Română</a>
+</div>
+
+<div class="container">
+  <div class="toolbar" role="region" aria-label="Filters">
+    <div class="field">
+      <label for="q">Search</label>
+      <input id="q" type="search" placeholder="Search by title, domain, keywords…" autocomplete="off" />
     </div>
-  </header>
-
-  <main class="container">
-    <section aria-label="Filters and list">
-      <div class="toolbar" role="region" aria-label="Filters">
-        <div class="field">
-          <label for="q">Search</label>
-          <input id="q" type="search" placeholder="Search by title, domain, keywords…" autocomplete="off" />
-        </div>
-        <div class="field">
-          <label for="domain">Domain</label>
-          <select id="domain">
-            <option value="">All domains</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="sort">Sort</label>
-          <select id="sort">
-            <option value="created_desc">Created (newest first)</option>
-            <option value="created_asc">Created (oldest first)</option>
-            <option value="updated_desc">Updated (newest first)</option>
-            <option value="updated_asc">Updated (oldest first)</option>
-            <option value="name_asc">Name (A→Z)</option>
-            <option value="name_desc">Name (Z→A)</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="resultsMeta" class="results-meta">Loading…</div>
-      <div id="testsList"></div>
-    </section>
-
-    <div class="footer-nav">
-      <div>Tip: click a title to expand/collapse. Only one test stays open for readability.</div>
-      <div><a href="index.html">← Back to Home</a></div>
+    <div class="field">
+      <label for="domain">Domain</label>
+      <select id="domain">
+        <option value="">All domains</option>
+      </select>
     </div>
-  </main>
-
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <button class="close" type="button" aria-label="Close">×</button>
-    <img alt="Expanded image">
-    <div class="cap"></div>
+    <div class="field">
+      <label for="sort">Sort</label>
+      <select id="sort">
+        <option value="created_desc">Created (newest first)</option>
+        <option value="created_asc">Created (oldest first)</option>
+        <option value="updated_desc">Updated (newest first)</option>
+        <option value="updated_asc">Updated (oldest first)</option>
+        <option value="name_asc">Name (A→Z)</option>
+        <option value="name_desc">Name (Z→A)</option>
+      </select>
+    </div>
   </div>
 
-  <script>
-    const els = {
-      q: document.getElementById('q'),
-      domain: document.getElementById('domain'),
-      sort: document.getElementById('sort'),
-      meta: document.getElementById('resultsMeta'),
-      list: document.getElementById('testsList'),
-    };
+  <div id="resultsMeta" class="results-meta">Loading…</div>
+  <div id="testsList"></div>
 
-    function normalize(s) {
-      return (s || '').toString().toLowerCase();
-    }
+  <div class="footer-nav">
+    <div>Tip: click a title to expand / collapse details. Only one test stays open at a time.</div>
+    <div><a href="index.html">&larr; Back to inZORi Home</a></div>
+  </div>
+</div>
 
-    function shortDesc(test) {
-      if (test.short_description) return test.short_description;
-      const d = (test.description || '').trim();
-      if (!d) return '';
-      const first = d.split('. ')[0].trim();
-      return first.length > 160 ? (first.slice(0, 157).trim() + '…') : first;
-    }
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="close" type="button" aria-label="Close">&times;</button>
+  <img alt="Expanded image">
+  <div class="cap"></div>
+</div>
 
-    function domainOf(test) {
-      return test.domain || test.category || 'Other';
-    }
+<div class="footer">
+  <p>inZORi &mdash; Emergent Intelligence &middot; Autonomous Evolutionary Universe</p>
+  <p>Since first public test: 14 February 2026 &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. All rights reserved.</p>
+</div>
 
-    function fmtDate(s) {
-      if (!s) return '';
-      // Format YYYY-MM-DD → "Feb 20, 2026"
-      try {
-        const d = new Date(s + 'T00:00:00');
-        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
-      } catch(e) { return s; }
-    }
+<script>
+  const els = {
+    q: document.getElementById('q'),
+    domain: document.getElementById('domain'),
+    sort: document.getElementById('sort'),
+    meta: document.getElementById('resultsMeta'),
+    list: document.getElementById('testsList'),
+  };
 
-    function closeOthers(openDetails) {
-      document.querySelectorAll('details.test[open]').forEach(d => {
-        if (d !== openDetails) d.removeAttribute('open');
-      });
-    }
+  function normalize(s) { return (s || '').toString().toLowerCase(); }
 
-    function renderMedia(test) {
-      const blocks = [];
+  function shortDesc(test) {
+    if (test.short_description) return test.short_description;
+    const d = (test.description || '').trim();
+    if (!d) return '';
+    const first = d.split('. ')[0].trim();
+    return first.length > 160 ? (first.slice(0, 157).trim() + '…') : first;
+  }
 
-      const images = Array.isArray(test.images) ? test.images : [];
-      const anims = Array.isArray(test.animations) ? test.animations : [];
+  function domainOf(test) { return test.domain || test.category || 'Other'; }
 
-      const all = [
-        ...images.map(x => ({...x, _kind: 'image'})),
-        ...anims.map(x => ({...x, _kind: 'animation'})),
-      ];
+  function fmtDate(s) {
+    if (!s) return '';
+    try {
+      const d = new Date(s + 'T00:00:00');
+      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    } catch(e) { return s; }
+  }
 
-      if (!all.length) return '';
-
-      const items = all.map(m => {
-        const src = m.url || m.filename || '';
-        if (!src) return '';
-        const cap = m.caption ? `<div class="cap">${m.caption}</div>` : '';
-        return `<div class="media"><img loading="lazy" src="${src}" alt="${m.caption || ''}">${cap}</div>`;
-      }).join('');
-
-      return `<div class="grid-media">${items}</div>`;
-    }
-
-    function renderMetrics(test) {
-      const m = test.metrics || {};
-      const entries = Object.entries(m).filter(([_, v]) => typeof v !== 'object');
-      if (!entries.length) return '';
-      const items = entries.map(([k, v]) => {
-        const key = k.replaceAll('_', ' ');
-        return `<div class="metric"><div class="k">${key}</div><div class="v">${v}</div></div>`;
-      }).join('');
-      return `<div class="metrics">${items}</div>`;
-    }
-
-    function renderLinks(test) {
-      const links = Array.isArray(test.links) ? test.links : [];
-      if (!links.length) return '';
-      return `<div class="links">${
-        links.map(l => `<a class="btn" href="${l.url}">${l.label}</a>`).join('')
-      }</div>`;
-    }
-
-    function renderFindings(test) {
-      const k = Array.isArray(test.key_findings) ? test.key_findings : [];
-      if (!k.length) return '';
-      return `<div class="kfind"><h3>Key findings</h3><ul>${k.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
-    }
-
-    function renderTest(test) {
-      const domain = domainOf(test);
-      const created = fmtDate(test.created_at);
-      const updated = fmtDate(test.updated_at);
-      const status = (test.status || '').toString();
-      const wasUpdated = test.created_at && test.updated_at && test.created_at !== test.updated_at;
-
-      const summary = `
-        <div>
-          <div class="test__title">${test.name || test.id}</div>
-          <div class="test__subtitle">${shortDesc(test)}</div>
-        </div>
-        <div class="test__meta">
-          <span class="pill">${domain}</span>
-          ${created ? `<span class="pill pill-date" title="Date created">📅 ${created}</span>` : ''}
-          ${wasUpdated ? `<span class="pill pill-updated" title="Last updated">🔄 ${updated}</span>` : ''}
-          ${status ? `<span class="pill">${status}</span>` : ''}
-          <span class="chevron">▾</span>
-        </div>
-      `;
-
-      const body = `
-        <div class="test__body">
-          ${test.description ? `<p>${test.description}</p>` : ''}
-          ${renderFindings(test)}
-          ${renderMetrics(test)}
-          ${renderMedia(test)}
-          ${renderLinks(test)}
-        </div>
-      `;
-
-      return `
-        <details class="test" data-domain="${domain}">
-          <summary class="test__summary">${summary}</summary>
-          ${body}
-        </details>
-      `;
-    }
-
-    function sortTests(arr, mode) {
-      const a = [...arr];
-      const byName    = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
-      const byCreated = (x, y) => (x.created_at || x.updated_at || '').localeCompare((y.created_at || y.updated_at || ''));
-      const byUpdated = (x, y) => (x.updated_at || x.created_at || '').localeCompare((y.updated_at || y.created_at || ''));
-      if (mode === 'name_asc')     a.sort(byName);
-      else if (mode === 'name_desc')    a.sort((x, y) => byName(y, x));
-      else if (mode === 'created_asc')  a.sort(byCreated);
-      else if (mode === 'created_desc') a.sort((x, y) => byCreated(y, x));
-      else if (mode === 'updated_asc')  a.sort(byUpdated);
-      else if (mode === 'updated_desc') a.sort((x, y) => byUpdated(y, x));
-      else a.sort((x, y) => byCreated(y, x)); // default: created newest first
-      return a;
-    }
-
-    function applyFilters(allTests) {
-      const q = normalize(els.q.value);
-      const dom = els.domain.value;
-      const sorted = sortTests(allTests, els.sort.value);
-
-      const filtered = sorted.filter(t => {
-        if (dom && domainOf(t) !== dom) return false;
-        if (!q) return true;
-        const hay = [
-          t.id, t.name, t.domain, t.category, t.description,
-          ...(t.key_findings || []),
-        ].map(normalize).join(' ');
-        return hay.includes(q);
-      });
-
-      els.meta.textContent = `${filtered.length} / ${allTests.length} tests shown`;
-      els.list.innerHTML = filtered.map(renderTest).join('') || `<p class="note">No matches.</p>`;
-
-      // accordion: only one open at a time
-      els.list.querySelectorAll('details.test').forEach(d => {
-        d.addEventListener('toggle', () => {
-          if (d.open) closeOthers(d);
-        });
-      });
-    }
-
-    async function init() {
-      try {
-        const resp = await fetch('tests/manifest.json', { cache: 'no-store' });
-        const data = await resp.json();
-        const all = (data.tests || []).filter(t => t.published);
-
-        // domain options
-        const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));
-        domains.forEach(d => {
-          const opt = document.createElement('option');
-          opt.value = d;
-          opt.textContent = d;
-          els.domain.appendChild(opt);
-        });
-
-        const rerender = () => applyFilters(all);
-        els.q.addEventListener('input', rerender);
-        els.domain.addEventListener('change', rerender);
-        els.sort.addEventListener('change', rerender);
-        rerender();
-      } catch (e) {
-        els.meta.textContent = '';
-        els.list.innerHTML = `<p class="note">Failed to load manifest: ${e.message}</p>`;
-      }
-    }
-    init();
-
-    // Lightbox for image enlargement
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = lightbox.querySelector('img');
-    const lightboxCap = lightbox.querySelector('.cap');
-
-    function openLightbox(src, cap) {
-      lightboxImg.src = src;
-      lightboxCap.textContent = cap || '';
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-    }
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      lightboxImg.src = '';
-    }
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox || e.target.classList.contains('close')) closeLightbox();
+  function closeOthers(openDetails) {
+    document.querySelectorAll('details.test[open]').forEach(d => {
+      if (d !== openDetails) d.removeAttribute('open');
     });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-    });
+  }
 
-    document.addEventListener('click', (e) => {
-      const img = e.target.closest('.media img');
-      if (!img) return;
-      const cap = img.parentElement.querySelector('.cap')?.textContent || '';
-      openLightbox(img.src, cap);
-    });
+  function renderMedia(test) {
+    const images = Array.isArray(test.images) ? test.images : [];
+    const anims  = Array.isArray(test.animations) ? test.animations : [];
+    const all    = [...images.map(x => ({...x, _kind:'image'})), ...anims.map(x => ({...x, _kind:'animation'}))];
+    if (!all.length) return '';
+    const items = all.map(m => {
+      const src = m.url || m.filename || '';
+      if (!src) return '';
+      const cap = m.caption ? `<div class="cap">${m.caption}</div>` : '';
+      return `<div class="media"><img loading="lazy" src="${src}" alt="${m.caption || ''}">${cap}</div>`;
+    }).join('');
+    return `<div class="grid-media">${items}</div>`;
+  }
 
-  </script>
- </body>
- </html>
+  function renderMetrics(test) {
+    const m = test.metrics || {};
+    const entries = Object.entries(m).filter(([_, v]) => typeof v !== 'object');
+    if (!entries.length) return '';
+    const items = entries.map(([k, v]) => {
+      return `<div class="metric"><div class="k">${k.replaceAll('_',' ')}</div><div class="v">${v}</div></div>`;
+    }).join('');
+    return `<div class="metrics">${items}</div>`;
+  }
+
+  function renderLinks(test) {
+    const links = Array.isArray(test.links) ? test.links : [];
+    if (!links.length) return '';
+    return `<div class="links">${links.map(l => `<a class="btn" href="${l.url}">${l.label}</a>`).join('')}</div>`;
+  }
+
+  function renderFindings(test) {
+    const k = Array.isArray(test.key_findings) ? test.key_findings : [];
+    if (!k.length) return '';
+    return `<div class="kfind"><h3>Key findings</h3><ul>${k.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+  }
+
+  function renderTest(test) {
+    const domain  = domainOf(test);
+    const created = fmtDate(test.created_at);
+    const updated = fmtDate(test.updated_at);
+    const status  = (test.status || '').toString();
+    const wasUpdated = test.created_at && test.updated_at && test.created_at !== test.updated_at;
+
+    const summary = `
+      <div>
+        <div class="test__title">${test.name || test.id}</div>
+        <div class="test__subtitle">${shortDesc(test)}</div>
+      </div>
+      <div class="test__meta">
+        <span class="pill">${domain}</span>
+        ${created ? `<span class="pill pill-date" title="Date created">📅 ${created}</span>` : ''}
+        ${wasUpdated ? `<span class="pill pill-updated" title="Last updated">🔄 ${updated}</span>` : ''}
+        ${status ? `<span class="pill">${status}</span>` : ''}
+        <span class="chevron">▾</span>
+      </div>`;
+
+    const body = `
+      <div class="test__body">
+        ${test.description ? `<p>${test.description}</p>` : ''}
+        ${renderFindings(test)}
+        ${renderMetrics(test)}
+        ${renderMedia(test)}
+        ${renderLinks(test)}
+      </div>`;
+
+    return `<details class="test" data-domain="${domain}">
+      <summary class="test__summary">${summary}</summary>
+      ${body}
+    </details>`;
+  }
+
+  function sortTests(arr, mode) {
+    const a = [...arr];
+    const byName    = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
+    const byCreated = (x, y) => (x.created_at || x.updated_at || '').localeCompare((y.created_at || y.updated_at || ''));
+    const byUpdated = (x, y) => (x.updated_at || x.created_at || '').localeCompare((y.updated_at || y.created_at || ''));
+    if (mode === 'name_asc')       a.sort(byName);
+    else if (mode === 'name_desc') a.sort((x, y) => byName(y, x));
+    else if (mode === 'created_asc')  a.sort(byCreated);
+    else if (mode === 'created_desc') a.sort((x, y) => byCreated(y, x));
+    else if (mode === 'updated_asc')  a.sort(byUpdated);
+    else if (mode === 'updated_desc') a.sort((x, y) => byUpdated(y, x));
+    else a.sort((x, y) => byCreated(y, x));
+    return a;
+  }
+
+  function applyFilters(allTests) {
+    const q   = normalize(els.q.value);
+    const dom = els.domain.value;
+    const sorted = sortTests(allTests, els.sort.value);
+    const filtered = sorted.filter(t => {
+      if (dom && domainOf(t) !== dom) return false;
+      if (!q) return true;
+      const hay = [t.id, t.name, t.domain, t.category, t.description, ...(t.key_findings||[])].map(normalize).join(' ');
+      return hay.includes(q);
+    });
+    els.meta.textContent = `${filtered.length} / ${allTests.length} tests shown`;
+    els.list.innerHTML = filtered.map(renderTest).join('') || `<p style="color:var(--muted);font-size:0.93rem;">No matches.</p>`;
+    els.list.querySelectorAll('details.test').forEach(d => {
+      d.addEventListener('toggle', () => { if (d.open) closeOthers(d); });
+    });
+  }
+
+  async function init() {
+    try {
+      const resp = await fetch('tests/manifest.json', { cache: 'no-store' });
+      const data = await resp.json();
+      const all  = (data.tests || []).filter(t => t.published);
+      const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));
+      domains.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d;
+        els.domain.appendChild(opt);
+      });
+      const rerender = () => applyFilters(all);
+      els.q.addEventListener('input', rerender);
+      els.domain.addEventListener('change', rerender);
+      els.sort.addEventListener('change', rerender);
+      rerender();
+    } catch (e) {
+      els.meta.textContent = '';
+      els.list.innerHTML = `<p style="color:var(--muted);">Failed to load manifest: ${e.message}</p>`;
+    }
+  }
+  init();
+
+  // Lightbox
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('img');
+  const lightboxCap = lightbox.querySelector('.cap');
+
+  function openLightbox(src, cap) {
+    lightboxImg.src = src;
+    lightboxCap.textContent = cap || '';
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden','false');
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden','true');
+    lightboxImg.src = '';
+  }
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox || e.target.classList.contains('close')) closeLightbox();
+  });
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+  document.addEventListener('click', e => {
+    const img = e.target.closest('.media img');
+    if (!img) return;
+    const cap = img.parentElement.querySelector('.cap')?.textContent || '';
+    openLightbox(img.src, cap);
+  });
+</script>
+</body>
+</html>
