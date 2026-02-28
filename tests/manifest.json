@@ -371,7 +371,13 @@
         "initial_population": 40,
         "final_population": "~200"
       },
-      "links": [],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario1_dynamic/index.html",
+          "primary": true
+        }
+      ],
       "images": [
         {
           "filename": "scenario1_population_evolution_v2.png",
@@ -406,7 +412,13 @@
         "bottom20_births": 69,
         "difference_pct": -17.4
       },
-      "links": [],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario2_social_iq/index.html",
+          "primary": true
+        }
+      ],
       "images": [
         {
           "filename": "scenario2_children_count_v2.png",
@@ -427,6 +439,11 @@
       "updated_at": "2026-02-14",
       "description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine. Ranking is built from regularity, stability, SNR, scatter, transit count, duration and depth, without explicit manual weighting formulas.",
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario3_tess/index.html",
+          "primary": true
+        },
         {
           "label": "Class distribution",
           "url": "demo_images/scenario4_tess_class_distribution.png"
@@ -527,6 +544,11 @@
       ],
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/scenario4_robotics/index.html",
+          "primary": true
+        },
+        {
           "label": "Trajectory",
           "url": "demo_images/best_trajectory.png"
         },
@@ -592,6 +614,11 @@
         }
       ],
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario5_sdc/index.html",
+          "primary": true
+        },
         {
           "label": "Continuity",
           "url": "demo_images/continuity_score_over_time.png"
@@ -738,6 +765,11 @@
       ],
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/social_density_effect/index.html",
+          "primary": true
+        },
+        {
           "label": "Summary JSON",
           "url": "tests/social_density/summary.json"
         },
@@ -860,6 +892,11 @@
         }
       ],
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/refract_20seeds/index.html",
+          "primary": true
+        },
         {
           "label": "Summary JSON",
           "url": "tests/refract/summary.json"
