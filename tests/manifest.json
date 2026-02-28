@@ -50,6 +50,11 @@
       ],
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/baws_nr_study/index.html",
+          "primary": true
+        },
+        {
           "url": "tests/baws_nr_study/index.html",
           "label": "Full Results Page"
         },
@@ -109,6 +114,11 @@
         }
       ],
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/re_study/index.html",
+          "primary": true
+        },
         {
           "url": "tests/re_study/index.html",
           "label": "Full Results Page"
@@ -172,6 +182,11 @@
       ],
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase6_capacity/index.html",
+          "primary": true
+        },
+        {
           "url": "tests/pfdelta_phase6_capacity/index.html",
           "label": "Full Results Page"
         },
@@ -231,6 +246,11 @@
       ],
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase5_entsoe/index.html",
+          "primary": true
+        },
+        {
           "url": "tests/pfdelta_phase5_entsoe/index.html",
           "label": "📄 Full Report (HTML)"
         },
@@ -278,6 +298,11 @@
         "runtime_min": 65.2
       },
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase4_real/index.html",
+          "primary": true
+        },
         {
           "label": "Full Details",
           "url": "tests/pfdelta_phase4_real/"
@@ -328,6 +353,11 @@
         "genome_fitness_lupa": "85.20%"
       },
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase3_n2/index.html",
+          "primary": true
+        },
         {
           "label": "Full Details",
           "url": "tests/pfdelta_phase3_n2/"
@@ -966,6 +996,11 @@
       },
       "links": [
         {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase2_real/index.html",
+          "primary": true
+        },
+        {
           "label": "Zenodo (DOI)",
           "url": "https://doi.org/10.5281/zenodo.18717007"
         },
@@ -1043,6 +1078,11 @@
         "conv_steps_per_sec": "443.7"
       },
       "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase1_118/index.html",
+          "primary": true
+        },
         {
           "label": "Zenodo (DOI)",
           "url": "https://doi.org/10.5281/zenodo.18716837"
