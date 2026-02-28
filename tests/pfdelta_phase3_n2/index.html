@@ -131,23 +131,24 @@
     <p>A <code>(μ+λ)</code> evolutionary strategy with 20 genomes × 15 generations, 4 seeds per evaluation. Convergence at generation 7; top genomes refined through local search into the final pool.</p>
 
     <table>
-      <tr><th>#</th><th>Type</th><th>memory_lr</th><th>step_scale</th><th>risk</th><th>jump_chance</th></tr>
-      <tr class="highlight"><td>0</td><td><strong>G01 best (base)</strong></td><td>0.1505</td><td>1.3869</td><td>0.9479</td><td>0.7278</td></tr>
-      <tr><td>1</td><td>Conservative</td><td>0.1200</td><td>1.3500</td><td>0.9300</td><td>0.7000</td></tr>
-      <tr><td>2</td><td>High step_scale</td><td>0.1500</td><td>1.4500</td><td>0.9500</td><td>0.7300</td></tr>
-      <tr><td>3</td><td>High risk</td><td>0.1500</td><td>1.3869</td><td>0.9700</td><td>0.7300</td></tr>
-      <tr><td>4</td><td>Moderate lr</td><td>0.1800</td><td>1.3800</td><td>0.9400</td><td>0.7200</td></tr>
-      <tr><td>5</td><td>N-1 specialist</td><td>0.1200</td><td>1.3869</td><td>0.9600</td><td>0.8200</td></tr>
-      <tr class="highlight"><td>6</td><td><span class="badge badge-n2">N-2 aggressive</span></td><td>0.0800</td><td>1.2000</td><td>0.9800</td><td><strong>0.8700</strong></td></tr>
-      <tr class="highlight"><td>7</td><td><span class="badge badge-n2">N-2 max DC-init</span></td><td>0.0500</td><td>1.0000</td><td>0.9900</td><td><strong>0.9200</strong></td></tr>
+      <tr><th>#</th><th>Type</th><th>Profile</th></tr>
+      <tr class="highlight"><td>0</td><td><strong>G01 best (base)</strong></td><td>Top-fitness genome from evolutionary search — normal operation</td></tr>
+      <tr><td>1</td><td>Conservative</td><td>Low-risk profile, stable under moderate stress</td></tr>
+      <tr><td>2</td><td>High step_scale</td><td>Wider exploration radius for voltage deviation</td></tr>
+      <tr><td>3</td><td>High risk</td><td>Aggressive warm-start under high load</td></tr>
+      <tr><td>4</td><td>Moderate lr</td><td>Balanced memory / exploration trade-off</td></tr>
+      <tr><td>5</td><td>N-1 specialist</td><td>High DC-init tendency, activated on single outage</td></tr>
+      <tr class="highlight"><td>6</td><td><span class="badge badge-n2">N-2 aggressive</span></td><td>Very high DC-init jump, double outage recovery</td></tr>
+      <tr class="highlight"><td>7</td><td><span class="badge badge-n2">N-2 max DC-init</span></td><td>Maximum jump chance, worst-case N-2 scenario</td></tr>
     </table>
+    <p style="font-size:0.85rem;color:#64748b;margin-top:0.5rem;">Exact genome parameters are proprietary to the inZORi framework.</p>
 
     <h3>N-2 Selection Logic</h3>
     <table>
       <tr><th>Condition</th><th>Genome Selected</th><th>Rationale</th></tr>
       <tr><td>Normal operation</td><td>#0 (G01 best)</td><td>Optimal for stable conditions</td></tr>
-      <tr><td>N-1 event detected</td><td>#5 (jump_chance=0.82)</td><td>DC-init retry for single outage</td></tr>
-      <tr><td>N-2 event detected</td><td>#6 or #7 (jump_chance=0.87–0.92)</td><td>Aggressive DC-init for double outage</td></tr>
+      <tr><td>N-1 event detected</td><td>#5 (N-1 specialist)</td><td>DC-init retry for single outage</td></tr>
+      <tr><td>N-2 event detected</td><td>#6 or #7</td><td>Aggressive DC-init for double outage</td></tr>
       <tr><td>Post-N-2 recovery</td><td>10-step recovery window</td><td>vs 5-step for N-1</td></tr>
     </table>
   </div>
@@ -218,7 +219,7 @@
     <h2>6. Reproducibility</h2>
     <div class="repro-box">
       <div class="code-block">
-cd /opt/projects/zor_task_solver
+cd inzori/
 
 # Extended evolutionary search (15 generations)
 python3 -m problems.zor_pf_real_118.run_extended_evo

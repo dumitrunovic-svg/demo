@@ -356,7 +356,7 @@
     <div class="repro-box">
       <p><strong>All code, data, and results are available:</strong></p>
       <ul>
-        <li><strong>Framework:</strong> <code>/opt/projects/zor_task_solver/problems/zor_pf_1354/</code></li>
+        <li><strong>Framework:</strong> <code>inzori/problems/zor_pf_1354/</code></li>
         <li><strong>Genome pool:</strong> <code>elite_pool_1354.json</code> — top-12 evolved genomes for case1354pegase</li>
         <li><strong>Capacity sweep script:</strong> <code>/tmp/capacity_full.py</code> (54 jobs, 12 cores, 290s)</li>
         <li><strong>Raw results:</strong> <code>results/capacity_full_results.json</code></li>
@@ -365,7 +365,7 @@
       </ul>
       <div class="code-block">
 # Reproduce Phase 6 capacity sweep:
-cd /opt/projects/zor_task_solver
+cd inzori/
 python3 /tmp/capacity_full.py
 # Expected output: 54 jobs in ~290s on 12 cores
 # Key result: NR=0% at 1.25x, inZORi=99.9% at 1.25x (all 3 seeds)

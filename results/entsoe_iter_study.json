@@ -426,9 +426,6 @@
       "fail_iz_pct": 100.0
     }
   ],
-  "genome": {
-    "memory_lr": 0.979
-  },
   "methodology": {
     "data": "ENTSO-E Transparency Platform, DE-LU zone, Q2 2025",
     "intervals": 8832,
@@ -436,7 +433,7 @@
     "network": "case1354pegase, 1354 buses, 1991 lines",
     "tolerance": "1e-6 MVA identical for both",
     "nr_start": "flat (V=1.0, angle=0) every time",
-    "iz_start": "warm-blend vm_pu+va_degree, memory_lr=0.979",
+    "iz_start": "bio-adaptive warm-start (evolved genome, proprietary)",
     "iz_fallback": "flat-start if warm fails",
     "seeds": [
       42,

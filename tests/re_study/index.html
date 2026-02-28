@@ -202,15 +202,15 @@
       <tr><td>Algorithm</td><td>Newton-Raphson (pandapower)</td><td>Same Newton-Raphson (pandapower)</td></tr>
       <tr><td>Tolerance</td><td><strong>10<sup>-6</sup> MVA</strong></td><td><strong>10<sup>-6</sup> MVA</strong> (identical)</td></tr>
       <tr><td>Max iterations</td><td>15</td><td>15</td></tr>
-      <tr><td>Starting point</td><td>Flat-start (V=1.0, angle=0&deg;)</td><td>Warm-blend: 0.979&times;V<sub>prev</sub> + 0.021&times;1.0</td></tr>
-      <tr><td>Voltage angles</td><td>Always 0&deg; (flat)</td><td>0.979&times;angle<sub>prev</sub></td></tr>
+      <tr><td>Starting point</td><td>Flat-start (V=1.0, angle=0&deg;)</td><td>Warm-blend: &alpha;&times;V<sub>prev</sub> + (1&minus;&alpha;)&times;1.0</td></tr>
+      <tr><td>Voltage angles</td><td>Always 0&deg; (flat)</td><td>&alpha;&times;angle<sub>prev</sub></td></tr>
       <tr><td>Topology awareness</td><td>None (cold start every time)</td><td>Retains memory of pre-contingency state</td></tr>
       <tr><td>Fallback</td><td>None</td><td>Flat-start if warm-blend fails</td></tr>
-      <tr><td>Genome parameters</td><td>None (fixed algorithm)</td><td>memory_lr=0.979 (evolved)</td></tr>
+      <tr><td>Genome parameters</td><td>None (fixed algorithm)</td><td>α = 0.979 (BAWS-NR warm-start parameter)</td></tr>
     </table>
 
     <h3>2.6 Genome Evolution</h3>
-    <p>The inZORi genome (<code>memory_lr=0.979</code>) was evolved using a (&mu;+&lambda;) evolutionary strategy specifically for N-1 contingency scenarios on case1354pegase. The fitness function maximizes <strong>iterations saved</strong> (NR_iters &minus; inZORi_iters) averaged across multiple load factors and random contingencies. Evolution ran for 40+ generations with population 24, using 12 CPU cores for parallel evaluation. The genome was not hand-tuned; it emerged from evolutionary search.</p>
+    <p>The inZORi genome (<code>α = 0.979</code>) was evolved using a (&mu;+&lambda;) evolutionary strategy specifically for N-1 contingency scenarios on case1354pegase. The fitness function maximizes <strong>iterations saved</strong> (NR_iters &minus; inZORi_iters) averaged across multiple load factors and random contingencies. Evolution ran for 40+ generations with population 24, using 12 CPU cores for parallel evaluation. The genome was not hand-tuned; it emerged from evolutionary search.</p>
   </div>
 
   <!-- ═══════════════ RESULTS ═══════════════ -->
@@ -353,7 +353,7 @@
       <ul>
         <li><strong>Study script:</strong> <code>problems/inzori_re/entsoe_iter_v4.py</code></li>
         <li><strong>Genome evolution:</strong> <code>problems/inzori_re/evolve_iter_saver.py</code></li>
-        <li><strong>Best genome:</strong> <code>problems/inzori_re/results/iter_saver_genome.json</code> (<code>memory_lr=0.979</code>)</li>
+        <li><strong>Best genome:</strong> <code>problems/inzori_re/results/iter_saver_genome.json</code> (<code>α = 0.979</code>)</li>
         <li><strong>ENTSO-E data cache:</strong> <code>problems/inzori_re/results/entsoe_de_q2_2025.json</code></li>
         <li><strong>Raw results:</strong> <code>problems/inzori_re/results/entsoe_iter_study.json</code></li>
         <li><strong>Network:</strong> <code>pandapower.networks.case1354pegase()</code> (public, no download needed)</li>
@@ -361,7 +361,7 @@
       </ul>
       <div class="code-block">
 # Reproduce the full study:
-cd /opt/projects/zor_task_solver
+cd inzori/
 
 # 1. Evolve genome (optional — pre-evolved genome provided)
 python3 problems/inzori_re/evolve_iter_saver.py
@@ -403,7 +403,7 @@ python3 -c "import pandapower.networks as pn; net = pn.case1354pegase(); print(f
         <li><strong>Uniform load scaling:</strong> All nodes scale equally, which does not capture per-region load heterogeneity.</li>
         <li><strong>Single network:</strong> Results are demonstrated on one network topology. Validation on case2869pegase (2869 buses) and other topologies is planned.</li>
         <li><strong>No voltage/thermal limits:</strong> We measure mathematical convergence (residual &lt; tolerance), not physical constraint satisfaction (voltage limits, thermal ratings).</li>
-        <li><strong>Static genome:</strong> The genome (memory_lr=0.979) was evolved for case1354pegase and may require re-evolution for different networks.</li>
+        <li><strong>Static genome:</strong> The genome (α = 0.979) was evolved for case1354pegase and may require re-evolution for different networks.</li>
         <li><strong>Timing estimate:</strong> The "contingencies per minute" metric uses an estimated 18ms per iteration (typical for ~1,400-bus networks on modern hardware). Actual timing depends on the deployment platform.</li>
       </ul>
     </div>

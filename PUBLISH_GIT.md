@@ -31,7 +31,7 @@ Dacă acest folder e deja complet (inclusiv imaginile), poți să îl publici di
 Pentru un repo dedicat doar site-ului (ex. pe GitHub, ca să ai `https://user.github.io/inzori-web/`):
 
 ```bash
-cd /opt/projects/zor_task_solver/web/brochure
+cd inzori//web/brochure
 
 # Repo nou
 git init
@@ -75,7 +75,7 @@ Dacă vrei să rămână totul în același repo și să publici doar `web/broch
 Rulezi din root-ul proiectului:
 
 ```bash
-cd /opt/projects/zor_task_solver
+cd inzori/
 ./web/pack_for_github_pages.sh
 ```
 
