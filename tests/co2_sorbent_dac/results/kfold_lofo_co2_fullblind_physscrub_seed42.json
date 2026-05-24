@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "domain": "co2_sorbent_dac",
+    "top": 4,
+    "full_blind": true,
+    "scrub_phys": true,
+    "seed": 42
+  },
+  "families": [
+    {
+      "family": "amine_mof",
+      "best_q": 2.5,
+      "best_ref": "REF-005"
+    },
+    {
+      "family": "amine_silica",
+      "best_q": 1.8,
+      "best_ref": "REF-001"
+    },
+    {
+      "family": "mof_oms",
+      "best_q": 1.2,
+      "best_ref": "REF-007"
+    },
+    {
+      "family": "amine_carbon",
+      "best_q": 1.1,
+      "best_ref": "REF-013"
+    }
+  ],
+  "folds": [
+    {
+      "hidden_family": "amine_mof",
+      "best_ref": "REF-005",
+      "best_q": 2.5,
+      "leak_random": 0.0,
+      "leak_heuristic": 0.0,
+      "leak_inzor": 0.0,
+      "nb_random": 1.0,
+      "nb_heuristic": 1.0,
+      "nb_inzor": 1.0,
+      "best_truth_inzor": 1.8,
+      "verdict": "GENUINE FAMILY DISCOVERY"
+    },
+    {
+      "hidden_family": "amine_silica",
+      "best_ref": "REF-001",
+      "best_q": 1.8,
+      "leak_random": 0.0,
+      "leak_heuristic": 0.2,
+      "leak_inzor": 0.0,
+      "nb_random": 1.0,
+      "nb_heuristic": 0.4,
+      "nb_inzor": 1.0,
+      "best_truth_inzor": 2.5,
+      "verdict": "GENUINE FAMILY DISCOVERY"
+    },
+    {
+      "hidden_family": "mof_oms",
+      "best_ref": "REF-007",
+      "best_q": 1.2,
+      "leak_random": 0.0,
+      "leak_heuristic": 0.0,
+      "leak_inzor": 0.0,
+      "nb_random": 1.0,
+      "nb_heuristic": 1.0,
+      "nb_inzor": 1.0,
+      "best_truth_inzor": 1.8,
+      "verdict": "GENUINE FAMILY DISCOVERY"
+    },
+    {
+      "hidden_family": "amine_carbon",
+      "best_ref": "REF-013",
+      "best_q": 1.1,
+      "leak_random": 0.0,
+      "leak_heuristic": 0.0,
+      "leak_inzor": 0.0,
+      "nb_random": 1.0,
+      "nb_heuristic": 1.0,
+      "nb_inzor": 1.0,
+      "best_truth_inzor": 1.8,
+      "verdict": "GENUINE FAMILY DISCOVERY"
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

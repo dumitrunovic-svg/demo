@@ -1,0 +1,38 @@
+{
+  "domain": "co2_sorbent_dac",
+  "title": "CO₂ Sorbent Selection @ Direct Air Capture",
+  "status": "unfinished",
+  "updated_at": "2026-05-24",
+  "conditions": {
+    "T_adsorb_C": 25,
+    "p_CO2_ppm": 400,
+    "T_regen_C": 100,
+    "RH_pct": 30,
+    "target_q_swing_mmol_per_g": 1.0
+  },
+  "catalog": {
+    "materials": 28,
+    "references": 16,
+    "measured_refs": 14
+  },
+  "benchmark_seed42": {
+    "best_ref_score": 1.0606,
+    "best_ref": "REF-004",
+    "best_material": "HAS-3 hyperbranched aminosilica",
+    "inzor_best_score": 1.0606,
+    "random_best_score": 1.0606,
+    "heuristic_best_score": 0.9832
+  },
+  "lofo_kfold_top4": {
+    "standard_lofo": { "passed": 3, "total": 4 },
+    "full_blind_lofo": { "passed": 3, "total": 4 },
+    "full_blind_physscrub": { "passed": 4, "total": 4, "seeds": [42, 43, 44], "reproducible": "12/12" }
+  },
+  "top_families_by_q_swing": [
+    { "family": "amine_mof", "best_ref": "REF-005", "q_mmol_per_g": 2.5, "material": "mmen-Mg₂(dobpdc)" },
+    { "family": "amine_silica", "best_ref": "REF-001", "q_mmol_per_g": 1.8, "material": "TEPA-SBA-15" },
+    { "family": "mof_oms", "best_ref": "REF-007", "q_mmol_per_g": 1.2, "material": "Mg-MOF-74 (dry)" },
+    { "family": "amine_carbon", "best_ref": "REF-013", "q_mmol_per_g": 1.1, "material": "PEI-AC" }
+  ],
+  "methodology_note": "phys_score formula frozen before any measured q_swing entered the evaluator; constants from textbook chemistry only"
+}

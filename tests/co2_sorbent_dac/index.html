@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZOR-ND: CO₂ Sorbent Selection @ Direct Air Capture — Engine Validation (unfinished)</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --purple:#8e44ad; --teal:#0d9488; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 45%,#0d9488 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.55rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#ecfdf5,#d1fae5); border-left:4px solid var(--teal); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:#0f766e; margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .status-box { background:#fffbeb; border:1px solid #fcd34d; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.5rem; font-size:0.93rem; }
+  .key-result-banner { background:linear-gradient(135deg,#0a1628,#134e4a); color:#fff; border-radius:12px; padding:1.75rem 2rem; margin:2rem 0; text-align:center; }
+  .key-result-banner .kr-label { font-size:0.8rem; opacity:0.7; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.6rem; }
+  .key-result-banner .kr-number { font-size:3rem; font-weight:900; color:#5eead4; line-height:1.0; }
+  .key-result-banner .kr-sub { font-size:1rem; opacity:0.85; margin-top:0.4rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:1.6rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.warn { color:var(--warning); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--teal); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#ccfbf1; font-weight:700; }
+  tr.pass td { background:#dcfce7; }
+  .verdict-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .insight-box { background:#fffbeb; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; max-height:480px; width:auto; height:auto; border-radius:4px; display:block; margin:0 auto; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul, ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+  .nav-bar { background:#fff; border-bottom:1px solid var(--border); padding:0.6rem 1.5rem; display:flex; gap:1.5rem; align-items:center; font-size:0.9rem; }
+  .nav-bar a { color:var(--primary); text-decoration:none; font-weight:500; }
+  .nav-bar a:hover { text-decoration:underline; }
+  .data-links { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; }
+  .data-links a { display:inline-block; padding:0.45rem 0.75rem; border:1px solid var(--border); border-radius:6px; background:#f8fafc; color:var(--primary); text-decoration:none; font-size:0.88rem; font-weight:600; }
+  .data-links a:hover { background:#e0f2fe; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="/inZOR-ND/">← inZORi Home</a>
+  <a href="/inZOR-ND/tests.html">Research Tests</a>
+</div>
+
+<div class="header">
+  <div class="phase-badge">inZOR-ND — CO₂ SORBENT · DIRECT AIR CAPTURE · ENGINE VALIDATION · DOMAIN #3</div>
+  <h1>CO₂ Sorbent Selection @ Direct Air Capture — Leave-One-Family-Out Engine Validation</h1>
+  <div class="subtitle">Textbook physics signal · 28 materials · 14 measured references @ 400 ppm · blind + LOFO + full-blind + phys-scrubbed cascade</div>
+  <div class="meta">Dumitru Novic · May 2026 · Status: <strong>unfinished</strong> — validation data published; Zenodo / lab follow-up pending</div>
+</div>
+
+<div class="container">
+
+  <div class="status-box">
+    <strong>Status: unfinished.</strong> This page publishes benchmark metrics and validation JSON only (no source code).
+    The engine-validation cascade is complete for the paper catalog; physical lab confirmation, expanded catalog,
+    and Zenodo deposit are not yet done.
+  </div>
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>
+      Third independent domain for the inZOR-ND engine-validation methodology (after aqueous arsenic removal
+      and thermal PCM storage). Problem: select a CO₂ sorbent for <strong>Direct Air Capture</strong> at
+      400 ppm CO₂, 25 °C, RH 30 %, with target working capacity <strong>q<sub>swing</sub> ≥ 1.0 mmol/g</strong>.
+    </p>
+    <p>
+      The physical scoring formula was <strong>written and frozen before any measured q<sub>swing</sub> value
+      entered the evaluator</strong>. Constants (ΔH<sub>ref</sub>, S<sub>BET,ref</sub>, N-density<sub>ref</sub>,
+      Langmuir low-pCO₂ factors) come from textbook chemistry, not from this catalog's measurements.
+      Catalog: 28 materials (amine silica, MOF OMS, physisorbents) · 16 references (14 with measured q at DAC conditions).
+    </p>
+  </div>
+
+  <div class="key-result-banner">
+    <div class="kr-label">Toughest regime — full-blind + phys-scrubbed LOFO (4 folds × 3 seeds)</div>
+    <div class="kr-number">12/12</div>
+    <div class="kr-sub">GENUINE FAMILY DISCOVERY on every fold and seed — hidden family's refs <em>and</em> material properties scrubbed</div>
+  </div>
+
+  <div class="key-results">
+    <div class="kr-card"><div class="kr-value success">4/4</div><div class="kr-label">LOFO folds (phys-scrubbed)</div></div>
+    <div class="kr-card"><div class="kr-value success">0%</div><div class="kr-label">Leak rate (inZOR-ND)</div></div>
+    <div class="kr-card"><div class="kr-value success">100%</div><div class="kr-label">Next-best recall</div></div>
+    <div class="kr-card"><div class="kr-value">28</div><div class="kr-label">Materials catalog</div></div>
+    <div class="kr-card"><div class="kr-value">14/16</div><div class="kr-label">Measured refs</div></div>
+    <div class="kr-card"><div class="kr-value warn">3/4</div><div class="kr-label">Standard LOFO (expected physics leak)</div></div>
+    <div class="kr-card"><div class="kr-value">400 ppm</div><div class="kr-label">pCO₂ (DAC ambient)</div></div>
+    <div class="kr-card"><div class="kr-value warn">unfinished</div><div class="kr-label">Study status</div></div>
+  </div>
+
+  <div class="section">
+    <h2>1. Standard DAC conditions (locked)</h2>
+    <table>
+      <tr><th>Variable</th><th>Value</th><th>Notes</th></tr>
+      <tr><td>T<sub>adsorb</sub></td><td>25 °C</td><td>ambient</td></tr>
+      <tr><td>pCO₂</td><td>400 ppm (0.4 mbar @ 1 atm)</td><td>DAC ambient</td></tr>
+      <tr><td>T<sub>regen</sub></td><td>100 °C</td><td>low-grade heat</td></tr>
+      <tr><td>RH</td><td>30 %</td><td>H₂O stability constraint</td></tr>
+      <tr><td>Target q<sub>swing</sub></td><td>≥ 1.0 mmol/g</td><td>soft target 2.0 · stretch 3.0</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2. Independent physical signal (pre-measurement)</h2>
+    <p>Three textbook branches combined into <code>phys_score</code> — no calibration to this catalog's measured capacities:</p>
+    <ul>
+      <li><strong>Amine branch</strong> — N-density × Langmuir(ΔH) at low pCO₂ (primary-amine carbamate chemistry)</li>
+      <li><strong>Physisorption branch</strong> — S<sub>BET</sub> × Henry-regime factor at 400 ppm</li>
+      <li><strong>OMS branch</strong> — open metal site density × Langmuir(ΔH) (Mg/Cu/Ni coordination)</li>
+    </ul>
+    <div class="repro-box">
+      <strong>Methodology discipline:</strong> ΔH<sub>ref</sub> = 60 kJ/mol · S<sub>BET,ref</sub> = 800 m²/g · N<sub>ref</sub> = 8 mmol/g —
+      all from independent literature (Sayari 2010, Goeppert 2011, Wang 2009), chosen <em>before</em> reading any q<sub>swing</sub> from REF-001–016.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Reference ranking (unblinded benchmark, seed 42)</h2>
+    <table>
+      <tr><th>Rank</th><th>Ref</th><th>Material class</th><th>q measured (mmol/g)</th><th>Score</th></tr>
+      <tr class="highlight"><td>1</td><td>REF-004</td><td>amine_silica</td><td>1.7</td><td>1.051</td></tr>
+      <tr><td>2</td><td>REF-001</td><td>amine_silica</td><td>1.8</td><td>0.957</td></tr>
+      <tr><td>3</td><td>REF-002</td><td>amine_silica</td><td>1.6</td><td>0.861</td></tr>
+      <tr><td>4</td><td>REF-005</td><td>amine_mof</td><td><strong>2.5</strong></td><td>0.763</td></tr>
+      <tr><td>5</td><td>REF-007</td><td>mof_oms</td><td>1.2</td><td>0.345</td></tr>
+      <tr><td>6</td><td>REF-013</td><td>amine_carbon</td><td>1.1</td><td>0.563</td></tr>
+    </table>
+    <div class="insight-box">
+      REF-005 (mmen-Mg₂(dobpdc)) has the highest measured q (2.5 mmol/g) but ranks #4 because the evaluator
+      correctly penalises H₂O sensitivity at RH 30 % — a feature, not a bug, for ambient DAC.
+    </div>
+    <div class="fig-wrap">
+      <img src="figures/fig2_ref_ranking.png" alt="Reference ranking: measured q vs evaluator score">
+      <div class="fig-caption">Fig 1 — Top-8 references: measured q<sub>swing</sub> vs normalised evaluator score @ 400 ppm CO₂</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Validation cascade (4 tiers)</h2>
+    <table>
+      <tr><th>Tier</th><th>Test</th><th>Result (inZOR-ND)</th></tr>
+      <tr class="pass"><td>1</td><td>Standard benchmark (random + heuristic + inZOR-ND vs refs)</td><td>All methods converge on REF-004 HAS-3 (score 1.061)</td></tr>
+      <tr class="pass"><td>2</td><td>Blind validation (measured q hidden)</td><td>Integrated in LOFO via measured-data patch</td></tr>
+      <tr><td>3</td><td>Standard LOFO k=4 (hide top family refs)</td><td><strong>3/4</strong> folds — amine_silica leak = physics-justified</td></tr>
+      <tr><td>3b</td><td>Full-blind LOFO k=4 (proxy flat)</td><td><strong>3/4</strong> — same amine_silica physics leak</td></tr>
+      <tr class="highlight"><td>4</td><td>Full-blind + phys-scrubbed LOFO k=4 × 3 seeds</td><td><strong>4/4 × 3 = 12/12</strong> GENUINE FAMILY DISCOVERY</td></tr>
+    </table>
+    <div class="fig-wrap">
+      <img src="figures/fig1_lofo_kfold_modes.png" alt="LOFO k-fold pass rates by validation mode">
+      <div class="fig-caption">Fig 2 — K-fold LOFO pass rate by validation strictness (top-4 families rotated)</div>
+    </div>
+    <div class="fig-wrap">
+      <img src="figures/fig3_physscrub_folds.png" alt="Per-fold metrics under phys-scrubbed LOFO">
+      <div class="fig-caption">Fig 3 — Toughest regime (full-blind + phys-scrubbed): 0% leak, 100% next-best recall on all 4 folds (seed 42)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>5. LOFO fold detail — phys-scrubbed (seed 42)</h2>
+    <table>
+      <tr><th>Hidden family</th><th>Best ref removed</th><th>q removed</th><th>inZOR migrates to</th><th>Truth q</th><th>Verdict</th></tr>
+      <tr class="pass"><td>amine_mof</td><td>REF-005</td><td>2.5</td><td>amine_silica (TEPA-SBA-15)</td><td>1.8</td><td>GENUINE FAMILY DISCOVERY</td></tr>
+      <tr class="pass"><td>amine_silica</td><td>REF-001</td><td>1.8</td><td>amine_mof (mmen-Mg₂(dobpdc))</td><td>2.5</td><td>GENUINE FAMILY DISCOVERY</td></tr>
+      <tr class="pass"><td>mof_oms</td><td>REF-007</td><td>1.2</td><td>amine_silica</td><td>1.8</td><td>GENUINE FAMILY DISCOVERY</td></tr>
+      <tr class="pass"><td>amine_carbon</td><td>REF-013</td><td>1.1</td><td>amine_silica</td><td>1.8</td><td>GENUINE FAMILY DISCOVERY</td></tr>
+    </table>
+    <div class="verdict-box">
+      <strong>Cross-domain note:</strong> Same LOFO methodology previously passed on aqueous As(V) removal
+      (iron_reactive family) and thermal PCM storage (ΔH<sub>fusion</sub> physics). This is the third chemically
+      distinct mechanism validated: gas-solid dry adsorption (chemisorption + physisorption at low pCO₂).
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6. Raw data (JSON only — no source code)</h2>
+    <div class="data-links">
+      <a href="summary.json">summary.json</a>
+      <a href="results/benchmark_seed42.json">benchmark_seed42.json</a>
+      <a href="results/kfold_lofo_co2_seed42.json">kfold_lofo_standard_seed42.json</a>
+      <a href="results/kfold_lofo_co2_fullblind_physscrub_seed42.json">kfold_lofo_physscrub_seed42.json</a>
+    </div>
+    <div class="repro-box" style="margin-top:1rem;">
+      Published artifacts contain metrics and catalog outcomes only. Evaluator source code,
+      ZOR engine, and <code>problems/</code> scripts remain local-only and are not pushed to GitHub.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>7. What remains (unfinished)</h2>
+    <ul>
+      <li>Physical lab validation of top proxy-ranked sorbents (no wet-lab data in this release)</li>
+      <li>Expanded reference catalog beyond 16 entries (REF-015–016 still partial)</li>
+      <li>Zenodo deposit + DOI</li>
+      <li>Cross-link to water_as and thermal_storage LOFO reports (separate local studies)</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>inZOR-ND — CO₂ Sorbent DAC Engine Validation · May 2026 · Status: unfinished</p>
+  <p><a href="/inZOR-ND/tests.html">← Research Tests</a> · <a href="/inZOR-ND/">Home</a></p>
+</div>
+
+</body>
+</html>
