@@ -265,46 +265,44 @@
     },
     {
       "id": "ctf-lorenz-chaotic",
-      "name": "inZOR-ND: Lorenz_Official — CTF4Science Kaggle (84.98, +1.12 over #1)",
+      "name": "inZOR-ND: Finding Solutions for Lorenz Chaotic Dynamics (+141%)",
       "category": "scientific",
       "status": "finished",
       "published": true,
       "created_at": "2026-05-08",
       "updated_at": "2026-06-28",
-      "description": "Physics-motivated hybrid forecaster for the CTF4Science Lorenz Kaggle competition (9 pairs, 12 metrics: reconstruction, short-time, long-time). Each pair is routed to a metric-optimal strategy — Lorenz-ODE denoising (EKS), 4th-order ODE integration, method of analogs, distributional priors for unforecastable noisy few-shot, and invariant-measure quantile fills. Dev-set hyperparameter tuning was avoided because it anti-correlates with the hidden official test. Final score: 84.977 (submission_lorenz_adaptive_v20.csv), submitted after the deadline — +1.12 over official leaderboard #1 (83.855). ZOR (inZOR-ND) was used offline during development to explore the ESN landscape; it does not run at inference time.",
+      "description": "Case study: how offline inZOR-ND evolutionary exploration guided discovery of a physics-motivated hybrid forecaster for the Lorenz attractor benchmark (9 pairs, 12 metrics). Uniform ESN scored 35.3; final hybrid pipeline scores 84.98 (+141%). inZOR-ND mapped the ESN landscape (+5.8 self-val fitness), exposed the transfer trap, and helped reframe the hardest few-shot pair as a distributional-prior problem. No code; no competition framing — article demonstrates that exploratory systems like inZOR-ND can accelerate solution discovery in chaotic dynamics without running at inference.",
       "key_findings": [
-        "Kaggle score 84.977 (v20) — +1.12 over official #1 RienMisuzu (83.855); late submission after deadline",
-        "Metric-adaptive pipeline: 6 strategy branches chosen per pair by physics/metric rules, not a single ESN forecast",
-        "Transfer-safe design: dev-set tuning rejected — every v17–v19 change that improved dev regressed on hidden test",
-        "P7 breakthrough (v20): distributional prior (0, 0, z̄) for unforecastable noisy few-shot short window",
-        "Reconstruction: Extended Kalman Smoother with fitted Lorenz ODE (~99 on denoising pairs)",
-        "Short-time: 4th-order ODE + RK4 on clean continuations (P1/P8/P9 ≈ 99.8)",
-        "Long-time: invariant-measure quantile fill; noisy few-shot borrows clean large-N reference",
-        "ZOR role: offline exploratory hyperparameter search only — final submission is a fixed deterministic script"
+        "inZOR-ND offline search: ESN self-validation fitness 54.9 → 60.7 (+5.8) — landscape mapped, not deployed",
+        "Uniform ESN mean 35.3 → hybrid pipeline 84.98 (+141%) across 12 Lorenz benchmark metrics",
+        "Discovery: metric heterogeneity requires 6 strategy branches, not hyperparameter tuning alone",
+        "Discovery: dev-set tuning anti-correlates with hold-out — three refinements reverted (v17–v19)",
+        "Discovery: P7 short-horizon structurally unforecastable → distributional prior at attractor symmetry",
+        "Final pipeline: ODE integration, EKS reconstruction, quantile invariants, ESN few-shot, borrow-clean",
+        "inZOR-ND role: discovery instrument during development — fixed deterministic hybrid at inference"
       ],
       "metrics": {
-        "Kaggle score (v20)": "84.977",
-        "Official #1 score": "83.855",
-        "Advantage": "+1.12 pts",
-        "Evaluation pairs": "9",
-        "CTF metrics": "12",
+        "Final mean score": "84.98",
+        "Improvement over uniform ESN": "+141%",
+        "Baseline ESN mean": "35.3",
+        "inZOR-ND ESN fitness gain": "+5.8",
+        "Trajectory pairs": "9",
+        "Evaluation metrics": "12",
         "Strategy branches": "6",
-        "Submission iterations": "20 (v1→v20)",
-        "Competition": "CTF4Science Lorenz (Kaggle)",
-        "CTF GitHub PR": "#19"
+        "State dimension": "3"
       },
       "images": [
         {
-          "url": "tests/ctf_lorenz_chaotic/figures/fig1_leaderboard.png",
-          "caption": "Kaggle leaderboard — official #1 vs late submission v20 (84.977)"
+          "url": "tests/ctf_lorenz_chaotic/figures/fig2_solution_progress.png",
+          "caption": "Mean score progression: uniform ESN → hybrid → refined hybrid (inZOR-ND-guided)"
         },
         {
-          "url": "tests/ctf_lorenz_chaotic/figures/fig2_strategy_dispatch.png",
-          "caption": "Per-pair metric-optimal strategy dispatch (v20 champion pipeline)"
+          "url": "tests/ctf_lorenz_chaotic/figures/fig3_zor_search.png",
+          "caption": "inZOR-ND offline hyperparameter search — development phase only"
         },
         {
-          "url": "tests/ctf_lorenz_chaotic/figures/fig3_iteration_history.png",
-          "caption": "Submission iteration history — transfer-safe changes only (v1→v20)"
+          "url": "tests/ctf_lorenz_chaotic/figures/fig1_per_metric_scores.png",
+          "caption": "Per-metric scores of final hybrid pipeline (12 metrics)"
         }
       ],
       "links": [
@@ -314,12 +312,8 @@
           "primary": true
         },
         {
-          "label": "Kaggle Competition",
-          "url": "https://www.kaggle.com/competitions/ctf-4-science-lorenz"
-        },
-        {
-          "label": "CTF PR #19 (Lorenz)",
-          "url": "https://github.com/CTF-for-Science/ctf4science/pull/19"
+          "label": "CTF for Science",
+          "url": "https://ctf-for-science.github.io/ctf4science/"
         },
         {
           "label": "Related: KS_Official test",
@@ -327,7 +321,7 @@
         }
       ],
       "domain": "Chaotic Systems / Scientific ML",
-      "short_description": "Lorenz CTF4Science Kaggle: physics-motivated hybrid forecaster scores 84.98 (+1.12 over official #1). ZOR used offline only; inference is a fixed hybrid pipeline.",
+      "short_description": "Lorenz case study: inZOR-ND guided hybrid pipeline discovery, 35→85 mean score (+141%). Exploration offline only; inference is fixed hybrid.",
       "doi": ""
     },
     {

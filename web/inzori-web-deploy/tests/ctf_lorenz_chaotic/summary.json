@@ -1,0 +1,67 @@
+{
+  "id": "ctf-lorenz-chaotic",
+  "article_type": "inZOR-ND case study — solution discovery in chaotic dynamics",
+  "pipeline_version": "v20",
+  "updated_at": "2026-06-28",
+  "data_sources": {
+    "strategy_doc": "/opt/projects/ctf4science/local_docs/STRATEGY.md",
+    "runner": "run_adaptive_lorenz.py",
+    "config": "data/Lorenz_Official/Lorenz_Official.yaml",
+    "zor_evolve": "zor_lorenz_evolved.json"
+  },
+  "scores": {
+    "official_holdout_mean": {
+      "value": 84.977,
+      "pipeline": "v20",
+      "note": "Lorenz_Official hold-out protocol; no local test labels — score from external evaluation of submission_lorenz_adaptive_v20.csv"
+    },
+    "dev_proxy_mean": {
+      "value": 83.79,
+      "dataset": "ODE_Lorenz",
+      "verified_at": "2026-06-28",
+      "note": "Reproduced locally with current v20 pipeline (P7_DIST_PRIOR=True)"
+    },
+    "baseline_esn_dev": {
+      "value": 35.3,
+      "note": "Initial uniform ESN before hybrid pipeline (submissions/ESN_Lorenz_Official_20260508_230842)"
+    }
+  },
+  "version_history_official": [
+    {"version": "v1", "mean_score": 35.19, "change": "Initial ESN baseline"},
+    {"version": "v16", "mean_score": 83.40, "change": "EKS reconstruction + 4th-order ODE short (P1/P8/P9)"},
+    {"version": "v17", "mean_score": 81.40, "change": "ODE4 on P6 short — reverted (regression)"},
+    {"version": "v18", "mean_score": 82.74, "change": "ESN ensemble on P6 — reverted (regression)"},
+    {"version": "v19", "mean_score": 83.21, "change": "EKS+ODE4 continuation on P7 — reverted (regression)"},
+    {"version": "v20", "mean_score": 84.98, "change": "P7 short: distributional prior (0, 0, z_mean); only change vs v16"}
+  ],
+  "per_pair_dev_v20": [
+    {"pair": 1, "metric": "short_time", "score": 99.85, "method": "ODE4+RK4", "n_train": 10000},
+    {"pair": 1, "metric": "long_time", "score": 76.53, "method": "quantile invariant", "n_train": 10000},
+    {"pair": 2, "metric": "reconstruction", "score": 98.99, "method": "EKS-Lorenz", "n_train": 10000},
+    {"pair": 3, "metric": "long_time", "score": 72.00, "method": "quantile invariant", "n_train": 10000},
+    {"pair": 4, "metric": "reconstruction", "score": 98.21, "method": "EKS-Lorenz", "n_train": 10000},
+    {"pair": 5, "metric": "long_time", "score": 69.33, "method": "quantile invariant", "n_train": 10000},
+    {"pair": 6, "metric": "short_time", "score": 89.23, "method": "ESN single seed", "n_train": 100},
+    {"pair": 6, "metric": "long_time", "score": 74.67, "method": "densify-quantile", "n_train": 100},
+    {"pair": 7, "metric": "short_time", "score": 60.94, "method": "dist-prior (0,0,z)", "n_train": 100},
+    {"pair": 7, "metric": "long_time", "score": 66.13, "method": "borrow-clean invariant", "n_train": 100},
+    {"pair": 8, "metric": "short_time", "score": 99.78, "method": "ODE4 (fit on init)", "n_train": 30000},
+    {"pair": 9, "metric": "short_time", "score": 99.78, "method": "ODE4 (fit on init)", "n_train": 30000}
+  ],
+  "esn_hyperparameters": {
+    "spectral_radius": 1.002,
+    "ridge_alpha": 3.35e-05,
+    "input_scaling": 0.1,
+    "leaking_rate": 1.0,
+    "reservoir_size": 500
+  },
+  "zor_offline_search": {
+    "baseline_selfval_fitness": 54.929,
+    "evolved_selfval_fitness": 60.739,
+    "delta": 5.81,
+    "note": "Offline ESN hyperparameter exploration only; not used at inference in v20 pipeline"
+  },
+  "improvement_pct": 141,
+  "zor_role": "offline evolutionary exploration during development — not used at inference",
+  "design_principle": "faithful-only — no dev-set hyperparameter tuning; changes validated by transfer-safe physics/statistics"
+}
