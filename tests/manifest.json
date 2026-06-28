@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "updated_at": "2026-05-24",
+  "updated_at": "2026-06-28",
   "tests": [
     {
       "id": "co2-sorbent-dac-lofo",
@@ -261,6 +261,73 @@
       ],
       "domain": "Chaotic Systems / Scientific ML",
       "short_description": "inZOR-ND detects heterogeneous evaluation regimes in KS_Official and builds task-aware hybrid predictor: −20.55 → +38.30 mean score (+286%). Submitted to AI-DEEDS 2026.",
+      "doi": ""
+    },
+    {
+      "id": "ctf-lorenz-chaotic",
+      "name": "inZOR-ND: Lorenz_Official — CTF4Science Kaggle (84.98, +1.12 over #1)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-05-08",
+      "updated_at": "2026-06-28",
+      "description": "Physics-motivated hybrid forecaster for the CTF4Science Lorenz Kaggle competition (9 pairs, 12 metrics: reconstruction, short-time, long-time). Each pair is routed to a metric-optimal strategy — Lorenz-ODE denoising (EKS), 4th-order ODE integration, method of analogs, distributional priors for unforecastable noisy few-shot, and invariant-measure quantile fills. Dev-set hyperparameter tuning was avoided because it anti-correlates with the hidden official test. Final score: 84.977 (submission_lorenz_adaptive_v20.csv), submitted after the deadline — +1.12 over official leaderboard #1 (83.855). ZOR (inZOR-ND) was used offline during development to explore the ESN landscape; it does not run at inference time.",
+      "key_findings": [
+        "Kaggle score 84.977 (v20) — +1.12 over official #1 RienMisuzu (83.855); late submission after deadline",
+        "Metric-adaptive pipeline: 6 strategy branches chosen per pair by physics/metric rules, not a single ESN forecast",
+        "Transfer-safe design: dev-set tuning rejected — every v17–v19 change that improved dev regressed on hidden test",
+        "P7 breakthrough (v20): distributional prior (0, 0, z̄) for unforecastable noisy few-shot short window",
+        "Reconstruction: Extended Kalman Smoother with fitted Lorenz ODE (~99 on denoising pairs)",
+        "Short-time: 4th-order ODE + RK4 on clean continuations (P1/P8/P9 ≈ 99.8)",
+        "Long-time: invariant-measure quantile fill; noisy few-shot borrows clean large-N reference",
+        "ZOR role: offline exploratory hyperparameter search only — final submission is a fixed deterministic script"
+      ],
+      "metrics": {
+        "Kaggle score (v20)": "84.977",
+        "Official #1 score": "83.855",
+        "Advantage": "+1.12 pts",
+        "Evaluation pairs": "9",
+        "CTF metrics": "12",
+        "Strategy branches": "6",
+        "Submission iterations": "20 (v1→v20)",
+        "Competition": "CTF4Science Lorenz (Kaggle)",
+        "CTF GitHub PR": "#19"
+      },
+      "images": [
+        {
+          "url": "tests/ctf_lorenz_chaotic/figures/fig1_leaderboard.png",
+          "caption": "Kaggle leaderboard — official #1 vs late submission v20 (84.977)"
+        },
+        {
+          "url": "tests/ctf_lorenz_chaotic/figures/fig2_strategy_dispatch.png",
+          "caption": "Per-pair metric-optimal strategy dispatch (v20 champion pipeline)"
+        },
+        {
+          "url": "tests/ctf_lorenz_chaotic/figures/fig3_iteration_history.png",
+          "caption": "Submission iteration history — transfer-safe changes only (v1→v20)"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/ctf_lorenz_chaotic/index.html",
+          "primary": true
+        },
+        {
+          "label": "Kaggle Competition",
+          "url": "https://www.kaggle.com/competitions/ctf-4-science-lorenz"
+        },
+        {
+          "label": "CTF PR #19 (Lorenz)",
+          "url": "https://github.com/CTF-for-Science/ctf4science/pull/19"
+        },
+        {
+          "label": "Related: KS_Official test",
+          "url": "tests/ctf_ks_chaotic/index.html"
+        }
+      ],
+      "domain": "Chaotic Systems / Scientific ML",
+      "short_description": "Lorenz CTF4Science Kaggle: physics-motivated hybrid forecaster scores 84.98 (+1.12 over official #1). ZOR used offline only; inference is a fixed hybrid pipeline.",
       "doi": ""
     },
     {
