@@ -65,7 +65,7 @@
     How offline evolutionary exploration guided the discovery of a physics-motivated hybrid pipeline —
   from a failing uniform model (mean score 35) to a metric-adaptive solution (mean score 85).
   </div>
-  <div class="meta">Case study · Lorenz benchmark · 9 trajectory pairs · 12 evaluation metrics · June 2026</div>
+  <div class="meta">Case study · Lorenz benchmark · 9 trajectory pairs · 12 evaluation metrics · June 2026 · <strong>Updated 4 July 2026:</strong> formal write-up published — <a href="https://doi.org/10.5281/zenodo.21191040" style="color:#c4b5fd;">DOI 10.5281/zenodo.21191040</a></div>
 </div>
 
 <div class="container">
@@ -94,7 +94,7 @@
   <div class="key-result-banner">
     <div class="kr-label">Mean benchmark score after inZOR-ND-guided development</div>
     <div class="kr-number">84.98</div>
-    <div class="kr-sub">35.3 → 84.98 · +141% over uniform ESN · 12 metrics · hybrid pipeline with 6 strategy branches</div>
+    <div class="kr-sub">35.19 → 84.98 on hold-out · +141% over uniform ESN · 12 metrics · hybrid pipeline with 7 strategy branches</div>
   </div>
 
   <div class="key-results">
@@ -102,8 +102,8 @@
     <div class="kr-card"><div class="kr-value purple">inZOR-ND</div><div class="kr-label">Exploration engine</div></div>
     <div class="kr-card"><div class="kr-value">9</div><div class="kr-label">Trajectory pairs</div></div>
     <div class="kr-card"><div class="kr-value">12</div><div class="kr-label">Metrics</div></div>
-    <div class="kr-card"><div class="kr-value">6</div><div class="kr-label">Strategy branches</div></div>
-    <div class="kr-card"><div class="kr-value" style="color:var(--danger)">35.3</div><div class="kr-label">Uniform ESN mean</div></div>
+    <div class="kr-card"><div class="kr-value">7</div><div class="kr-label">Strategy branches</div></div>
+    <div class="kr-card"><div class="kr-value" style="color:var(--danger)">35.19</div><div class="kr-label">Uniform ESN (hold-out)</div></div>
     <div class="kr-card"><div class="kr-value success">84.98</div><div class="kr-label">Final hybrid mean</div></div>
     <div class="kr-card"><div class="kr-value purple">+5.8</div><div class="kr-label">ZOR ESN fitness gain</div></div>
   </div>
@@ -128,7 +128,8 @@
     </table>
     <p>
       Applying one Echo State Network uniformly across all pairs yields a mean score of
-      <strong>35.3</strong> — far below what the benchmark structure allows. The question
+      <strong>35.19</strong> on the official hold-out evaluation (35.3 on the development
+      proxy) — far below what the benchmark structure allows. The question
       is not which hyperparameters to pick, but <em>which class of solution applies where</em>.
     </p>
   </div>
@@ -200,7 +201,7 @@
     <h2>4. Solutions found (without deploying inZOR-ND at inference)</h2>
     <p>
       The final pipeline is a <strong>metric-adaptive dispatcher</strong>: for each pair and
-      metric, it selects one of six strategy branches based on data volume, noise level,
+      metric, it selects one of seven strategy branches based on data volume, noise level,
       and metric type. No evolutionary search runs when producing predictions — the routing
       rules and methods were chosen through the exploration process above.
     </p>
@@ -226,9 +227,13 @@
         <div class="sc-name">Distributional prior</div>
         <div class="sc-desc">Pair P7 short — constant prediction at attractor symmetry (0, 0, z̄). Key insight from structural analysis, not ESN tuning.</div>
       </div>
+      <div class="strategy-card" style="background:#0891b2;">
+        <div class="sc-name">Densify-quantile</div>
+        <div class="sc-desc">Pair P6 long — a long ESN rollout densifies the 100 clean points into an on-attractor sample; its quantile comb fills the scored tail.</div>
+      </div>
       <div class="strategy-card" style="background:#64748b;">
         <div class="sc-name">Borrow-clean invariant</div>
-        <div class="sc-desc">Pairs P6–P7 long — few-shot noisy data borrows invariant statistics from abundant clean reference trajectories.</div>
+        <div class="sc-desc">Pair P7 long — noisy few-shot data borrows invariant statistics from the cleanest abundant reference trajectory.</div>
       </div>
     </div>
 
@@ -261,7 +266,7 @@
       <tr><td>P4</td><td>reconstruction</td><td>98.21</td><td>EKS denoising</td><td>10,000</td></tr>
       <tr><td>P5</td><td>long</td><td>69.33</td><td>Quantile invariant</td><td>10,000</td></tr>
       <tr><td>P6</td><td>short</td><td>89.23</td><td>ESN few-shot</td><td>100</td></tr>
-      <tr><td>P6</td><td>long</td><td>74.67</td><td>Borrow-clean invariant</td><td>100</td></tr>
+      <tr><td>P6</td><td>long</td><td>74.67</td><td>Densify-quantile</td><td>100</td></tr>
       <tr class="highlight"><td>P7</td><td>short</td><td>60.94</td><td>Distributional prior</td><td>100</td></tr>
       <tr><td>P7</td><td>long</td><td>66.13</td><td>Borrow-clean invariant</td><td>100</td></tr>
       <tr><td>P8</td><td>short</td><td>99.78</td><td>ODE integration</td><td>30,000</td></tr>
@@ -296,7 +301,7 @@
     <h2>7. Conclusion</h2>
     <p>
       Chaotic dynamics benchmarks are structured to punish one-size-fits-all approaches.
-      Starting from a uniform ESN scoring 35.3, we used inZOR-ND to explore where machine
+      Starting from a uniform ESN scoring 35.19, we used inZOR-ND to explore where machine
       learning helps and where physics and statistics must take over. The result is a
       hybrid pipeline scoring 84.98 — with reconstruction near 99, short-horizon physics
       near 99.8, and a principled distributional answer for the hardest few-shot case.
@@ -309,9 +314,11 @@
   <div class="section">
     <h2>References</h2>
     <ul>
-      <li>CTF4Science Lorenz benchmark — NeurIPS 2025 Datasets &amp; Benchmarks track</li>
-      <li>Dataset: <a href="https://arxiv.org/abs/2512.19927">arXiv:2512.19927</a></li>
-      <li>CTF framework: <a href="https://arxiv.org/abs/2605.15549">arXiv:2605.15549</a></li>
+      <li>Formal write-up (ACM format): <a href="https://doi.org/10.5281/zenodo.21191040">DOI 10.5281/zenodo.21191040</a> — Zenodo, July 2026</li>
+      <li>Benchmark &amp; dataset: Wyder et al., <em>Common Task Framework for a Critical Evaluation of Scientific Machine Learning Algorithms</em> — <a href="https://arxiv.org/abs/2510.23166">arXiv:2510.23166</a>, NeurIPS 2025 Datasets &amp; Benchmarks track</li>
+      <li>Related CTF: Yermakov et al., <em>The Seismic Wavefield Common Task Framework</em> — <a href="https://arxiv.org/abs/2512.19927">arXiv:2512.19927</a></li>
+      <li>Related CTF: Riva et al., <em>CTF4Nuclear</em> — <a href="https://arxiv.org/abs/2605.15549">arXiv:2605.15549</a></li>
+      <li>Competition: <a href="https://www.kaggle.com/competitions/ctf-4-science-lorenz">CTF4Science Lorenz on Kaggle</a></li>
       <li>Related case study: <a href="../ctf_ks_chaotic/index.html">Kuramoto–Sivashinsky chaotic PDE</a></li>
     </ul>
   </div>
