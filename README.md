@@ -75,11 +75,10 @@ Dedicated repo: [inZOR-Fusion](https://github.com/dumitrunovic-svg/inZOR-Fusion)
 
 ---
 
-### BAWS + Power Systems (8 experiments)
+### BAWS + Power Systems (7 experiments)
 
 | Experiment | Key Result | Report |
 |---|---|---|
-| BAWS-NR Universal Speedup | 1.59× speedup across 6 scientific domains | [report](https://dumitrunovic-svg.github.io/inZOR-ND/tests/baws_nr_study/index.html) |
 | N-1 Grid Security (RE volatility) | 1.66× faster under renewable volatility | [report](https://dumitrunovic-svg.github.io/inZOR-ND/tests/re_study/index.html) |
 | PFΔ Phase 6 — 1354-bus Pan-European | Capacity boundary discovery on case1354pegase | [report](https://dumitrunovic-svg.github.io/inZOR-ND/tests/pfdelta_phase6_capacity/index.html) |
 | PFΔ Phase 5 — ENTSO-E Real Load | Romania, Germany, France 2024 real data | [report](https://dumitrunovic-svg.github.io/inZOR-ND/tests/pfdelta_phase5_entsoe/index.html) |
