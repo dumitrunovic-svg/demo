@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p _site
-          for f in index.html tests.html de.html fr.html ro.html; do
+          for f in index.html tests.html; do
             if [[ -f "$f" ]]; then cp -a "$f" "_site/$f"; fi
           done
           rsync -a tests/ _site/tests/
