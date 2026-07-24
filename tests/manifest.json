@@ -1202,7 +1202,7 @@
       "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
       "category": "Power Systems / PFΔ",
       "status": "finished",
-      "published": false,
+      "published": true,
       "created_at": "2026-02-21",
       "updated_at": "2026-02-21",
       "description": "inZORi Frozen Elite with N-2 specialists: simultaneous outage of 2 lines. +16.14 pp vs Baseline A, 2.8× faster N-2 recovery. LUPA-refined genome (85.20%). 20 seeds × 50k steps, N-1+N-2 in S3.",
@@ -1842,7 +1842,7 @@
       "name": "PFΔ Phase 2 — Real AC Power Flow (118-bus + N-1)",
       "category": "Power Systems / PFΔ",
       "status": "finished",
-      "published": false,
+      "published": true,
       "updated_at": "2026-02-20",
       "description": "Full real AC Power Flow (pandapower) on IEEE 118-bus at 1.75× load (near-collapse). inZORi Frozen Elite achieves +16.8 pp convergence vs baselines and ~4× faster N-1 recovery. 20 seeds × 50k steps. Follows Phase 1 (surrogate), replacing it with real grid physics.",
       "key_findings": [
@@ -1931,7 +1931,7 @@
       "name": "PFΔ Phase 1 (118 + N-1)",
       "category": "Power Systems / PFΔ",
       "status": "finished",
-      "published": false,
+      "published": true,
       "updated_at": "2026-02-20",
       "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. inZORi achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1. Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus nonlinear surrogate. See Phase 2 for real AC PF results.",
       "key_findings": [
